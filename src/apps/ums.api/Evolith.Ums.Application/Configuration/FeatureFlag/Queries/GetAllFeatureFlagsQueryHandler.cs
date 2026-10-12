@@ -30,9 +30,9 @@ public sealed class GetAllFeatureFlagsQueryHandler : IQueryHandler<GetAllFeature
         var page = NormalizePage(request.Page);
         var pageSize = NormalizePageSize(request.PageSize);
         var search = NormalizeSearch(request.Search);
-        var status = NormalizeText(request.Status, "all");
+        var status = NormalizeStatusFilter(request.Status);
         var sortBy = NormalizeText(request.SortBy, "flagCode").ToLowerInvariant();
-        var sortOrder = NormalizeText(request.SortOrder, "asc").ToLowerInvariant();
+        var sortOrder = NormalizeSortOrder(request.SortOrder);
         var flagType = NormalizeSearch(request.FlagType);
         var linkedResourceType = NormalizeSearch(request.LinkedResourceType);
 
@@ -83,7 +83,7 @@ public sealed class GetAllFeatureFlagsQueryHandler : IQueryHandler<GetAllFeature
                 || (flag.LinkedResourceType?.Contains(search, StringComparison.OrdinalIgnoreCase) ?? false));
         }
 
-        if (!string.Equals(status, "all", StringComparison.OrdinalIgnoreCase))
+        if (status is not null)
         {
             query = query.Where(flag => string.Equals(flag.Status, status, StringComparison.OrdinalIgnoreCase));
         }
@@ -100,15 +100,15 @@ public sealed class GetAllFeatureFlagsQueryHandler : IQueryHandler<GetAllFeature
 
         query = (sortBy, sortOrder) switch
         {
-            ("status", "desc") => query.OrderByDescending(flag => flag.Status).ThenByDescending(flag => flag.FlagCode),
+            ("status", QueryDefaults.Descending) => query.OrderByDescending(flag => flag.Status).ThenByDescending(flag => flag.FlagCode),
             ("status", _) => query.OrderBy(flag => flag.Status).ThenBy(flag => flag.FlagCode),
-            ("flagtype", "desc") => query.OrderByDescending(flag => flag.FlagType).ThenByDescending(flag => flag.FlagCode),
+            ("flagtype", QueryDefaults.Descending) => query.OrderByDescending(flag => flag.FlagType).ThenByDescending(flag => flag.FlagCode),
             ("flagtype", _) => query.OrderBy(flag => flag.FlagType).ThenBy(flag => flag.FlagCode),
-            ("linkedresourcetype", "desc") => query.OrderByDescending(flag => flag.LinkedResourceType).ThenByDescending(flag => flag.FlagCode),
+            ("linkedresourcetype", QueryDefaults.Descending) => query.OrderByDescending(flag => flag.LinkedResourceType).ThenByDescending(flag => flag.FlagCode),
             ("linkedresourcetype", _) => query.OrderBy(flag => flag.LinkedResourceType).ThenBy(flag => flag.FlagCode),
-            ("rolloutpercentage", "desc") => query.OrderByDescending(flag => flag.RolloutPercentage).ThenByDescending(flag => flag.FlagCode),
+            ("rolloutpercentage", QueryDefaults.Descending) => query.OrderByDescending(flag => flag.RolloutPercentage).ThenByDescending(flag => flag.FlagCode),
             ("rolloutpercentage", _) => query.OrderBy(flag => flag.RolloutPercentage).ThenBy(flag => flag.FlagCode),
-            ("flagcode", "desc") => query.OrderByDescending(flag => flag.FlagCode),
+            ("flagcode", QueryDefaults.Descending) => query.OrderByDescending(flag => flag.FlagCode),
             _ => query.OrderBy(flag => flag.FlagCode),
         };
 

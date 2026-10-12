@@ -100,7 +100,7 @@ public sealed class PostgreSqlUserAccountRepository(UmsPlatformDbContext dbConte
         }
 
         if (!string.IsNullOrWhiteSpace(status) &&
-            !string.Equals(status, "all", StringComparison.OrdinalIgnoreCase))
+            !string.Equals(status, QueryDefaults.AllStatuses, StringComparison.OrdinalIgnoreCase))
         {
             // StatusId filtering would require the int value; application filters after fetch
             // for status since it maps int → enum name at the domain layer.
@@ -110,7 +110,7 @@ public sealed class PostgreSqlUserAccountRepository(UmsPlatformDbContext dbConte
 
         query = (sortBy?.ToLower(), sortOrder?.ToLower()) switch
         {
-            ("email", "desc") => query.OrderByDescending(u => u.Email),
+            ("email", QueryDefaults.Descending) => query.OrderByDescending(u => u.Email),
             _                 => query.OrderBy(u => u.Email),
         };
 

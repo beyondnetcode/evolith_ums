@@ -17,11 +17,8 @@ public static class NotificationRuleEndpoints
             IMediator mediator, HttpContext context, CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllNotificationRulesQuery(
-                query.Page <= 0 ? 1 : query.Page, query.PageSize <= 0 ? 20 : query.PageSize, query.Search,
-                string.IsNullOrWhiteSpace(query.Criteria) ? "channel" : query.Criteria,
-                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
-                string.IsNullOrWhiteSpace(query.SortBy) ? "channel" : query.SortBy,
-                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder, query.TenantId), ct);
+                query.Page, query.PageSize, query.Search,
+                query.Criteria, query.Status, query.SortBy, query.SortOrder, query.TenantId), ct);
             return result.ToOk(context);
         }).WithName("GetAllNotificationRules").Produces<PagedResult<NotificationRuleDto>>(StatusCodes.Status200OK);
 

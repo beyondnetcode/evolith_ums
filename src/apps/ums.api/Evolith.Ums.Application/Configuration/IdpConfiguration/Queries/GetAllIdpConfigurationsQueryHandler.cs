@@ -24,9 +24,9 @@ public sealed class GetAllIdpConfigurationsQueryHandler : IQueryHandler<GetAllId
         var page = NormalizePage(request.Page);
         var pageSize = NormalizePageSize(request.PageSize);
         var search = NormalizeSearch(request.Search);
-        var status = NormalizeText(request.Status, "all");
+        var status = NormalizeStatusFilter(request.Status);
         var sortBy = NormalizeText(request.SortBy, "resolutionPriority").ToLowerInvariant();
-        var sortOrder = NormalizeText(request.SortOrder, "asc").ToLowerInvariant();
+        var sortOrder = NormalizeSortOrder(request.SortOrder);
         var providerType = NormalizeSearch(request.ProviderType);
 
         var effectiveTenantId = (_tenantContext?.IsInternalAdmin == true)
@@ -57,7 +57,7 @@ public sealed class GetAllIdpConfigurationsQueryHandler : IQueryHandler<GetAllId
                 || configuration.DomainHints.Any(hint => hint.Contains(search, StringComparison.OrdinalIgnoreCase)));
         }
 
-        if (!string.Equals(status, "all", StringComparison.OrdinalIgnoreCase))
+        if (status is not null)
         {
             query = query.Where(configuration => string.Equals(configuration.Status, status, StringComparison.OrdinalIgnoreCase));
         }
@@ -74,13 +74,13 @@ public sealed class GetAllIdpConfigurationsQueryHandler : IQueryHandler<GetAllId
 
         query = (sortBy, sortOrder) switch
         {
-            ("providertype", "desc") => query.OrderByDescending(configuration => configuration.ProviderType).ThenByDescending(configuration => configuration.ResolutionPriority),
+            ("providertype", QueryDefaults.Descending) => query.OrderByDescending(configuration => configuration.ProviderType).ThenByDescending(configuration => configuration.ResolutionPriority),
             ("providertype", _) => query.OrderBy(configuration => configuration.ProviderType).ThenBy(configuration => configuration.ResolutionPriority),
-            ("status", "desc") => query.OrderByDescending(configuration => configuration.Status).ThenByDescending(configuration => configuration.ResolutionPriority),
+            ("status", QueryDefaults.Descending) => query.OrderByDescending(configuration => configuration.Status).ThenByDescending(configuration => configuration.ResolutionPriority),
             ("status", _) => query.OrderBy(configuration => configuration.Status).ThenBy(configuration => configuration.ResolutionPriority),
-            ("version", "desc") => query.OrderByDescending(configuration => configuration.Version).ThenByDescending(configuration => configuration.ResolutionPriority),
+            ("version", QueryDefaults.Descending) => query.OrderByDescending(configuration => configuration.Version).ThenByDescending(configuration => configuration.ResolutionPriority),
             ("version", _) => query.OrderBy(configuration => configuration.Version).ThenBy(configuration => configuration.ResolutionPriority),
-            ("resolutionpriority", "desc") => query.OrderByDescending(configuration => configuration.ResolutionPriority),
+            ("resolutionpriority", QueryDefaults.Descending) => query.OrderByDescending(configuration => configuration.ResolutionPriority),
             _ => query.OrderBy(configuration => configuration.ResolutionPriority),
         };
 

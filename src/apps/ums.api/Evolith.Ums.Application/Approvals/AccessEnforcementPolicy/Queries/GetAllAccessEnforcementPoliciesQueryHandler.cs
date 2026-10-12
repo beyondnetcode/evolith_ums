@@ -23,9 +23,9 @@ public sealed class GetAllAccessEnforcementPoliciesQueryHandler : IQueryHandler<
     {
         var page = NormalizePage(request.Page);
         var pageSize = NormalizePageSize(request.PageSize);
-        var status = NormalizeText(request.Status, "all");
+        var status = NormalizeStatusFilter(request.Status);
         var sortBy = NormalizeText(request.SortBy, "enforcementaction").ToLowerInvariant();
-        var sortOrder = NormalizeText(request.SortOrder, "asc").ToLowerInvariant();
+        var sortOrder = NormalizeSortOrder(request.SortOrder);
 
         var effectiveTenantId = (_tenantContext?.IsInternalAdmin == true)
             ? request.TenantId
@@ -40,7 +40,7 @@ public sealed class GetAllAccessEnforcementPoliciesQueryHandler : IQueryHandler<
             p.Props.RoleId?.GetValue(), p.Props.EnforcementAction.ToString(), p.Props.IsActive,
             p.Props.GracePeriodDays));
 
-        if (!string.Equals(status, "all", StringComparison.OrdinalIgnoreCase))
+        if (status is not null)
         {
             var isActive = string.Equals(status, "active", StringComparison.OrdinalIgnoreCase);
             query = query.Where(p => p.IsActive == isActive);
@@ -48,7 +48,7 @@ public sealed class GetAllAccessEnforcementPoliciesQueryHandler : IQueryHandler<
 
         query = (sortBy, sortOrder) switch
         {
-            ("action", "desc") => query.OrderByDescending(p => p.EnforcementAction),
+            ("action", QueryDefaults.Descending) => query.OrderByDescending(p => p.EnforcementAction),
             _ => query.OrderBy(p => p.EnforcementAction),
         };
 

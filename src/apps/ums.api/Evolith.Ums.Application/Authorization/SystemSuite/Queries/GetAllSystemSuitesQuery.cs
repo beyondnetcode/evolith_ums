@@ -3,11 +3,11 @@ using Evolith.Ums.Application.Authorization.SystemSuite.DTOs;
 namespace Evolith.Ums.Application.Authorization.SystemSuite.Queries;
 
 public sealed record GetAllSystemSuitesQuery(
-    int Page = 1,
-    int PageSize = 20,
+    int Page = QueryDefaults.Page,
+    int PageSize = QueryDefaults.PageSize,
     string? Search = null,
-    string Criteria = "name",
-    string Status = "all",
-    string SortBy = "name",
-    string SortOrder = "asc",
+    string? Criteria = null,
+    string? Status = null,
+    string? SortBy = null,
+    string? SortOrder = null,
     Guid? TenantId = null) : IQuery<PagedResult<SystemSuiteDto>>;

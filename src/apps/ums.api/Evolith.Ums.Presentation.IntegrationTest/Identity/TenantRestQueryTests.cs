@@ -18,7 +18,7 @@ public sealed class TenantRestQueryTests : IClassFixture<UmsApiWebApplicationFac
     [Fact]
     public async Task GetTenants_ShouldReturnSeededTenants()
     {
-        var response = await _client.GetAsync("/api/v1/tenants?page=1&pageSize=10", TestContext.Current.CancellationToken);
+        var response = await _client.GetAsync("/api/v1/tenants?page=1&pageSize=10&status=all", TestContext.Current.CancellationToken);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 

@@ -90,12 +90,12 @@ public sealed class InMemoryUserAccountRepository : IUserAccountRepository, IUni
             query = query.Where(u => u.Props.Email.GetValue().ToLower().Contains(lower));
         }
 
-        if (!string.IsNullOrWhiteSpace(status) && !string.Equals(status, "all", StringComparison.OrdinalIgnoreCase))
+        if (!string.IsNullOrWhiteSpace(status) && !string.Equals(status, QueryDefaults.AllStatuses, StringComparison.OrdinalIgnoreCase))
             query = query.Where(u => u.Props.Status.ToString().Equals(status, StringComparison.OrdinalIgnoreCase));
 
         query = (sortBy?.ToLower(), sortOrder?.ToLower()) switch
         {
-            ("email", "desc") => query.OrderByDescending(u => u.Props.Email.GetValue()),
+            ("email", QueryDefaults.Descending) => query.OrderByDescending(u => u.Props.Email.GetValue()),
             _                 => query.OrderBy(u => u.Props.Email.GetValue()),
         };
 

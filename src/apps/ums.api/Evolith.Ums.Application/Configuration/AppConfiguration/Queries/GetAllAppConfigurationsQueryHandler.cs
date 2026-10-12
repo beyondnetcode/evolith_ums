@@ -30,9 +30,9 @@ public sealed class GetAllAppConfigurationsQueryHandler : IQueryHandler<GetAllAp
         var page = NormalizePage(request.Page);
         var pageSize = NormalizePageSize(request.PageSize);
         var search = NormalizeSearch(request.Search);
-        var status = NormalizeText(request.Status, "all");
+        var status = NormalizeStatusFilter(request.Status);
         var sortBy = NormalizeText(request.SortBy, "code").ToLowerInvariant();
-        var sortOrder = NormalizeText(request.SortOrder, "asc").ToLowerInvariant();
+        var sortOrder = NormalizeSortOrder(request.SortOrder);
         var scope = NormalizeSearch(request.Scope);
 
         var isInternalAdmin = _tenantContext.IsInternalAdmin;
@@ -102,7 +102,7 @@ public sealed class GetAllAppConfigurationsQueryHandler : IQueryHandler<GetAllAp
                 || configuration.Description.Contains(search, StringComparison.OrdinalIgnoreCase));
         }
 
-        if (!string.Equals(status, "all", StringComparison.OrdinalIgnoreCase))
+        if (status is not null)
         {
             query = query.Where(configuration => string.Equals(configuration.Status, status, StringComparison.OrdinalIgnoreCase));
         }
@@ -129,13 +129,13 @@ public sealed class GetAllAppConfigurationsQueryHandler : IQueryHandler<GetAllAp
 
         query = (sortBy, sortOrder) switch
         {
-            ("scope", "desc") => query.OrderByDescending(configuration => configuration.Scope).ThenByDescending(configuration => configuration.Code),
+            ("scope", QueryDefaults.Descending) => query.OrderByDescending(configuration => configuration.Scope).ThenByDescending(configuration => configuration.Code),
             ("scope", _) => query.OrderBy(configuration => configuration.Scope).ThenBy(configuration => configuration.Code),
-            ("status", "desc") => query.OrderByDescending(configuration => configuration.Status).ThenByDescending(configuration => configuration.Code),
+            ("status", QueryDefaults.Descending) => query.OrderByDescending(configuration => configuration.Status).ThenByDescending(configuration => configuration.Code),
             ("status", _) => query.OrderBy(configuration => configuration.Status).ThenBy(configuration => configuration.Code),
-            ("version", "desc") => query.OrderByDescending(configuration => configuration.Version).ThenByDescending(configuration => configuration.Code),
+            ("version", QueryDefaults.Descending) => query.OrderByDescending(configuration => configuration.Version).ThenByDescending(configuration => configuration.Code),
             ("version", _) => query.OrderBy(configuration => configuration.Version).ThenBy(configuration => configuration.Code),
-            ("code", "desc") => query.OrderByDescending(configuration => configuration.Code),
+            ("code", QueryDefaults.Descending) => query.OrderByDescending(configuration => configuration.Code),
             _ => query.OrderBy(configuration => configuration.Code),
         };
 

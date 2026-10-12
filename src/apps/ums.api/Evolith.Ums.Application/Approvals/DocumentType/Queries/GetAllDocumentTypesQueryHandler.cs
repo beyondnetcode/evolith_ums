@@ -24,7 +24,7 @@ public sealed class GetAllDocumentTypesQueryHandler : IQueryHandler<GetAllDocume
         var page = NormalizePage(request.Page);
         var pageSize = NormalizePageSize(request.PageSize);
         var sortBy = NormalizeText(request.SortBy, "name").ToLowerInvariant();
-        var sortOrder = NormalizeText(request.SortOrder, "asc").ToLowerInvariant();
+        var sortOrder = NormalizeSortOrder(request.SortOrder);
         var search = NormalizeSearch(request.Search);
 
         var effectiveTenantId = (_tenantContext?.IsInternalAdmin == true)
@@ -44,8 +44,8 @@ public sealed class GetAllDocumentTypesQueryHandler : IQueryHandler<GetAllDocume
 
         query = (sortBy, sortOrder) switch
         {
-            ("code", "desc") => query.OrderByDescending(d => d.Code),
-            ("criticity", "desc") => query.OrderByDescending(d => d.Criticity),
+            ("code", QueryDefaults.Descending) => query.OrderByDescending(d => d.Code),
+            ("criticity", QueryDefaults.Descending) => query.OrderByDescending(d => d.Criticity),
             _ => query.OrderBy(d => d.Name),
         };
 

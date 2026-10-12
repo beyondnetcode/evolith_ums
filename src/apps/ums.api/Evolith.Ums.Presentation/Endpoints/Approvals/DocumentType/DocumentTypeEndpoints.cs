@@ -17,10 +17,8 @@ public static class DocumentTypeEndpoints
             IMediator mediator, HttpContext context, CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllDocumentTypesQuery(
-                query.Page <= 0 ? 1 : query.Page, query.PageSize <= 0 ? 20 : query.PageSize, query.Search,
-                string.IsNullOrWhiteSpace(query.Criteria) ? "name" : query.Criteria,
-                string.IsNullOrWhiteSpace(query.SortBy) ? "name" : query.SortBy,
-                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder, query.TenantId), ct);
+                query.Page, query.PageSize, query.Search,
+                query.Criteria, query.SortBy, query.SortOrder, query.TenantId), ct);
             return result.ToOk(context);
         }).WithName("GetAllDocumentTypes").Produces<PagedResult<DocumentTypeDto>>(StatusCodes.Status200OK);
 

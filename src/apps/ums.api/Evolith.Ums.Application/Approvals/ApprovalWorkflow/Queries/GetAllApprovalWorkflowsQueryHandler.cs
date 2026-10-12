@@ -24,7 +24,7 @@ public sealed class GetAllApprovalWorkflowsQueryHandler : IQueryHandler<GetAllAp
         var page = NormalizePage(request.Page);
         var pageSize = NormalizePageSize(request.PageSize);
         var sortBy = NormalizeText(request.SortBy, "name").ToLowerInvariant();
-        var sortOrder = NormalizeText(request.SortOrder, "asc").ToLowerInvariant();
+        var sortOrder = NormalizeSortOrder(request.SortOrder);
         var search = NormalizeSearch(request.Search);
 
         // Tenant isolation: admins may filter by any tenant (or null for all); regular users are
@@ -50,7 +50,7 @@ public sealed class GetAllApprovalWorkflowsQueryHandler : IQueryHandler<GetAllAp
 
         query = (sortBy, sortOrder) switch
         {
-            ("code", "desc") => query.OrderByDescending(w => w.Code),
+            ("code", QueryDefaults.Descending) => query.OrderByDescending(w => w.Code),
             ("code", _) => query.OrderBy(w => w.Code),
             _ => query.OrderBy(w => w.Name),
         };

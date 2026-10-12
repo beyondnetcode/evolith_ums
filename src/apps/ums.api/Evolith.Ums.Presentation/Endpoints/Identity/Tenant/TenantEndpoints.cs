@@ -30,17 +30,17 @@ public static class TenantEndpoints
             CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllTenantsQuery(
-                query.Page <= 0 ? 1 : query.Page,
-                query.PageSize <= 0 ? 20 : query.PageSize,
+                query.Page,
+                query.PageSize,
                 query.Search,
                 // criteria = campo de búsqueda; se pasa tal cual (null si no se envía). El handler/repo
                 // cae a sortBy por compatibilidad. Antes se forzaba a "name", lo que impedía buscar por
                 // código salvo enviando criteria=code explícito (G-014 residual: GetTenants_AfterCreate
                 // usaba sortBy=code sin criteria y dejaba de encontrar el tenant).
-                string.IsNullOrWhiteSpace(query.Criteria) ? null : query.Criteria,
-                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
-                string.IsNullOrWhiteSpace(query.SortBy) ? "name" : query.SortBy,
-                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder), ct);
+                query.Criteria,
+                query.Status,
+                query.SortBy,
+                query.SortOrder), ct);
             return result.ToOk(context);
         })
         .WithName("GetAllTenants")

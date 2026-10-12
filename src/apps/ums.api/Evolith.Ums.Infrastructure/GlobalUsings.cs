@@ -10,6 +10,7 @@ global using BeyondNetCode.Shell.Aop;
 global using BeyondNetCode.Shell.Ddd.ValueObjects.Common;
 global using Evolith.Ums.Application.Common.Aop;
 global using Evolith.Ums.Application.Common.Interfaces;
+global using Evolith.Ums.Application.Common;
 global using Evolith.Ums.Domain.Approvals;
 global using Evolith.Ums.Domain.Authorization;
 global using Evolith.Ums.Domain.Configuration;

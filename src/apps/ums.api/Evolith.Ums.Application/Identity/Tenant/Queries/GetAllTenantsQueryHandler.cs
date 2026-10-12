@@ -35,9 +35,9 @@ public sealed class GetAllTenantsQueryHandler : IQueryHandler<GetAllTenantsQuery
     {
         var page = NormalizePage(request.Page);
         var pageSize = NormalizePageSize(request.PageSize);
-        var status = NormalizeText(request.Status, "all");
+        var status = NormalizeStatusFilter(request.Status);
         var sortBy = NormalizeText(request.SortBy, "name").ToLowerInvariant();
-        var sortOrder = NormalizeText(request.SortOrder, "asc").ToLowerInvariant();
+        var sortOrder = NormalizeSortOrder(request.SortOrder);
         var search = NormalizeSearch(request.Search);
 
         var effectiveTenantId = _tenantScopePolicy.ResolveQueryScope();

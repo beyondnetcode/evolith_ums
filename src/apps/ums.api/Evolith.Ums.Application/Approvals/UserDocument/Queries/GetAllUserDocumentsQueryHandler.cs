@@ -23,9 +23,9 @@ public sealed class GetAllUserDocumentsQueryHandler : IQueryHandler<GetAllUserDo
     {
         var page = NormalizePage(request.Page);
         var pageSize = NormalizePageSize(request.PageSize);
-        var status = NormalizeText(request.Status, "all");
+        var status = NormalizeStatusFilter(request.Status);
         var sortBy = NormalizeText(request.SortBy, "expirationdate").ToLowerInvariant();
-        var sortOrder = NormalizeText(request.SortOrder, "asc").ToLowerInvariant();
+        var sortOrder = NormalizeSortOrder(request.SortOrder);
         var search = NormalizeSearch(request.Search);
 
         // Always fetch scoped to the user's tenant; then optionally filter by UserId
@@ -41,7 +41,7 @@ public sealed class GetAllUserDocumentsQueryHandler : IQueryHandler<GetAllUserDo
             d.Props.Criticity.ToString(), d.Props.FileStoragePath.GetValue(),
             d.Props.FileChecksum, d.Props.NotificationStep));
 
-        if (!string.Equals(status, "all", StringComparison.OrdinalIgnoreCase))
+        if (status is not null)
             query = query.Where(d => string.Equals(d.Status, status, StringComparison.OrdinalIgnoreCase));
 
         if (!string.IsNullOrWhiteSpace(search))
@@ -49,8 +49,8 @@ public sealed class GetAllUserDocumentsQueryHandler : IQueryHandler<GetAllUserDo
 
         query = (sortBy, sortOrder) switch
         {
-            ("status", "desc") => query.OrderByDescending(d => d.Status),
-            ("expirationdate", "desc") => query.OrderByDescending(d => d.ExpirationDate),
+            ("status", QueryDefaults.Descending) => query.OrderByDescending(d => d.Status),
+            ("expirationdate", QueryDefaults.Descending) => query.OrderByDescending(d => d.ExpirationDate),
             _ => query.OrderBy(d => d.ExpirationDate),
         };
 

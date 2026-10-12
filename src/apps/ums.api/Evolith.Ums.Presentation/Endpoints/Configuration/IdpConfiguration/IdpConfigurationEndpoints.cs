@@ -19,13 +19,13 @@ public static class IdpConfigurationEndpoints
             CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllIdpConfigurationsQuery(
-                query.Page <= 0 ? 1 : query.Page,
-                query.PageSize <= 0 ? 20 : query.PageSize,
+                query.Page,
+                query.PageSize,
                 query.Search,
-                string.IsNullOrWhiteSpace(query.Criteria) ? "providerType" : query.Criteria,
-                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
-                string.IsNullOrWhiteSpace(query.SortBy) ? "resolutionPriority" : query.SortBy,
-                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder,
+                query.Criteria,
+                query.Status,
+                query.SortBy,
+                query.SortOrder,
                 query.TenantId,
                 query.SystemSuiteId,
                 query.ProviderType), ct);

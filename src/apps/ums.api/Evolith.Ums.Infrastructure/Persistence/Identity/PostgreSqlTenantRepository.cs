@@ -129,7 +129,7 @@ public sealed class PostgreSqlTenantRepository(UmsPlatformDbContext dbContext) :
         }
 
         if (!string.IsNullOrWhiteSpace(status) &&
-            !string.Equals(status, "all", StringComparison.OrdinalIgnoreCase))
+            !string.Equals(status, QueryDefaults.AllStatuses, StringComparison.OrdinalIgnoreCase))
         {
             // StatusId is stored as int; compare by name via enum lookup if mapping exists
             // For now filter by string representation at application level after fetch
@@ -143,9 +143,9 @@ public sealed class PostgreSqlTenantRepository(UmsPlatformDbContext dbContext) :
         // --- Sorting ---
         query = (sortBy?.ToLower(), sortOrder?.ToLower()) switch
         {
-            ("code", "desc") => query.OrderByDescending(t => t.Code),
+            ("code", QueryDefaults.Descending) => query.OrderByDescending(t => t.Code),
             ("code", _)      => query.OrderBy(t => t.Code),
-            ("name", "desc") => query.OrderByDescending(t => t.Name),
+            ("name", QueryDefaults.Descending) => query.OrderByDescending(t => t.Name),
             _                => query.OrderBy(t => t.Name),
         };
 

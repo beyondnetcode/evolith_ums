@@ -17,11 +17,8 @@ public static class UserDocumentEndpoints
             IMediator mediator, HttpContext context, CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllUserDocumentsQuery(
-                query.Page <= 0 ? 1 : query.Page, query.PageSize <= 0 ? 20 : query.PageSize, query.Search,
-                string.IsNullOrWhiteSpace(query.Criteria) ? "status" : query.Criteria,
-                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
-                string.IsNullOrWhiteSpace(query.SortBy) ? "status" : query.SortBy,
-                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder, query.UserId, query.TenantId), ct);
+                query.Page, query.PageSize, query.Search,
+                query.Criteria, query.Status, query.SortBy, query.SortOrder, query.UserId, query.TenantId), ct);
             return result.ToOk(context);
         }).WithName("GetAllUserDocuments").Produces<PagedResult<UserDocumentDto>>(StatusCodes.Status200OK);
 

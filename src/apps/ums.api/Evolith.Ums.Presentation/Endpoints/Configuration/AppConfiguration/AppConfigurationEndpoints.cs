@@ -29,13 +29,13 @@ public static class AppConfigurationEndpoints
             }
 
             var result = await mediator.Send(new GetAllAppConfigurationsQuery(
-                query.Page <= 0 ? 1 : query.Page,
-                query.PageSize <= 0 ? 20 : query.PageSize,
+                query.Page,
+                query.PageSize,
                 query.Search,
-                string.IsNullOrWhiteSpace(query.Criteria) ? "code" : query.Criteria,
-                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
-                string.IsNullOrWhiteSpace(query.SortBy) ? "code" : query.SortBy,
-                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder,
+                query.Criteria,
+                query.Status,
+                query.SortBy,
+                query.SortOrder,
                 query.Scope,
                 query.TenantId,
                 query.SystemSuiteId,

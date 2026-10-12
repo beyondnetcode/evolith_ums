@@ -24,9 +24,9 @@ public sealed class GetAllApprovalRequestsQueryHandler : IQueryHandler<GetAllApp
     {
         var page = NormalizePage(request.Page);
         var pageSize = NormalizePageSize(request.PageSize);
-        var status = NormalizeText(request.Status, "all");
+        var status = NormalizeStatusFilter(request.Status);
         var sortBy = NormalizeText(request.SortBy, "status").ToLowerInvariant();
-        var sortOrder = NormalizeText(request.SortOrder, "asc").ToLowerInvariant();
+        var sortOrder = NormalizeSortOrder(request.SortOrder);
         var search = NormalizeSearch(request.Search);
 
         var effectiveTenantId = (_tenantContext?.IsInternalAdmin == true)
@@ -48,8 +48,8 @@ public sealed class GetAllApprovalRequestsQueryHandler : IQueryHandler<GetAllApp
                 audit.UpdatedBy, audit.UpdatedAt);
         });
 
-        if (!string.Equals(status, "all", StringComparison.OrdinalIgnoreCase))
-            query = query.Where(r => string.Equals(r.Status, NormalizeStatusFilter(status), StringComparison.OrdinalIgnoreCase));
+        if (status is not null)
+            query = query.Where(r => string.Equals(r.Status, NormalizeApprovalStatus(status), StringComparison.OrdinalIgnoreCase));
 
         if (!string.IsNullOrWhiteSpace(search))
             query = query.Where(r => r.WorkflowId.ToString().Contains(search, StringComparison.OrdinalIgnoreCase));
@@ -62,7 +62,7 @@ public sealed class GetAllApprovalRequestsQueryHandler : IQueryHandler<GetAllApp
 
         query = (sortBy, sortOrder) switch
         {
-            ("status", "desc") => query.OrderByDescending(r => r.Status),
+            ("status", QueryDefaults.Descending) => query.OrderByDescending(r => r.Status),
             _ => query.OrderBy(r => r.Status),
         };
 
@@ -76,7 +76,7 @@ public sealed class GetAllApprovalRequestsQueryHandler : IQueryHandler<GetAllApp
     private static string ToBusinessStatus(ApprovalStatus status)
         => status == ApprovalStatus.Rejected ? "Denied" : status.ToString();
 
-    private static string NormalizeStatusFilter(string status)
+    private static string NormalizeApprovalStatus(string status)
         => string.Equals(status, ApprovalStatus.Rejected.ToString(), StringComparison.OrdinalIgnoreCase)
             ? "Denied"
             : status;

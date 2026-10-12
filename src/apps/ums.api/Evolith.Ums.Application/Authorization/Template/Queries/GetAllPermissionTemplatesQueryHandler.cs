@@ -37,9 +37,9 @@ public sealed class GetAllPermissionTemplatesQueryHandler : IQueryHandler<GetAll
         var page = NormalizePage(request.Page);
         var pageSize = NormalizePageSize(request.PageSize);
         var criteria = NormalizeText(request.Criteria, "version").ToLowerInvariant();
-        var status = NormalizeText(request.Status, "all");
+        var status = NormalizeStatusFilter(request.Status);
         var sortBy = NormalizeText(request.SortBy, "version").ToLowerInvariant();
-        var sortOrder = NormalizeText(request.SortOrder, "asc").ToLowerInvariant();
+        var sortOrder = NormalizeSortOrder(request.SortOrder);
         var search = NormalizeSearch(request.Search);
 
         Guid? effectiveTenantId;
@@ -96,7 +96,7 @@ public sealed class GetAllPermissionTemplatesQueryHandler : IQueryHandler<GetAll
             t.Props.Version.GetValue(),
             t.Props.Status.ToString()));
 
-        if (!string.Equals(status, "all", StringComparison.OrdinalIgnoreCase))
+        if (status is not null)
         {
             query = query.Where(t => string.Equals(t.Status, status, StringComparison.OrdinalIgnoreCase));
         }
@@ -114,13 +114,13 @@ public sealed class GetAllPermissionTemplatesQueryHandler : IQueryHandler<GetAll
 
         query = (sortBy, sortOrder) switch
         {
-            ("status",  "desc") => query.OrderByDescending(t => t.Status),
+            ("status",  QueryDefaults.Descending) => query.OrderByDescending(t => t.Status),
             ("status",  _)      => query.OrderBy(t => t.Status),
-            ("role",    "desc") => query.OrderByDescending(t => t.RoleName),
+            ("role",    QueryDefaults.Descending) => query.OrderByDescending(t => t.RoleName),
             ("role",    _)      => query.OrderBy(t => t.RoleName),
-            ("suite",   "desc") => query.OrderByDescending(t => t.SystemSuiteName),
+            ("suite",   QueryDefaults.Descending) => query.OrderByDescending(t => t.SystemSuiteName),
             ("suite",   _)      => query.OrderBy(t => t.SystemSuiteName),
-            (_,         "desc") => query.OrderByDescending(t => t.Version),
+            (_,         QueryDefaults.Descending) => query.OrderByDescending(t => t.Version),
             _                   => query.OrderBy(t => t.SystemSuiteName).ThenBy(t => t.RoleName).ThenBy(t => t.Version),
         };
 

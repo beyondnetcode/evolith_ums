@@ -23,8 +23,8 @@ public static class AuditRecordEndpoints
             CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllAuditRecordsQuery(
-                query.Page <= 0 ? 1 : query.Page,
-                query.PageSize <= 0 ? 20 : query.PageSize,
+                query.Page,
+                query.PageSize,
                 query.EventType, query.ActorId, query.EntityId, query.EntityType, query.TenantId, query.From, query.To), ct);
             return result.ToOk(context);
         })

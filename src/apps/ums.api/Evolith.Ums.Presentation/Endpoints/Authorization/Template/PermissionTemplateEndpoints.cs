@@ -20,13 +20,13 @@ public static class PermissionTemplateEndpoints
             CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllPermissionTemplatesQuery(
-                query.Page <= 0 ? 1 : query.Page,
-                query.PageSize <= 0 ? 20 : query.PageSize,
+                query.Page,
+                query.PageSize,
                 query.Search,
-                string.IsNullOrWhiteSpace(query.Criteria) ? "version" : query.Criteria,
-                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
-                string.IsNullOrWhiteSpace(query.SortBy) ? "version" : query.SortBy,
-                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder,
+                query.Criteria,
+                query.Status,
+                query.SortBy,
+                query.SortOrder,
                 query.TenantId,
                 query.SystemSuiteId,
                 query.RoleId), ct);

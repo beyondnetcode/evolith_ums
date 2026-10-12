@@ -103,14 +103,14 @@ public sealed class InMemoryTenantRepository : ITenantRepository, IUnitOfWork
                 : query.Where(t => t.Props.Name.GetValue().ToLower().Contains(lower));
         }
 
-        if (!string.IsNullOrWhiteSpace(status) && !string.Equals(status, "all", StringComparison.OrdinalIgnoreCase))
+        if (!string.IsNullOrWhiteSpace(status) && !string.Equals(status, QueryDefaults.AllStatuses, StringComparison.OrdinalIgnoreCase))
             query = query.Where(t => t.Props.Status.ToString().Equals(status, StringComparison.OrdinalIgnoreCase));
 
         query = (sortBy?.ToLower(), sortOrder?.ToLower()) switch
         {
-            ("code", "desc") => query.OrderByDescending(t => t.Code.GetValue()),
+            ("code", QueryDefaults.Descending) => query.OrderByDescending(t => t.Code.GetValue()),
             ("code", _)      => query.OrderBy(t => t.Code.GetValue()),
-            ("name", "desc") => query.OrderByDescending(t => t.Props.Name.GetValue()),
+            ("name", QueryDefaults.Descending) => query.OrderByDescending(t => t.Props.Name.GetValue()),
             _                => query.OrderBy(t => t.Props.Name.GetValue()),
         };
 

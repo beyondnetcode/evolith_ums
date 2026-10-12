@@ -47,9 +47,9 @@ public sealed class GetAllProfilesQueryHandler : IQueryHandler<GetAllProfilesQue
         var page = NormalizePage(request.Page);
         var pageSize = NormalizePageSize(request.PageSize);
         var criteria = NormalizeText(request.Criteria, "userId").ToLowerInvariant();
-        var status = NormalizeText(request.Status, "all");
+        var status = NormalizeStatusFilter(request.Status);
         var sortBy = NormalizeText(request.SortBy, "userId").ToLowerInvariant();
-        var sortOrder = NormalizeText(request.SortOrder, "asc").ToLowerInvariant();
+        var sortOrder = NormalizeSortOrder(request.SortOrder);
         var search = NormalizeSearch(request.Search);
 
         // Tenant isolation: ITenantContext is authoritative. Admins may use request.TenantId;
@@ -132,7 +132,7 @@ public sealed class GetAllProfilesQueryHandler : IQueryHandler<GetAllProfilesQue
                 new List<ProfilePermissionDto>());
         });
 
-        if (!string.Equals(status, "all", StringComparison.OrdinalIgnoreCase))
+        if (status is not null)
         {
             var isActiveStatus = string.Equals(status, "active", StringComparison.OrdinalIgnoreCase);
             query = query.Where(p => p.IsActive == isActiveStatus);
@@ -152,15 +152,15 @@ public sealed class GetAllProfilesQueryHandler : IQueryHandler<GetAllProfilesQue
 
         query = (sortBy, sortOrder) switch
         {
-            ("scope", "desc") => query.OrderByDescending(p => p.Scope),
+            ("scope", QueryDefaults.Descending) => query.OrderByDescending(p => p.Scope),
             ("scope", _) => query.OrderBy(p => p.Scope),
-            ("role", "desc") => query.OrderByDescending(p => p.RoleName),
+            ("role", QueryDefaults.Descending) => query.OrderByDescending(p => p.RoleName),
             ("role", _) => query.OrderBy(p => p.RoleName),
-            ("user", "desc") => query.OrderByDescending(p => p.UserEmail),
+            ("user", QueryDefaults.Descending) => query.OrderByDescending(p => p.UserEmail),
             ("user", _) => query.OrderBy(p => p.UserEmail),
-            ("tenant", "desc") => query.OrderByDescending(p => p.TenantName),
+            ("tenant", QueryDefaults.Descending) => query.OrderByDescending(p => p.TenantName),
             ("tenant", _) => query.OrderBy(p => p.TenantName),
-            ("system", "desc") => query.OrderByDescending(p => p.SystemSuiteName),
+            ("system", QueryDefaults.Descending) => query.OrderByDescending(p => p.SystemSuiteName),
             ("system", _) => query.OrderBy(p => p.SystemSuiteName),
             _ => query.OrderBy(p => p.UserEmail),
         };

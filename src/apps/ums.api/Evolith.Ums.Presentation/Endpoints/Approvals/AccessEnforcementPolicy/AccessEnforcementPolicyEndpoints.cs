@@ -17,11 +17,8 @@ public static class AccessEnforcementPolicyEndpoints
             IMediator mediator, HttpContext context, CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllAccessEnforcementPoliciesQuery(
-                query.Page <= 0 ? 1 : query.Page, query.PageSize <= 0 ? 20 : query.PageSize, query.Search,
-                string.IsNullOrWhiteSpace(query.Criteria) ? "enforcementAction" : query.Criteria,
-                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
-                string.IsNullOrWhiteSpace(query.SortBy) ? "enforcementAction" : query.SortBy,
-                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder, query.TenantId), ct);
+                query.Page, query.PageSize, query.Search, query.Criteria,
+                query.Status, query.SortBy, query.SortOrder, query.TenantId), ct);
             return result.ToOk(context);
         }).WithName("GetAllAccessEnforcementPolicies").Produces<PagedResult<AccessEnforcementPolicyDto>>(StatusCodes.Status200OK);
 

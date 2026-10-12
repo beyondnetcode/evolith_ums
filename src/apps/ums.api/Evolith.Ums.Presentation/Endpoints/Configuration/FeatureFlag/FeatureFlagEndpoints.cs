@@ -19,13 +19,13 @@ public static class FeatureFlagEndpoints
             CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllFeatureFlagsQuery(
-                query.Page <= 0 ? 1 : query.Page,
-                query.PageSize <= 0 ? 20 : query.PageSize,
+                query.Page,
+                query.PageSize,
                 query.Search,
-                string.IsNullOrWhiteSpace(query.Criteria) ? "flagCode" : query.Criteria,
-                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
-                string.IsNullOrWhiteSpace(query.SortBy) ? "flagCode" : query.SortBy,
-                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder,
+                query.Criteria,
+                query.Status,
+                query.SortBy,
+                query.SortOrder,
                 query.FlagType,
                 query.LinkedResourceType), ct);
             return result.ToOk(context);

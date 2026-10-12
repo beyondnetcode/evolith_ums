@@ -23,9 +23,9 @@ public sealed class GetAllNotificationRulesQueryHandler : IQueryHandler<GetAllNo
     {
         var page = NormalizePage(request.Page);
         var pageSize = NormalizePageSize(request.PageSize);
-        var status = NormalizeText(request.Status, "all");
+        var status = NormalizeStatusFilter(request.Status);
         var sortBy = NormalizeText(request.SortBy, "channel").ToLowerInvariant();
-        var sortOrder = NormalizeText(request.SortOrder, "asc").ToLowerInvariant();
+        var sortOrder = NormalizeSortOrder(request.SortOrder);
 
         var effectiveTenantId = (_tenantContext?.IsInternalAdmin == true)
             ? request.TenantId
@@ -39,7 +39,7 @@ public sealed class GetAllNotificationRulesQueryHandler : IQueryHandler<GetAllNo
             r.Props.Id.GetValue(), r.Props.TenantId.GetValue(), r.Props.Channel.ToString(),
             r.Props.Recipient.GetValue(), r.Props.IsActive));
 
-        if (!string.Equals(status, "all", StringComparison.OrdinalIgnoreCase))
+        if (status is not null)
         {
             var isActive = string.Equals(status, "active", StringComparison.OrdinalIgnoreCase);
             query = query.Where(r => r.IsActive == isActive);
@@ -47,7 +47,7 @@ public sealed class GetAllNotificationRulesQueryHandler : IQueryHandler<GetAllNo
 
         query = (sortBy, sortOrder) switch
         {
-            ("channel", "desc") => query.OrderByDescending(r => r.Channel),
+            ("channel", QueryDefaults.Descending) => query.OrderByDescending(r => r.Channel),
             _ => query.OrderBy(r => r.Channel),
         };
 
