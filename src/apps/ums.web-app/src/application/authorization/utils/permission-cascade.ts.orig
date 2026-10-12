@@ -1,0 +1,71 @@
+import { SystemSuite } from '../../domain/system-suite';
+
+/**
+ * Returns an array of parent IDs (Module, Menu, SubMenu) from root up to (but not including) the targetId.
+ * If the targetId is not found, it returns an empty array.
+ */
+export function getAscendantIds(suite: SystemSuite, targetId: string): string[] {
+  const result: string[] = [];
+
+  for (const module of suite.modules) {
+    if (module.id === targetId) return result;
+
+    for (const menu of module.menus) {
+      if (menu.id === targetId) {
+        result.push(module.id);
+        return result;
+      }
+
+      for (const subMenu of menu.subMenus) {
+        if (subMenu.id === targetId) {
+          result.push(module.id, menu.id);
+          return result;
+        }
+
+        for (const option of subMenu.options) {
+          if (option.id === targetId) {
+            result.push(module.id, menu.id, subMenu.id);
+            return result;
+          }
+        }
+      }
+    }
+  }
+
+  return [];
+}
+
+export function getAscendantsWithTypes(suite: SystemSuite, targetId: string): { id: string, type: 'Module' | 'Submodule' | 'Page' | 'Option' }[] {
+  const result: { id: string, type: 'Module' | 'Submodule' | 'Page' | 'Option' }[] = [];
+
+  for (const module of suite.modules) {
+    if (module.id === targetId) return result;
+
+    for (const menu of module.menus) {
+      if (menu.id === targetId) {
+        result.push({ id: module.id, type: 'Module' });
+        return result;
+      }
+
+      for (const subMenu of menu.subMenus) {
+        if (subMenu.id === targetId) {
+          result.push({ id: module.id, type: 'Module' }, { id: menu.id, type: 'Submodule' });
+          return result;
+        }
+
+        for (const option of subMenu.options) {
+          if (option.id === targetId) {
+            result.push(
+              { id: module.id, type: 'Module' },
+              { id: menu.id, type: 'Submodule' },
+              { id: subMenu.id, type: 'Page' }
+            );
+            return result;
+          }
+        }
+      }
+    }
+  }
+
+  return [];
+}

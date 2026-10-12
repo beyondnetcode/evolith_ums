@@ -1,0 +1,268 @@
+# G-125 — Compose COMPLETO (CANÓNICO) del entorno de desarrollo local de UMS: PostgreSQL (`UmsDev`),
+# Redis, observabilidad (Tempo, Loki, OTel Collector, Promtail, Prometheus, Grafana) y `ums-api`.
+# Para solo la base de datos read-model aislada, ver `src/docker-compose.yml`.
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: ums-postgres
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "Your_password123"
+      POSTGRES_DB: "UmsDev"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d UmsDev"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 15s
+    networks:
+      - ums-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: ums-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@ums.com"
+      PGADMIN_DEFAULT_PASSWORD: "Your_password123"
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ums-network
+
+  redis:
+    image: redis:7.4-alpine
+    container_name: ums-redis
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - ums-network
+
+  tempo:
+    image: grafana/tempo:2.5.0
+    container_name: ums-tempo
+    command: ["-config.file=/etc/tempo/tempo.yml"]
+    volumes:
+      - ./docker/observability/tempo/tempo.yml:/etc/tempo/tempo.yml:ro
+      - tempo_data:/var/tempo
+    ports:
+      - "3200:3200"
+      - "4319:4317"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3200/ready >/dev/null || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    networks:
+      - ums-network
+
+  loki:
+    image: grafana/loki:3.0.0
+    container_name: ums-loki
+    command: ["-config.file=/etc/loki/loki-config.yml"]
+    volumes:
+      - ./docker/observability/loki/loki-config.yml:/etc/loki/loki-config.yml:ro
+      - loki_data:/loki
+    ports:
+      - "3100:3100"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3100/ready >/dev/null || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    networks:
+      - ums-network
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.101.0
+    container_name: ums-otel-collector
+    command: ["--config=/etc/otelcol/config.yaml"]
+    volumes:
+      - ./docker/observability/otel/otel-collector-config.yml:/etc/otelcol/config.yaml:ro
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "8889:8889"
+      - "13133:13133"
+    depends_on:
+      tempo:
+        condition: service_healthy
+      loki:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:13133/ >/dev/null || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - ums-network
+
+  promtail:
+    image: grafana/promtail:3.0.0
+    container_name: ums-promtail
+    command: ["-config.file=/etc/promtail/config.yml"]
+    volumes:
+      - ./docker/observability/promtail/promtail-config.yml:/etc/promtail/config.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      loki:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:9080/ready >/dev/null || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - ums-network
+
+  prometheus:
+    image: prom/prometheus:v2.52.0
+    container_name: ums-prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.enable-lifecycle"
+    volumes:
+      - ./docker/observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    depends_on:
+      otel-collector:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:9090/-/ready >/dev/null || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    networks:
+      - ums-network
+
+  grafana:
+    image: grafana/grafana:11.0.0
+    container_name: ums-grafana
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
+      GF_AUTH_DISABLE_LOGIN_FORM: "true"
+    volumes:
+      - ./docker/observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - grafana_data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      prometheus:
+        condition: service_healthy
+      loki:
+        condition: service_healthy
+      tempo:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/api/health >/dev/null || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    networks:
+      - ums-network
+
+  ums-api:
+    build:
+      # Dockerfile canónico único (G-018); contexto = monorepo src/.
+      context: ../../..
+      dockerfile: apps/ums.api/Dockerfile
+      # Feed privado de NuGet autenticado por BuildKit secret (G-017).
+      secrets:
+        - gh_token
+    container_name: ums-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      AllowedOrigins: http://localhost:5173,http://localhost:3000
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=UmsDev;Username=postgres;Password=Your_password123;
+      Persistence__Provider: PostgreSql
+      Persistence__AggregateStoreMode: PostgreSql
+      Persistence__UsePostgreSqlIdentityStores: "true"
+      Persistence__UsePostgreSqlAuthorizationStores: "true"
+      Persistence__UsePostgreSqlConfigurationStores: "true"
+      Persistence__SeedDevData: "true"
+      Persistence__EnableOutbox: "true"
+      Persistence__InitializePlatformStoreOnStartup: "true"
+      Observability__Tracing__OtlpEndpoint: http://otel-collector:4317
+      Observability__Tracing__ServiceVersion: 1.0.0-dev-compose
+      Observability__Logging__MinimumLevel: Debug
+      Observability__Logging__ConsoleFormat: Text
+      Redis__Connection: redis:6379,abortConnect=false
+    ports:
+      - "5293:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      otel-collector:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/health/ready >/dev/null || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 25s
+    networks:
+      - ums-network
+
+  ums-web:
+    build:
+      # Contexto = monorepo src/ (el Dockerfile hace COPY del root con package.json).
+      context: ../../..
+      dockerfile: apps/ums.web-app/Dockerfile
+    container_name: ums-web
+    ports:
+      - "5173:80"
+    depends_on:
+      ums-api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:80/ >/dev/null || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    networks:
+      - ums-network
+
+networks:
+  ums-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  tempo_data:
+  loki_data:
+  prometheus_data:
+  grafana_data:
+
+# Secreto de build para el feed privado de NuGet (G-017). Se toma de la variable
+# de entorno GH_TOKEN (un PAT read:packages):
+#   GH_TOKEN=$(gh auth token) docker compose -f local/compose/docker-compose.yml build ums-api
+secrets:
+  gh_token:
+    environment: GH_TOKEN

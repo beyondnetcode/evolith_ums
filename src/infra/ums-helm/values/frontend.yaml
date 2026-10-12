@@ -1,0 +1,26 @@
+image:
+  repository: ums/frontend
+  tag: latest
+env:
+  - name: NODE_ENV
+    value: production
+service:
+  type: ClusterIP
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: evolith-ums.local
+      paths:
+        - path: /
+          pathType: Prefix
+  # TLS omitido para desarrollo local (sin secret de certificado). El template
+  # solo renderiza la sección tls si esta lista tiene entradas.
+  tls: []
+resources:
+  limits:
+    cpu: "200m"
+    memory: "256Mi"
+  requests:
+    cpu: "100m"
+    memory: "128Mi"

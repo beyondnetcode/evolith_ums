@@ -1,0 +1,54 @@
+{
+  "name": "evolith-ums-workspace",
+  "version": "1.0.0",
+  "description": "Enterprise Monorepo for User Management System (UMS) using .NET 10, React, SQL Server, and spec-driven AI strategy BMAD-METHOD",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "libs/*"
+  ],
+  "scripts": {
+    "dev": "nx run app-web:dev",
+    "build": "nx run-many -t build",
+    "lint": "nx run-many -t lint",
+    "test": "nx run-many -t test",
+    "dev:all": "nx run-many -t dev run --parallel",
+    "build:all": "nx run-many -t build --parallel",
+    "verify": "bash ../scripts/verify-local.sh full",
+    "verify:fast": "bash ../scripts/verify-local.sh fast",
+    "verify:secrets": "bash ../scripts/verify-local.sh secrets",
+    "verify:sast": "bash ../scripts/verify-local.sh sast",
+    "verify:deps": "bash ../scripts/verify-local.sh deps",
+    "verify:coverage": "bash ../scripts/verify-local.sh coverage"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "21.0.2",
+    "@commitlint/config-conventional": "21.0.2",
+    "@nx/js": "22.7.8",
+    "ctx7": "0.5.1",
+    "eslint-plugin-security": "4.0.1",
+    "eslint-plugin-sonarjs": "4.0.3",
+    "nx": "22.7.8",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "5.2.0"
+  },
+  "overrides": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "@eslint/plugin-kit": "0.3.4",
+    "axios": "1.18.0",
+    "fast-uri": "3.1.6",
+    "form-data": "4.0.6",
+    "nx": {
+      "tmp": "0.2.7",
+      "brace-expansion": "5.0.9"
+    },
+    "storybook": {
+      "esbuild": "0.28.1"
+    },
+    "nanoid": "3.3.18",
+    "brace-expansion@1": "1.1.18"
+  }
+}

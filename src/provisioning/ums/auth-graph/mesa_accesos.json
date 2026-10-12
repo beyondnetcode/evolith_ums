@@ -1,0 +1,580 @@
+{
+  "sessionId": "00000000-0000-0000-0000-000000000000",
+  "sessionTrackingId": "00000000-0000-0000-0000-000000000000-session",
+  "userId": "<guid del usuario>",
+  "username": "mesa_accesos",
+  "email": "mesa_accesos@evolith.example",
+  "tenantId": "<guid del tenant EVOLITH>",
+  "tenantCode": "EVOLITH",
+  "tenantName": "Evolith UMS",
+  "role": "MESA_ACCESOS",
+  "roleName": "Mesa de Accesos",
+  "profileId": "<guid del perfil>",
+  "permissions": [
+    "VIEW_TENANTS:VIEW",
+    "MANAGE_TENANTS:MANAGE",
+    "VIEW_USERS:VIEW",
+    "MANAGE_USERS:MANAGE",
+    "VIEW_DELEGATIONS:VIEW",
+    "MANAGE_DELEGATIONS:MANAGE",
+    "VIEW_SUITES:VIEW",
+    "VIEW_TEMPLATES:VIEW",
+    "VIEW_PROFILES:VIEW",
+    "VIEW_ROLES:VIEW"
+  ],
+  "language": "es",
+  "token": "<jwt de grafo>",
+  "tokenType": "Bearer",
+  "expiresIn": 3600,
+  "refreshExpiresIn": 86400,
+  "isInternalAdmin": false,
+  "sessionParameters": {
+    "sessionTimeoutMinutes": 60,
+    "accessTokenDurationMs": 3600000,
+    "refreshTokenDurationMs": 86400000,
+    "maxLoginAttempts": 5,
+    "minPasswordLength": 12,
+    "mfaRequiredForAdmin": true,
+    "mfaAllowedMethods": [
+      "Totp"
+    ],
+    "customBrandingEnabled": false,
+    "defaultLanguage": "es",
+    "defaultTimezone": "America/Lima"
+  },
+  "authorizationGraph": {
+    "schemaVersion": "2.3.0",
+    "context": {
+      "user": {
+        "email": "mesa_accesos@evolith.example",
+        "username": "mesa_accesos",
+        "value": "Mesa de Accesos",
+        "status": "Active"
+      },
+      "tenant": {
+        "code": "EVOLITH",
+        "value": "Evolith UMS",
+        "status": "Active",
+        "isManagementOwner": false
+      },
+      "systemSuite": {
+        "code": "UMS",
+        "value": "Sistema de Gestion de Usuarios",
+        "status": "Active"
+      },
+      "role": {
+        "code": "MESA_ACCESOS",
+        "value": "Mesa de Accesos",
+        "hierarchyLevel": 0
+      },
+      "profile": {
+        "scope": "OrgWide",
+        "isActive": true
+      },
+      "branch": null
+    },
+    "onboardingPending": false,
+    "authentication": {
+      "method": "Local",
+      "provider": null,
+      "mfaRequired": false,
+      "issuedAt": "2026-08-01T09:00:00Z",
+      "sessionExpiresAt": "2026-08-01T10:00:00Z"
+    },
+    "actions": [
+      {
+        "code": "APPROVE",
+        "value": "Aprobar Operaciones"
+      },
+      {
+        "code": "CERTIFY",
+        "value": "Certificar por Seguridad"
+      },
+      {
+        "code": "CREATE",
+        "value": "Crear Registro"
+      },
+      {
+        "code": "DELETE",
+        "value": "Eliminar Registro"
+      },
+      {
+        "code": "EXECUTE",
+        "value": "Ejecutar Proceso"
+      },
+      {
+        "code": "MANAGE",
+        "value": "Gestionar Nucleo Logistico"
+      },
+      {
+        "code": "READ",
+        "value": "Leer Registro"
+      },
+      {
+        "code": "SEARCH",
+        "value": "Buscar Registros"
+      },
+      {
+        "code": "UPDATE",
+        "value": "Actualizar Registro"
+      },
+      {
+        "code": "VIEW",
+        "value": "Ver Nucleo Logistico"
+      }
+    ],
+    "menuAccess": [
+      {
+        "code": "IDM",
+        "value": "Identidad y Accesos",
+        "sortOrder": 1,
+        "status": "Active",
+        "icon": "shield-check",
+        "nodes": [
+          {
+            "code": "TENANTS",
+            "value": "Empresas",
+            "kind": "Menu",
+            "sortOrder": 1,
+            "icon": "building-2",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "TENANTS_LIST",
+                "value": "Lista de Empresas",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_TENANTS",
+                    "value": "Ver Empresas",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "MANAGE_TENANTS",
+                    "value": "Gestionar Empresas",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "MANAGE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "code": "USERS",
+            "value": "Usuarios",
+            "kind": "Menu",
+            "sortOrder": 2,
+            "icon": "users",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "USERS_LIST",
+                "value": "Lista de Usuarios",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_USERS",
+                    "value": "Ver Usuarios",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "MANAGE_USERS",
+                    "value": "Gestionar Usuarios",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "MANAGE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "code": "DELEGATIONS",
+            "value": "Delegaciones",
+            "kind": "Menu",
+            "sortOrder": 3,
+            "icon": "users",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "DELEGATIONS_LIST",
+                "value": "Lista de Delegaciones",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_DELEGATIONS",
+                    "value": "Ver Delegaciones",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "MANAGE_DELEGATIONS",
+                    "value": "Gestionar Delegaciones",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "MANAGE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "AUTH",
+        "value": "Autorizacion",
+        "sortOrder": 2,
+        "status": "Active",
+        "icon": "shield-check",
+        "nodes": [
+          {
+            "code": "SYSTEM_SUITES",
+            "value": "Sistemas",
+            "kind": "Menu",
+            "sortOrder": 1,
+            "icon": "cpu",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "SUITES_LIST",
+                "value": "Lista de Sistemas",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_SUITES",
+                    "value": "Ver Sistemas",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "code": "PERMISSION_TEMPLATES",
+            "value": "Plantillas de Permisos",
+            "kind": "Menu",
+            "sortOrder": 2,
+            "icon": "shield-check",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "TEMPLATES_LIST",
+                "value": "Lista de Plantillas",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_TEMPLATES",
+                    "value": "Ver Plantillas",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "code": "PROFILES",
+            "value": "Perfiles",
+            "kind": "Menu",
+            "sortOrder": 3,
+            "icon": "shield-check",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "PROFILES_LIST",
+                "value": "Lista de Perfiles",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_PROFILES",
+                    "value": "Ver Perfiles",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "code": "ROLES",
+            "value": "Roles",
+            "kind": "Menu",
+            "sortOrder": 4,
+            "icon": "user-cog",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "ROLES_LIST",
+                "value": "Catalogo de Roles",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_ROLES",
+                    "value": "Ver Roles",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "domainPermissions": [
+      {
+        "resourceType": "Aggregate",
+        "resourceCode": "USER",
+        "value": "Agregado de Usuario",
+        "actions": [
+          {
+            "actionCode": "APPROVE",
+            "value": "Aprobar Operaciones",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "CERTIFY",
+            "value": "Certificar por Seguridad",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "CREATE",
+            "value": "Crear Registro",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "DELETE",
+            "value": "Eliminar Registro",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "EXECUTE",
+            "value": "Ejecutar Proceso",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "MANAGE",
+            "value": "Gestionar Nucleo Logistico",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "READ",
+            "value": "Leer Registro",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "SEARCH",
+            "value": "Buscar Registros",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "UPDATE",
+            "value": "Actualizar Registro",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "VIEW",
+            "value": "Ver Nucleo Logistico",
+            "effect": "Allow",
+            "source": "Template"
+          }
+        ]
+      }
+    ],
+    "featureFlags": [
+      {
+        "flagCode": "SessionTimeout",
+        "isEnabled": false,
+        "matchedCriteriaType": null
+      },
+      {
+        "flagCode": "MaxRetries",
+        "isEnabled": false,
+        "matchedCriteriaType": null
+      }
+    ],
+    "effectiveConfig": {
+      "sessionTimeoutMinutes": 60,
+      "maxLoginAttempts": 5,
+      "minPasswordLength": 12,
+      "mfaRequiredForAdmin": true,
+      "mfaAllowedMethods": [
+        "Totp"
+      ],
+      "accessTokenDurationMs": 3600000,
+      "authUseExternalIdp": false
+    },
+    "settings": {},
+    "scopes": [
+      "manage_delegations.manage",
+      "manage_tenants.manage",
+      "manage_users.manage",
+      "user.approve",
+      "user.certify",
+      "user.create",
+      "user.delete",
+      "user.execute",
+      "user.manage",
+      "user.read",
+      "user.search",
+      "user.update",
+      "user.view",
+      "view_delegations.view",
+      "view_profiles.view",
+      "view_roles.view",
+      "view_suites.view",
+      "view_templates.view",
+      "view_tenants.view",
+      "view_users.view"
+    ],
+    "generatedAt": "2026-08-01T09:00:00Z",
+    "validUntil": "2026-08-01T10:00:00Z"
+  },
+  "graphFormat": "json",
+  "refreshToken": null
+}

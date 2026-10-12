@@ -1,0 +1,1108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ums.beyondnetcode.io/schemas/auth-graph/2.5.0",
+  "title": "AuthorizationGraph",
+  "description": "Forma canónica del grafo de autorización de UMS. Es UNA sola: la emiten por igual POST /api/v1/client/authenticate (sistemas satélite) y POST /api/v1/auth/login y sus variantes de refresco (frontend web, bajo la clave `authorizationGraph`). Ambos endpoints proyectan el grafo con el mismo mapeador, `AuthGraphPayload`. Ver ADR-UMS-088 (modelo), ADR-0073 y ADR-0074 (versionado). v2.0.0 (2026-08-01): el árbol de navegación pasa a ser RECURSIVO —`menuAccess[].nodes[].children[]`— porque la forma anterior, de tres niveles fijos, perdía en silencio los nodos que no encajaban en ella; y solo viajan los nodos y acciones ALCANZABLES: la ausencia significa no concedido. v2.1.0 (2026-08-01): bloque `settings` con los ajustes del sistema visibles para el cliente. v2.2.0 (2026-08-01): `icon` y `route` en los nodos de navegación. v2.3.0 (2026-08-01): `icon` también en el módulo, que era el único nivel de la navegación sin presentación propia. v2.4.0 (2026-08-02): `accessState` como discriminador cerrado del estado de acceso, `context.requestedSystem` como eco del sistema pedido, y `profiles[].id` pasa a estar siempre presente — sin él el cliente recibe una lista de perfiles y no tiene nada que enviar para cambiar a ninguno. Ver ADR-0156. v2.5.0 (2026-08-15): PROYECCIÓN OPCIONAL. `GET /api/v1/client/graph` acepta `?include=` con un vocabulario cerrado y devuelve solo los bloques pedidos; el eco de lo aplicado viaja en la clave nueva `projection`. Sin `?include=` no cambia NADA: la clave `projection` no se emite y el `required` clásico de las quince claves sigue vigente palabra por palabra (ver `allOf`). Un bloque no pedido se OMITE, jamás llega vacío: `domainPermissions: []` y «no lo pedí» son indistinguibles para todo consumidor, y en particular para el evaluador de deny-wins, que ante ambos concluye que no hay denegación alguna — permitir el array vacío como sustituto de la ausencia dejaría la atomicidad de `permissions` declarada y sin defensa. CERO regresión observable: la respuesta COMPLETA sigue declarando `schemaVersion: 2.4.0` y solo la PROYECTADA declara `2.5.0`. Sí puede un mismo servidor emitir dos versiones según la petición, y sí puede expresarlo un `const`: basta condicionarlo a la presencia de `projection`, que es lo que hacen las dos ramas del `allOf`. Se descartó subir la versión en todas las respuestas —y declararlo inocuo porque «los verificadores conocidos comparan RANGO»— por dos motivos: un satélite con ESTE fichero vendorizado en 2.4.0 valida contra su `const`, que compara por IGUALDAD, y habría rechazado todas las respuestas sin haber pedido jamás una proyección; y «los verificadores conocidos» no es una propiedad del contrato sino un censo, y los censos caducan.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "onboardingPending",
+    "accessState",
+    "context",
+    "authentication",
+    "generatedAt",
+    "validUntil"
+  ],
+  "allOf": [
+    {
+      "title": "Sin proyección, el contrato de siempre",
+      "description": "Si no se emitió `projection`, la respuesta es COMPLETA: trae las quince claves de primer nivel de 2.4.0, sin excepción, Y declara `schemaVersion: 2.4.0`. Las dos mitades importan igual. La segunda es la que garantiza que un satélite que nunca envía `?include=` no pueda observar NINGUNA diferencia —ni siquiera en el token de versión—, y por tanto que este mismo fichero, vendorizado en su versión 2.4.0, siga aceptando byte por byte lo que ya aceptaba.",
+      "if": {
+        "not": {
+          "required": [
+            "projection"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "schemaVersion": {
+            "const": "2.4.0"
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "onboardingPending",
+          "accessState",
+          "context",
+          "profiles",
+          "authentication",
+          "actions",
+          "menuAccess",
+          "domainPermissions",
+          "featureFlags",
+          "effectiveConfig",
+          "scopes",
+          "generatedAt",
+          "validUntil",
+          "settings"
+        ]
+      }
+    },
+    {
+      "title": "Con proyección, exactamente lo pedido y nada más",
+      "description": "Cada token del vocabulario obliga a que sus bloques ESTÉN, y su ausencia obliga a que NO estén. Las dos mitades importan: sin la segunda, un productor podría emitir un bloque vacío en vez de omitirlo y ningún consumidor podría notarlo. La atomicidad de `permissions` —scopes y domainPermissions siempre juntos— se expresa aquí, en un solo sitio; en la PETICIÓN la garantiza el parser, porque no existe token para pedir una sola de las dos. Aquí, y SOLO aquí, `schemaVersion` vale `2.5.0`: la respuesta proyectada sí tiene una forma nueva —le faltan bloques y trae `projection`— y quien la recibe la pidió.",
+      "if": {
+        "required": [
+          "projection"
+        ]
+      },
+      "then": {
+        "properties": {
+          "schemaVersion": {
+            "const": "2.5.0"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "projection": {
+                  "contains": {
+                    "const": "permissions"
+                  }
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "scopes",
+                "domainPermissions"
+              ]
+            },
+            "else": {
+              "not": {
+                "anyOf": [
+                  {
+                    "required": [
+                      "scopes"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "domainPermissions"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "projection": {
+                  "contains": {
+                    "const": "navigation"
+                  }
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "menuAccess",
+                "actions"
+              ]
+            },
+            "else": {
+              "not": {
+                "anyOf": [
+                  {
+                    "required": [
+                      "menuAccess"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "actions"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "projection": {
+                  "contains": {
+                    "const": "profiles"
+                  }
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "profiles"
+              ]
+            },
+            "else": {
+              "not": {
+                "required": [
+                  "profiles"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "projection": {
+                  "contains": {
+                    "const": "features"
+                  }
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "featureFlags"
+              ]
+            },
+            "else": {
+              "not": {
+                "required": [
+                  "featureFlags"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "projection": {
+                  "contains": {
+                    "const": "config"
+                  }
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "effectiveConfig"
+              ]
+            },
+            "else": {
+              "not": {
+                "required": [
+                  "effectiveConfig"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "projection": {
+                  "contains": {
+                    "const": "settings"
+                  }
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "settings"
+              ]
+            },
+            "else": {
+              "not": {
+                "required": [
+                  "settings"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "enum": [
+        "2.4.0",
+        "2.5.0"
+      ],
+      "description": "Semver del esquema del payload. Ver ADR-0074. DOS valores, no uno, y cuál toca no lo elige el servidor sino la FORMA de la respuesta: `2.4.0` cuando es COMPLETA —las quince claves de siempre, sin `projection`— y `2.5.0` cuando viene PROYECTADA. Las dos ramas del `allOf` lo fijan con un `const` cada una, así que para una respuesta concreta el valor sigue siendo único y comprobable por igualdad. La alternativa —subir el `const` a `2.5.0` en todas— se descartó porque rompía a quien tuviera este fichero vendorizado en su versión 2.4.0: su `const` compara por IGUALDAD y habría rechazado TODAS las respuestas sin haber pedido nunca una proyección. La versión sube cuando cambia lo que se emite, no cuando se despliega código nuevo."
+    },
+    "projection": {
+      "description": "v2.5.0 — eco de la proyección EFECTIVAMENTE aplicada. Presente si y solo si el llamante envió `?include=`; ausente en toda respuesta completa, que es lo que mantiene intacto el contrato anterior. Vocabulario cerrado y su correspondencia: `permissions` → scopes + domainPermissions (ATÓMICO: no existe token para pedir una sola de las dos, porque el evaluador las combina con deny-wins y la mitad de dominio ausente hace que una denegación explícita deje de existir en silencio); `navigation` → menuAccess + actions (actions es lo que da nombre legible a los actionCode del árbol); `profiles` → profiles; `features` → featureFlags; `config` → effectiveConfig; `settings` → settings. El SOBRE —schemaVersion, onboardingPending, accessState, context, authentication, generatedAt, validUntil— no es negociable y por eso no tiene token. Viaja DENTRO del grafo y no en una cabecera HTTP por dos hechos: `POST /client/authenticate` entrega el grafo como cadena serializada dentro de un sobre —una cabecera describiría el sobre y dejaría la cadena mintiendo sobre sí misma— y los satélites cachean el OBJETO grafo, no la respuesta, así que una marca en cabecera se perdería en el límite de su caché y toda lectura cacheada volvería a ser ambigua. Los tokens llegan deduplicados y en el orden canónico del vocabulario, para que dos peticiones equivalentes escritas al revés produzcan el mismo eco y pueda usarse como parte de una clave de caché.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "permissions",
+          "navigation",
+          "profiles",
+          "features",
+          "config",
+          "settings"
+        ]
+      }
+    },
+    "onboardingPending": {
+      "type": "boolean",
+      "description": "G-043: true cuando el usuario aún no tiene perfil/suite activos (grafo 'lobby' de onboarding). En ese caso `context.systemSuite`, `context.role` y `context.profile` son null y las colecciones llegan vacías. Siempre presente."
+    },
+    "accessState": {
+      "type": "string",
+      "enum": [
+        "Granted",
+        "NoProfileInSystem",
+        "OnboardingPending"
+      ],
+      "description": "v2.4.0 — estado de acceso. `Granted`: hay perfil vigente y el grafo lleva su navegación y sus permisos. `NoProfileInSystem`: el usuario TIENE perfiles pero ninguno en el sistema pedido —o el sistema pedido no existe, que es indistinguible por construcción—; `onboardingPending` es false porque la cuenta sí está dada de alta. `OnboardingPending`: no tiene NINGÚN perfil activo en el inquilino, y equivale a `onboardingPending: true`, que se conserva para los consumidores de 2.0–2.3. Los dos no pueden divergir: el productor los deriva de la misma entrada."
+    },
+    "context": {
+      "$ref": "#/$defs/PrincipalContext"
+    },
+    "authentication": {
+      "$ref": "#/$defs/AuthenticationMetadata"
+    },
+    "actions": {
+      "description": "Catálogo completo de acciones registradas en el sistema, ordenado por `code`.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Action"
+      }
+    },
+    "profiles": {
+      "description": "Perfiles activos del usuario en este inquilino, con el vigente marcado (`isCurrent`). Un perfil ata un usuario, un rol y —por el rol— un sistema, opcionalmente acotado a una sucursal. Permite al cliente ofrecer el cambio de perfil sin una llamada adicional. Vacía en el grafo lobby. Ordenada por nivel de jerarquía del rol, código de sistema y código de rol: el primero es el que el servidor habría elegido.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ProfileOption"
+      }
+    },
+    "menuAccess": {
+      "description": "Módulos con navegación alcanzable. Solo viaja lo CONCEDIDO o DENEGADO explícitamente: una hoja sin acciones resueltas se omite, una rama sin hojas se omite con ella, y un módulo sin nodos no aparece. La ausencia significa «no concedido» (fail-closed, G-039). El árbol es recursivo: recorre `children` hasta agotarlo, sin presuponer una profundidad.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/MenuModule"
+      }
+    },
+    "domainPermissions": {
+      "description": "Recursos de dominio con sus acciones resueltas. Igual que la navegación, solo viajan las acciones `Allow` o `Deny`: un recurso sin ninguna se omite. Fail-closed (G-039): la ausencia es denegación.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DomainResourcePermissions"
+      }
+    },
+    "featureFlags": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/FeatureFlagState"
+      }
+    },
+    "effectiveConfig": {
+      "$ref": "#/$defs/EffectiveConfig"
+    },
+    "scopes": {
+      "description": "Scopes estilo OAuth2 derivados de TODOS los efectos Allow (opciones y recursos de dominio), en minúsculas, deduplicados y ordenados alfabéticamente. Formato: `codigo.accion`.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9_]+\\.[a-z0-9_]+$"
+      }
+    },
+    "generatedAt": {
+      "$ref": "#/$defs/IsoTimestamp"
+    },
+    "validUntil": {
+      "$ref": "#/$defs/IsoTimestamp"
+    },
+    "settings": {
+      "description": "Ajustes del sistema visibles para el cliente, agrupados por espacio de nombres: branding, tema, disposición, idioma, parámetros funcionales… Permite inicializar la aplicación sin llamadas adicionales. La clave `ESPACIO_RESTO` del ajuste se proyecta como `settings.espacio.resto`, ambos en minúsculas: `BRAND_LOGO_URL` viaja como `settings.brand.logo_url`. Solo viaja lo marcado explícitamente como visible: `AppSetting` es una bolsa clave/valor donde también puede haber secretos (G-178). ESTE es el punto de extensión del contrato: añadir un espacio de nombres nuevo NO cambia la forma.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "Uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    },
+    "IsoTimestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "OptionalId": {
+      "description": "Identificador técnico. OPCIONAL y OMITIDO por defecto: solo aparece cuando el inquilino activa el parámetro AUTH_GRAPH_INCLUDE_TECHNICAL_METADATA (por defecto `false`). Se omite la clave entera; nunca llega como null. Un cliente no debe depender de él: la clave de negocio es `code`.",
+      "$ref": "#/$defs/Uuid"
+    },
+    "Status": {
+      "description": "Nombre del estado tal como lo expone el dominio. Enumeración abierta: pueden añadirse valores sin romper el contrato.",
+      "type": "string",
+      "minLength": 1
+    },
+    "PrincipalContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "user",
+        "tenant",
+        "systemSuite",
+        "role",
+        "profile",
+        "branch",
+        "requestedSystem"
+      ],
+      "properties": {
+        "user": {
+          "$ref": "#/$defs/UserSummary"
+        },
+        "tenant": {
+          "$ref": "#/$defs/TenantSummary"
+        },
+        "systemSuite": {
+          "description": "null en el grafo lobby (ver `onboardingPending`).",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/SystemSuiteSummary"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "role": {
+          "description": "null en el grafo lobby.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/RoleSummary"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "profile": {
+          "description": "null en el grafo lobby.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ProfileSummary"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "branch": {
+          "description": "null cuando el perfil es OrgWide.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/BranchSummary"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "requestedSystem": {
+          "description": "v2.4.0 — eco literal del sistema que el cliente pidió al autenticarse, ya normalizado, o null si no pidió ninguno (portal multiproducto). NO es una lectura del catálogo: devuelve la entrada del propio llamante, así que no revela nada que no supiera. Permite al cliente decir «no tiene acceso a X» sin llevar su configuración al navegador, y hace autodescriptivo un grafo capturado como evidencia.",
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "code"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9_-]+$"
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "UserSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "email",
+        "username",
+        "value",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/OptionalId"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "username": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": "string",
+          "description": "Nombre para mostrar."
+        },
+        "status": {
+          "$ref": "#/$defs/Status",
+          "examples": [
+            "Pending",
+            "Active",
+            "Blocked",
+            "Deleted",
+            "Denied"
+          ]
+        }
+      }
+    },
+    "TenantSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "value",
+        "status",
+        "isManagementOwner"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/OptionalId"
+        },
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z0-9_]+$"
+        },
+        "value": {
+          "type": "string",
+          "description": "Razón social o nombre del inquilino."
+        },
+        "status": {
+          "$ref": "#/$defs/Status",
+          "examples": [
+            "Active",
+            "Suspended",
+            "Archived"
+          ]
+        },
+        "isManagementOwner": {
+          "type": "boolean",
+          "description": "true solo para el inquilino operador de la plataforma (internal-admin)."
+        }
+      }
+    },
+    "SystemSuiteSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "value",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/OptionalId"
+        },
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z0-9_]+$"
+        },
+        "value": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/Status",
+          "examples": [
+            "Active",
+            "Maintenance",
+            "Deprecated"
+          ]
+        }
+      }
+    },
+    "RoleSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "value",
+        "hierarchyLevel"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/OptionalId"
+        },
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z0-9_]+$"
+        },
+        "value": {
+          "type": "string"
+        },
+        "hierarchyLevel": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "ProfileSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope",
+        "isActive"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/OptionalId"
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "OrgWide",
+            "BranchScoped"
+          ]
+        },
+        "isActive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "BranchSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "value"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/OptionalId"
+        },
+        "code": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "AuthenticationMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "provider",
+        "mfaRequired",
+        "issuedAt",
+        "sessionExpiresAt"
+      ],
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": [
+            "Local",
+            "IDP"
+          ]
+        },
+        "provider": {
+          "description": "null cuando `method` es Local.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IdpProviderRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mfaRequired": {
+          "type": "boolean"
+        },
+        "issuedAt": {
+          "$ref": "#/$defs/IsoTimestamp"
+        },
+        "sessionExpiresAt": {
+          "$ref": "#/$defs/IsoTimestamp"
+        }
+      }
+    },
+    "IdpProviderRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "name",
+        "value"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/OptionalId"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "description": "Estrategia del proveedor (AzureAd, Okta, GenericOidc…). Enumeración abierta."
+        }
+      }
+    },
+    "Action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "value"
+      ],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "description": "Nombre legible de la acción."
+        }
+      }
+    },
+    "AccessEffect": {
+      "type": "string",
+      "enum": [
+        "Allow",
+        "Deny",
+        "NotGranted"
+      ]
+    },
+    "PermissionSource": {
+      "type": "string",
+      "enum": [
+        "Template",
+        "Override"
+      ]
+    },
+    "ProfileOption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "system",
+        "role",
+        "branch",
+        "scope",
+        "isCurrent"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "v2.4.0 — SIEMPRE presente, a diferencia de los ids técnicos de módulos, nodos, recursos y banderas, que siguen sujetos a `AUTH_GRAPH_INCLUDE_TECHNICAL_METADATA`. Aquí el id no es decorativo: es la clave de `POST /client/switch-profile`, una operación que el propio grafo invita a ejecutar. Un selector semántico no serviría porque (TenantId, UserId, RoleId, BranchId) no es único."
+        },
+        "system": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "code",
+            "value"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "pattern": "^[A-Z0-9_]+$"
+            },
+            "value": {
+              "type": "string"
+            }
+          }
+        },
+        "role": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "code",
+            "value",
+            "hierarchyLevel"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "pattern": "^[A-Z0-9_]+$"
+            },
+            "value": {
+              "type": "string"
+            },
+            "hierarchyLevel": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "branch": {
+          "description": "null cuando el perfil es OrgWide.",
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "code",
+                "value"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "OrgWide",
+            "BranchScoped"
+          ]
+        },
+        "isCurrent": {
+          "type": "boolean",
+          "description": "Exactamente un elemento lleva true, salvo en el grafo lobby, donde la lista está vacía."
+        }
+      }
+    },
+    "MenuModule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "value",
+        "sortOrder",
+        "status",
+        "icon",
+        "nodes"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/OptionalId"
+        },
+        "code": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "sortOrder": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "status": {
+          "$ref": "#/$defs/Status",
+          "examples": [
+            "Active",
+            "Inactive"
+          ]
+        },
+        "icon": {
+          "description": "Identificador de icono del módulo, con el mismo criterio que el del nodo: no es un recurso, el catálogo gráfico lo resuelve el cliente. null si no se configuró.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/NavigationNode"
+          }
+        }
+      }
+    },
+    "DomainResourcePermissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resourceType",
+        "resourceCode",
+        "value",
+        "actions"
+      ],
+      "properties": {
+        "resourceId": {
+          "$ref": "#/$defs/OptionalId"
+        },
+        "resourceType": {
+          "type": "string",
+          "enum": [
+            "Aggregate",
+            "Entity",
+            "DomainMethod"
+          ]
+        },
+        "resourceCode": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "moduleId": {
+          "description": "Solo con metadatos técnicos activados; puede ser null si el recurso no cuelga de un módulo.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/Uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "parentResourceId": {
+          "description": "Solo con metadatos técnicos activados; null si el recurso es raíz.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/Uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DomainActionResolution"
+          }
+        }
+      }
+    },
+    "DomainActionResolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actionCode",
+        "value",
+        "effect",
+        "source"
+      ],
+      "properties": {
+        "actionCode": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "description": "Nombre legible de la acción."
+        },
+        "effect": {
+          "type": "string",
+          "enum": [
+            "Allow",
+            "Deny"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/PermissionSource"
+        }
+      }
+    },
+    "FeatureFlagState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "flagCode",
+        "isEnabled",
+        "matchedCriteriaType"
+      ],
+      "properties": {
+        "systemSuiteId": {
+          "$ref": "#/$defs/OptionalId"
+        },
+        "flagCode": {
+          "type": "string"
+        },
+        "isEnabled": {
+          "type": "boolean"
+        },
+        "matchedCriteriaType": {
+          "description": "Tipo de criterio que activó el flag; null cuando ningún criterio aplicó. Siempre presente.",
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "TenantId",
+                "BranchId",
+                "UserProfileId",
+                "RoleCode",
+                "Environment",
+                "DateRange",
+                "PercentageHash",
+                "CustomRule"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "EffectiveConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sessionTimeoutMinutes",
+        "maxLoginAttempts",
+        "minPasswordLength",
+        "mfaRequiredForAdmin",
+        "mfaAllowedMethods",
+        "accessTokenDurationMs",
+        "authUseExternalIdp"
+      ],
+      "properties": {
+        "sessionTimeoutMinutes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxLoginAttempts": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "minPasswordLength": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "mfaRequiredForAdmin": {
+          "type": "boolean"
+        },
+        "mfaAllowedMethods": {
+          "description": "Métodos MFA que el inquilino admite (Totp, Sms, Email…). Enumeración abierta.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "accessTokenDurationMs": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "authUseExternalIdp": {
+          "type": "boolean"
+        }
+      }
+    },
+    "NavigationNode": {
+      "description": "Nodo del árbol de navegación. `kind` clasifica su papel sin fijar su profundidad: una opción puede colgar de un menú, de un submenú o de otro nivel intermedio. `children` viaja siempre, aunque venga vacío.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "value",
+        "kind",
+        "sortOrder",
+        "icon",
+        "route",
+        "actions",
+        "children"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/OptionalId"
+        },
+        "code": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "Menu",
+            "SubMenu",
+            "Option"
+          ]
+        },
+        "sortOrder": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "icon": {
+          "description": "Identificador de icono, no un recurso: el catálogo gráfico lo elige el cliente. null si no se configuró.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "route": {
+          "description": "Ruta relativa a la que lleva el nodo. null en los nodos que solo agrupan. Sin ella el cliente sabe qué pintar pero no a dónde llevar.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "actions": {
+          "description": "Acciones resueltas sobre este nodo. Vacía en los nodos de agrupación.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/NodeAction"
+          }
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/NavigationNode"
+          }
+        }
+      }
+    },
+    "NodeAction": {
+      "description": "Una acción con su efecto resuelto. Solo `Allow` y `Deny`: `NotGranted` no viaja porque es lo que significa la ausencia. `Deny` sí viaja, porque una denegación explícita gana sobre cualquier concesión heredada y el cliente debe poder pintarla como bloqueada, no como inexistente.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actionCode",
+        "effect",
+        "source"
+      ],
+      "properties": {
+        "actionCode": {
+          "type": "string"
+        },
+        "effect": {
+          "type": "string",
+          "enum": [
+            "Allow",
+            "Deny"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/PermissionSource"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,407 @@
+# Default values for ums-helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# NO LO LEE NADIE. Viene del andamiaje de `helm create` y se conserva solo para no romper a quien
+# lo pase por `--set`. Las réplicas del backend se declaran en `backend.replicas` (G-169).
+replicaCount: 1
+
+# G-125: persistencia de PostgreSQL. Por defecto `emptyDir` (efímero) para dev local en kind —
+# el pod re-siembra al arrancar. Poner `enabled: true` para un PVC persistente (staging/prod-like,
+# los datos sobreviven al reinicio del pod). `storageClass` vacío usa el default del clúster
+# (p. ej. `local-path` en kind).
+postgres:
+  # ¿Despliega el chart un PostgreSQL propio? Con `backend.persistenceProvider: SqlServer` la
+  # respuesta es NO: el motor es un SQL Server EXTERNO y un Postgres al lado no lo consulta nadie.
+  #
+  # Nace apagado porque apagado es lo que corresponde al motor que este chart declara hoy. Quien
+  # vuelva a PostgreSql tiene que encenderlo aqui, y eso es deliberado: las dos decisiones —que
+  # motor y quien lo despliega— se toman juntas o se contradicen, que es exactamente lo que pasaba
+  # cuando esta clave no existia y el parrafo de abajo mandaba apagar una bandera imaginaria.
+  enabled: false
+  persistence:
+    enabled: false
+    size: 5Gi
+    storageClass: ""
+
+# Imágenes de UMS. El `tag` vacío cae al `appVersion` del Chart (p. ej. 0.1.0-pilot):
+# nunca `latest` (D-R2 / patrón P5 de TE-09 — un release es reproducible o no lo es).
+# `pullPolicy: Never` asume la imagen precargada en el nodo kind (`kind load`); con un
+# registro real, cámbiese a `IfNotPresent` y fíjese `repository` al registro.
+backend:
+  # G-127: entorno del backend. `Development` (default, dev local) expone DevAuth + endpoint Pact
+  # `/_pact/provider-states` + Swagger. Para el stage UAT (usuarios reales) usar el overlay
+  # `values-uat.yaml` (`environment: UAT`): mismos datos sembrados, SIN esos backdoors.
+  environment: Development
+
+  # ADR-UMS-102: motor relacional del backend — `SqlServer` o `PostgreSql`.
+  #
+  # `SqlServer` desde el 2026-08-25, y no es un cambio de default: es que el default DECIA otra
+  # cosa que la que se despliega. El clúster vivo llevaba `Persistence__Provider = SqlServer`
+  # parcheado fuera del chart, así que cualquier `helm upgrade` habría devuelto el despliegue a
+  # PostgreSQL sin que nadie lo pidiera. Un valores que no describe lo desplegado no es un default:
+  # es una trampa con fecha de activación.
+  #
+  # Con `SqlServer` hay que hacer DOS cosas más, y ninguna se deduce sola: dejar `postgres.enabled`
+  # en `false` (el chart no despliega SQL Server: se espera un servidor externo, y para producción
+  # tampoco vale una edición Express) y apuntar `ums-db-secret/CONNECTION_STRING` a ese servidor
+  # con una cadena de SQL Server. Dejar aquí `SqlServer` con la cadena de Postgres del secreto no
+  # arranca: el proveedor la rechaza al construir el contexto.
+  persistenceProvider: SqlServer
+
+  # Postura del aspecto de autorizacion: `Enforce` deniega sin el permiso, `AuditOnly` evalua y
+  # registra sin denegar. Cualquier valor distinto de `AuditOnly` aplica —el codigo solo reconoce
+  # ese literal—, asi que `Enforce` se escribe para que el manifiesto DIGA la postura en vez de
+  # dejarla al valor por omision de un binario.
+  #
+  # Estuvo vacio, y el vacio no era neutral (G-280): con `{{- with }}` no se emitia la variable, el
+  # render no llevaba ni una `Authorization__`, y lo desplegado aplicaba con el atajo encendido sin
+  # que ningun manifiesto lo dijera. Callar la postura de seguridad no es no decidirla: es
+  # decidirla donde nadie la lee.
+  #
+  # El stage que aun no ha concedido sus scopes se despliega con
+  # `--set backend.authorizationMode=AuditOnly`, se lee del registro que falta, se concede y se
+  # vuelve a `Enforce`.
+  authorizationMode: "Enforce"
+
+  # Atajo de Admin Root (ADR-0071, G-280): con `"true"` toda cuenta del inquilino propietario pasa
+  # los 182 manejadores guardados sin evaluar un solo scope; con `"false"` no pasa ninguno sin sus
+  # permisos.
+  #
+  # Nace APAGADO. El orden que esta ficha pedia —conceder, medir, apagar— ya se recorrio: el
+  # catalogo sembrado concede al administrador los 30 permisos que necesita, el carril B de la
+  # certificacion corre 92/92 con el atajo apagado y la suite de integracion, 372/0. Dejarlo
+  # encendido "por si acaso" es justamente lo que tapaba los cuatro invariantes de aislamiento
+  # entre inquilinos que el carril media.
+  #
+  # Una instancia cuyas cuentas operativas aun no tengan scopes se despliega con
+  # `--set backend.internalAdminBypass=true`, lee del registro que permisos concede el atajo —cada
+  # concesion se registra con su permiso y su cuenta— y lo apaga cuando esa lista este vacia.
+  internalAdminBypass: "false"
+
+  image:
+    repository: ums/backend
+    tag: ""
+    pullPolicy: Never
+
+  # G-169: las réplicas se declaran aquí, no se escriben a mano en el Deployment.
+  #
+  # Estaba fijado a `1` en la plantilla, y `replicaCount` de values.yaml no lo leía nadie: pedir
+  # dos pods exigía editar el manifiesto. Sigue en 1 por defecto —kind local no da para más— pero
+  # ahora es una decisión de despliegue y no una constante enterrada.
+  #
+  # Requisito para pasar de 1: el estado compartido debe ser DISTRIBUIDO. El arranque lo declara en
+  # el log; con `REDIS_CONNECTION` puesto (lo está) la sesión, la revocación de tokens y la
+  # idempotencia viven en Redis y no en la memoria del pod.
+  replicas: 1
+
+  # El límite y la reserva de cada pod. Sin `requests` el HPA no tiene contra qué calcular el
+  # porcentaje de CPU y no escala nunca; sin `limits` un pod con fuga se lleva por delante al nodo.
+  # Los valores son los de un UMS en kind bajo la suite E2E; en un clúster real se ajustan por
+  # overlay tras medir, no por corazonada.
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      cpu: "1"
+      memory: 1Gi
+
+  # Escalado automático. Apagado por defecto: encenderlo en kind, con un solo nodo, solo produce
+  # pods en Pending. `targetCPUUtilizationPercentage` se mide contra `resources.requests.cpu`.
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 6
+    targetCPUUtilizationPercentage: 70
+
+  # Presupuesto de interrupción: cuántos pods pueden caer a la vez durante un drenaje de nodo o una
+  # actualización del clúster. Sin esto, drenar un nodo puede llevarse TODAS las réplicas y dejar
+  # UMS sin servicio durante una operación rutinaria de mantenimiento.
+  #
+  # Apagado con una sola réplica a propósito: un PDB que exige un pod disponible sobre un total de
+  # uno BLOQUEA el drenaje del nodo para siempre. Se enciende junto con la segunda réplica.
+  podDisruptionBudget:
+    enabled: false
+    minAvailable: 1
+
+  # G-169: la migración y la siembra salen del arranque de cada réplica a un Job que corre UNA vez,
+  # antes de instalar o actualizar. Con una réplica no se nota; con dos, ambas arrancan a la vez
+  # contra la misma base, y aunque EF Core toma un bloqueo de aviso y no corrompe nada, la segunda
+  # espera a la primera y puede agotar su sonda de vivacidad antes de servir una petición.
+  #
+  # Con el Job encendido, las réplicas arrancan contra una base ya migrada y NO migran ni siembran.
+  migrationJob:
+    enabled: true
+    # Se conserva el Job terminado para poder leer su log cuando algo falla. `ttlSecondsAfterFinished`
+    # lo recoge solo, sin dejar basura acumulándose en el namespace.
+    ttlSecondsAfterFinished: 600
+    backoffLimit: 3
+    # Fuerza la re-siembra aunque el dataset ya exista. Apagado por defecto: encenderlo en cada
+    # despliegue devolveria el coste que la guarda de idempotencia evita.
+    #
+    # Existe porque sin el, el catalogo sembrado queda congelado en lo que hubiera el primer dia:
+    # anadir despues un sistema no lo hace llegar a ninguna base viva, y la unica salida era un
+    # `reset` que dropea el esquema —y con el lo que NO siembra el codigo, como el Tablero SDLC,
+    # que se carga por API—. Asi se quedo EVOLITH sin la suite UMS.
+    #
+    #   helm upgrade ... --set backend.migrationJob.forceReseed=true
+    forceReseed: false
+frontend:
+  image:
+    repository: ums/frontend
+    tag: ""
+    pullPolicy: IfNotPresent
+
+# This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+imagePullSecrets: []
+# This is to override the chart name.
+nameOverride: ""
+fullnameOverride: ""
+
+# This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
+serviceAccount:
+  # Specifies whether a service account should be created.
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account.
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template.
+  name: ""
+
+# This is for setting Kubernetes Annotations to a Pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+podAnnotations: {}
+# This is for setting Kubernetes Labels to a Pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+# This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
+service:
+  # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  type: ClusterIP
+  # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
+  port: 80
+
+# This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+    # - secretName: chart-example-tls
+    #   hosts:
+    #     - chart-example.local
+
+# -- Expose the service via gateway-api HTTPRoute
+# Requires Gateway API resources and suitable controller installed within the cluster
+# (see: https://gateway-api.sigs.k8s.io/guides/)
+httpRoute:
+  # HTTPRoute enabled.
+  enabled: false
+  # HTTPRoute annotations.
+  annotations: {}
+  # Which Gateways this Route is attached to.
+  parentRefs:
+  - name: gateway
+    sectionName: http
+    # namespace: default
+  # Hostnames matching HTTP header.
+  hostnames:
+  - chart-example.local
+  # List of rules and filters applied.
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /headers
+  #   filters:
+  #   - type: RequestHeaderModifier
+  #     requestHeaderModifier:
+  #       set:
+  #       - name: My-Overwrite-Header
+  #         value: this-is-the-only-value
+  #       remove:
+  #       - User-Agent
+  # - matches:
+  #   - path:
+  #       type: PathPrefix
+  #       value: /echo
+  #     headers:
+  #     - name: version
+  #       value: v2
+
+# NO LO LEE NADIE: andamiaje de `helm create`. Los recursos del backend van en
+# `backend.resources`, que sí se inyectan en el Deployment (G-169).
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+# This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+
+# NO LO LEE NADIE: andamiaje de `helm create`. El escalado del backend va en
+# `backend.autoscaling`, que sí genera un HPA (G-169).
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# Additional volumes on the output Deployment definition.
+volumes: []
+  # - name: foo
+  #   secret:
+  #     secretName: mysecret
+  #     optional: false
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts: []
+  # - name: foo
+  #   mountPath: "/etc/foo"
+  #   readOnly: true
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# ── Stack de observabilidad (ADR-0046 / ADR-0007) ──────────────────────────────
+# Colector OpenTelemetry + Loki (logs) + Tempo (trazas) + Prometheus (métricas) +
+# Grafana, desplegado en el mismo namespace. El backend exporta trazas/métricas por
+# OTLP al colector (Observability__Tracing__OtlpEndpoint) y los logs directamente a
+# Loki por el sink Serilog (Observability__Logging__LokiEndpoint).
+observability:
+  enabled: true
+  # Endpoints que consume el backend (ver templates/backend-deployment.yaml).
+  otlpEndpoint: http://otel-collector:4317
+  lokiEndpoint: http://loki:3100
+  images:
+    otelCollector: otel/opentelemetry-collector-contrib:0.109.0
+    loki: grafana/loki:3.1.1
+    tempo: grafana/tempo:2.6.0
+    prometheus: prom/prometheus:v2.54.1
+    alertmanager: prom/alertmanager:v0.27.0
+    grafana: grafana/grafana:11.2.2
+  # Alertmanager enruta las alertas de Prometheus. `webhookUrl` vacío → las alertas se
+  # agrupan/deduplican y son visibles en la UI de Alertmanager, pero NO se notifican
+  # hasta que el operador fije un webhook (Slack/Teams/genérico). Ver RB-05.
+  alertmanager:
+    webhookUrl: ""
+  grafana:
+    # Servido bajo /grafana/ detrás del nginx del frontend (mismo origen que la
+    # SPA), para que la barra de navegación enlace a la observabilidad de la
+    # zona de autorización. Debe terminar en /grafana/.
+    rootUrl: http://evolith-ums.local:8080/grafana/
+    # NodePort para exponer Grafana en el kind sin ingress adicional.
+    service:
+      type: NodePort
+      port: 3000
+      nodePort: 30300
+  resources:
+    requests:
+      cpu: 50m
+      memory: 96Mi
+    limits:
+      cpu: "1"
+      memory: 512Mi
+
+# ── Secretos del despliegue (G-019) ────────────────────────────────────────────
+# El chart plantilla ums-db-secret y ums-admin-secret (ver templates/secret.yaml)
+# para ser autocontenido: antes había que crearlos a mano con `kubectl create
+# secret`. Los defaults reproducen el entorno de desarrollo documentado
+# (postgres/postgres, admin root). En producción sobreescribe con --set / values
+# cifrado, o pon secrets.create=false para gestionarlos fuera del chart.
+secrets:
+  # ⚠️ CON `SqlServer` ESTOS VALORES NO SIRVEN, Y EL CHART LOS ESCRIBE IGUAL. `create: true` hace
+  # que cada `helm upgrade` REESCRIBA `ums-db-secret` desde `db.*` de aquí abajo, así que una
+  # cadena puesta a mano contra el servidor real dura hasta el siguiente despliegue —lo dice ya
+  # `templates/secret.yaml` (G-281)—. Y lo que se escribiría es `Server=ums-postgres,5432`, un
+  # destino que con `postgres.enabled: false` ni siquiera existe.
+  #
+  # El host y las credenciales del SQL Server NO se versionan (RB-07 §3). Las dos salidas:
+  #
+  #   · `--set secrets.db.host=… --set secrets.db.port=1433 --set secrets.db.username=… \
+  #      --set secrets.db.postgresPassword=…` en cada despliegue, o
+  #   · `secrets.create=false` y el secreto custodiado fuera del chart.
+  #
+  # No se decide aquí porque `create: false` deja también sin plantillar `ums-admin-secret` y
+  # `ums-jwt-secret`, y podarlos en un `upgrade` deja las réplicas sin credencial
+  # (`CreateContainerConfigError`, medido en G-282). Es una decisión de operación, no de default.
+  create: true
+  db:
+    postgresPassword: postgres
+    host: ums-postgres
+    port: 5432
+    database: ums
+    username: postgres
+  admin:
+    password: root
+  # Clave con la que UMS FIRMA sus tokens (HS256). No tiene valor por defecto a
+  # proposito: un default aqui seria una clave publica en el control de
+  # versiones, que es exactamente el defecto que G-203 documenta. Sin valor, el
+  # chart no plantilla `ums-jwt-secret` y el backend se niega a arrancar fuera de
+  # Development, diciendo por que.
+  #
+  #   helm upgrade ... --set secrets.jwt.secret="$(openssl rand -base64 48)"
+  #
+  # En produccion, gestionalo fuera del chart (secrets.create=false) o por
+  # `Secrets:Source=KeyVault` (ADR-0157).
+  jwt:
+    secret: ""
+    # Clave PRIVADA RSA en PEM con la que UMS firma en RS256 (ADR-0157).
+    #
+    # SIN ESTO, CADA REPLICA GENERA LA SUYA. El respaldo efimero de
+    # `MaterialDeFirma` esta pensado para desarrollo en UN proceso: con N
+    # replicas cada pod firma con una clave distinta y publica en su JWKS solo
+    # la propia, asi que un token emitido por una replica NO se puede verificar
+    # contra el JWKS que responde otra. Con dos replicas eso es la mitad de los
+    # tokens, de forma intermitente y sin ningun error que lo explique — medido
+    # el 2026-08-04 en kind: dos `kid` distintos alternandose en la misma ruta.
+    #
+    # Por eso no basta con que el arranque falle fuera de Development: el fallo
+    # aparece justo donde el respaldo parecia inofensivo. Generala asi:
+    #
+    #   helm upgrade ... --set-file secrets.jwt.privateKeyPem=<(openssl genrsa 2048)
+    #
+    # Nunca se versiona: igual que el secreto de arriba, no tiene valor por
+    # defecto para que no exista una clave publica en el control de versiones
+    # (G-203).
+    privateKeyPem: ""

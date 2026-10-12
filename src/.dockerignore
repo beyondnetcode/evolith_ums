@@ -1,0 +1,15 @@
+node_modules/
+dist/
+build/
+.git/
+.gitignore
+*.md
+.DS_Store
+**/bin/
+**/obj/
+*.user
+*.suo
+apps/ums.api/**/bin/
+apps/ums.api/**/obj/
+apps/ums.web-app/node_modules/
+apps/ums.web-app/dist/

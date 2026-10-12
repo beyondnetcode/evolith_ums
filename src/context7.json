@@ -1,0 +1,28 @@
+﻿{
+  "$schema": "https://context7.com/schema/context7.json",
+  "projectTitle": "User Management System (UMS) - Enterprise Monorepo",
+  "description": "Enterprise-grade User Management System implementing Clean Architecture (Hexagonal) and SOLID principles in .NET 8 LTS and React following the corporate spec-driven AI strategy BMAD-METHOD.",
+  "folders": [
+    "src/ums-workspace/docs",
+    "src/ums-workspace/apps"
+  ],
+  "excludeFolders": [
+    "**/node_modules",
+    "**/dist",
+    "**/bin",
+    "**/obj",
+    "**/.nx",
+    "**/coverage"
+  ],
+  "excludeFiles": [
+    "package-lock.json",
+    "LICENSE"
+  ],
+  "rules": [
+    "Always protect the Domain Kernel by keeping it free of framework, DB, or external NuGet dependencies (pure POCOs).",
+    "Ensure every architectural change aligns with approved ADRs (Architectural Decision Records) in docs/en/03-adrs.",
+    "Adhere strictly to explicit C# interfaces, MediatR command CQRS, and SonarJS static code thresholds.",
+    "Prefer the functional Result Pattern over throwing application exceptions for domain errors.",
+    "Consult the corporate authoritative tech stack prior to introducing new third-party packages."
+  ]
+}

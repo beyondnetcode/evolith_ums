@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "2.4.0",
+  "onboardingPending": false,
+  "accessState": "Granted",
+  "context": {
+    "user": {
+      "email": "deny.test@logistics-corp.example",
+      "username": "deny.test",
+      "value": "Deny Test User",
+      "status": "Active"
+    },
+    "tenant": {
+      "code": "LOGISTICS_CORE",
+      "value": "Logistics Corp",
+      "status": "Active",
+      "isManagementOwner": false
+    },
+    "systemSuite": {
+      "code": "WMS_SUITE",
+      "value": "Warehouse Management Suite",
+      "status": "Active"
+    },
+    "role": {
+      "code": "WAREHOUSE_SUPERVISOR",
+      "value": "Warehouse Supervisor",
+      "hierarchyLevel": 3
+    },
+    "profile": {
+      "scope": "OrgWide",
+      "isActive": true
+    },
+    "branch": null,
+    "requestedSystem": null
+  },
+  "profiles": [
+    {
+      "id": "da932ecd-7792-558a-aabc-c16c1fa40826",
+      "system": {
+        "code": "WMS_SUITE",
+        "value": "Warehouse Management Suite"
+      },
+      "role": {
+        "code": "WAREHOUSE_SUPERVISOR",
+        "value": "Warehouse Supervisor",
+        "hierarchyLevel": 3
+      },
+      "branch": null,
+      "scope": "OrgWide",
+      "isCurrent": true
+    }
+  ],
+  "authentication": {
+    "method": "Local",
+    "provider": null,
+    "mfaRequired": false,
+    "issuedAt": "2026-05-31T14:30:00Z",
+    "sessionExpiresAt": "2026-05-31T15:30:00Z"
+  },
+  "actions": [
+    {
+      "code": "DELETE",
+      "value": "Delete"
+    }
+  ],
+  "menuAccess": [
+    {
+      "code": "INVENTORY",
+      "value": "Inventory",
+      "sortOrder": 1,
+      "status": "Active",
+      "icon": "layout-grid",
+      "nodes": [
+        {
+          "code": "STOCK",
+          "value": "Stock Management",
+          "kind": "Menu",
+          "sortOrder": 1,
+          "actions": [],
+          "children": [
+            {
+              "code": "STOCK_OPS",
+              "value": "Operations",
+              "kind": "SubMenu",
+              "sortOrder": 1,
+              "actions": [],
+              "children": [
+                {
+                  "code": "STOCK_DELETE",
+                  "value": "Delete Stock Record",
+                  "kind": "Option",
+                  "sortOrder": 1,
+                  "actions": [
+                    {
+                      "actionCode": "DELETE",
+                      "effect": "Deny",
+                      "source": "Override"
+                    }
+                  ],
+                  "children": [],
+                  "icon": null,
+                  "route": null
+                }
+              ],
+              "icon": null,
+              "route": null
+            }
+          ],
+          "icon": null,
+          "route": null
+        }
+      ]
+    }
+  ],
+  "domainPermissions": [
+    {
+      "resourceType": "Aggregate",
+      "resourceCode": "PURCHASE_ORDER",
+      "value": "Purchase Order",
+      "actions": [
+        {
+          "actionCode": "DELETE",
+          "value": "Delete",
+          "effect": "Deny",
+          "source": "Override"
+        }
+      ]
+    }
+  ],
+  "featureFlags": [],
+  "effectiveConfig": {
+    "sessionTimeoutMinutes": 60,
+    "maxLoginAttempts": 5,
+    "minPasswordLength": 12,
+    "mfaRequiredForAdmin": true,
+    "mfaAllowedMethods": [
+      "Totp"
+    ],
+    "accessTokenDurationMs": 3600000,
+    "authUseExternalIdp": false
+  },
+  "settings": {},
+  "scopes": [],
+  "generatedAt": "2026-05-31T14:30:00Z",
+  "validUntil": "2026-05-31T15:30:00Z"
+}

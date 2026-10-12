@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "2.4.0",
+  "onboardingPending": false,
+  "accessState": "Granted",
+  "context": {
+    "user": {
+      "email": "expired.session@logistics-corp.example",
+      "username": "expired.session",
+      "value": "Expired Session User",
+      "status": "Active"
+    },
+    "tenant": {
+      "code": "LOGISTICS_CORE",
+      "value": "Logistics Corp",
+      "status": "Active",
+      "isManagementOwner": false
+    },
+    "systemSuite": {
+      "code": "WMS_SUITE",
+      "value": "Warehouse Management Suite",
+      "status": "Active"
+    },
+    "role": {
+      "code": "WAREHOUSE_SUPERVISOR",
+      "value": "Warehouse Supervisor",
+      "hierarchyLevel": 3
+    },
+    "profile": {
+      "scope": "OrgWide",
+      "isActive": true
+    },
+    "branch": null,
+    "requestedSystem": null
+  },
+  "profiles": [
+    {
+      "id": "fd5c97ed-1170-5888-acbb-aa1ed0668e0d",
+      "system": {
+        "code": "WMS_SUITE",
+        "value": "Warehouse Management Suite"
+      },
+      "role": {
+        "code": "WAREHOUSE_SUPERVISOR",
+        "value": "Warehouse Supervisor",
+        "hierarchyLevel": 3
+      },
+      "branch": null,
+      "scope": "OrgWide",
+      "isCurrent": true
+    }
+  ],
+  "authentication": {
+    "method": "Local",
+    "provider": null,
+    "mfaRequired": false,
+    "issuedAt": "2020-01-01T00:00:00Z",
+    "sessionExpiresAt": "2020-01-01T01:00:00Z"
+  },
+  "actions": [],
+  "menuAccess": [],
+  "domainPermissions": [],
+  "featureFlags": [],
+  "effectiveConfig": {
+    "sessionTimeoutMinutes": 60,
+    "maxLoginAttempts": 5,
+    "minPasswordLength": 12,
+    "mfaRequiredForAdmin": true,
+    "mfaAllowedMethods": [
+      "Totp"
+    ],
+    "accessTokenDurationMs": 3600000,
+    "authUseExternalIdp": false
+  },
+  "settings": {},
+  "scopes": [
+    "purchase_order.view"
+  ],
+  "generatedAt": "2020-01-01T00:00:00Z",
+  "validUntil": "2020-01-01T01:00:00Z"
+}

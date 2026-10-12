@@ -1,0 +1,37 @@
+{
+  "name": "@evolith-ums/ums-sdk-contracts",
+  "version": "1.0.0",
+  "description": "UMS SDK — Typed contracts for the AuthorizationGraph payload, error code constants and schema version metadata. See ADR-0073 and ADR-0074.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
+  "umsSchemaCompatibility": ">=1.0.0 <2.0.0",
+  "keywords": [
+    "ums",
+    "sdk",
+    "authorization",
+    "contracts"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beyondnetcode/ums"
+  }
+}

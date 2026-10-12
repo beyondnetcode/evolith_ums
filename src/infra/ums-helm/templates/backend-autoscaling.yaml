@@ -1,0 +1,48 @@
+{{- if .Values.backend.autoscaling.enabled }}
+# G-169 — escalado automático del backend.
+#
+# Se calcula contra `backend.resources.requests.cpu`: sin `requests` declarado, el HPA no tiene
+# denominador, reporta `<unknown>` y NO escala nunca. Por eso los recursos y esto van juntos.
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: ums-backend
+  labels:
+    app: ums-backend
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ums-backend
+  minReplicas: {{ .Values.backend.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.backend.autoscaling.maxReplicas }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.backend.autoscaling.targetCPUUtilizationPercentage }}
+{{- end }}
+---
+{{- if .Values.backend.podDisruptionBudget.enabled }}
+# G-169 — presupuesto de interrupción.
+#
+# Limita cuántos pods pueden caer a la vez en una operación VOLUNTARIA: drenar un nodo, actualizar
+# el clúster. Sin esto, drenar un nodo puede llevarse todas las réplicas y dejar UMS sin servicio
+# durante una tarea rutinaria de mantenimiento.
+#
+# No protege de caídas involuntarias —un nodo que se muere no consulta a nadie—: para eso está
+# tener más de una réplica, que es lo que este mismo cambio habilita.
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: ums-backend
+  labels:
+    app: ums-backend
+spec:
+  minAvailable: {{ .Values.backend.podDisruptionBudget.minAvailable }}
+  selector:
+    matchLabels:
+      app: ums-backend
+{{- end }}

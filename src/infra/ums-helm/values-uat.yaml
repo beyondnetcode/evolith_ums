@@ -1,0 +1,64 @@
+# values-uat.yaml — overlay del stage UAT de UMS (G-127).
+#
+# Uso:
+#   helm upgrade --install ums-uat ./src/infra/ums-helm \
+#     -n ums-uat --create-namespace \
+#     -f ./src/infra/ums-helm/values.yaml \
+#     -f ./src/infra/ums-helm/values-uat.yaml
+#
+# Diferencia clave con el dev local (values.yaml):
+#  - environment: UAT → el backend arranca en ASPNETCORE_ENVIRONMENT=UAT, de modo que
+#    los backdoors de Development quedan APAGADOS (DevAuth, endpoint Pact
+#    `/_pact/provider-states`, Swagger). Los datos SÍ se siembran: el dataset FS-25 se
+#    gobierna por Persistence__SeedDevData (desacoplado del entorno, G-127), que el
+#    backend-deployment ya inyecta en "true".
+#  - persistence.enabled: true → PostgreSQL con PVC: la data sembrada + la que generen los
+#    usuarios reales SOBREVIVE al reinicio del pod. El re-seed no ocurre en cada arranque
+#    (guarda de idempotencia por tenant ancla); volver a un estado limpio es EXPLÍCITO
+#    (ver runbook: `scripts/uat-env.sh reset`).
+
+backend:
+  environment: UAT
+
+postgres:
+  persistence:
+    enabled: true
+    size: 5Gi
+    storageClass: ""
+
+# Observabilidad DESACTIVADA en este overlay para que el stage UAT pueda coexistir con el
+# despliegue dev (`ums`) en el MISMO kind de un solo nodo: el NodePort de Grafana (30300) es un
+# recurso de nodo único y colisionaría. En un clúster UAT dedicado (o con dev apagado) puede
+# reactivarse (`--set observability.enabled=true`). No está en el camino crítico del stage UAT
+# (login + datos).
+observability:
+  enabled: false
+
+# Ingress PROPIO, con su propio host (G-214).
+#
+# La redacción anterior de este archivo agrupaba el host de Ingress con el NodePort de Grafana
+# como «recursos de nodo únicos que colisionarían», y de ahí que este stage se quedara sin
+# Ingress: solo alcanzable por `port-forward`, es decir, no alcanzable para un usuario persona,
+# que es justo lo que un stage UAT existe para permitir. Verificado el 2026-08-02: el namespace
+# corría 4/4 y no tenía ningún Ingress.
+#
+# La agrupación era incorrecta. Un NodePort SÍ es único por nodo —dos Services no pueden pedir el
+# 30300—, pero un host de Ingress no: nginx enruta por `Host`, y dos Ingress con hosts DISTINTOS
+# conviven en el mismo controlador sin estorbarse. Lo que colisiona es repetir el MISMO host, y
+# eso se evita dándole el suyo.
+#
+# Para llegar desde el navegador hace falta que el host resuelva, igual que `evolith-ums.local`:
+#
+#   echo '127.0.0.1 evolith-ums-uat.local' | sudo tee -a /etc/hosts
+#
+# Sin esa línea el stage sigue siendo alcanzable con `curl -H 'Host: evolith-ums-uat.local'`, que
+# es como lo comprueba `uat-env.sh smoke`: la prueba no depende de una edición manual del host.
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: evolith-ums-uat.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []

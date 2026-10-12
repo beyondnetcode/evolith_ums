@@ -1,0 +1,423 @@
+{
+  "specVersion": "1.0.0",
+  "_comentario": "Configuracion del propio UMS como sistema del inquilino EVOLITH. TRANSCRIPCION LITERAL de AuthorizationDevDataSeeder.BuildGenericSystemSuites (lineas ~984-1082) y los tres roles de gobierno de BuildEvolithRoles (~636-638). Se replica, NO se mejora: el criterio de correccion es que `cargar-en-ums.mjs --dry-run` contra una base sembrada reporte CERO creaciones. Cualquier mejora de permisos va DESPUES, ya sobre esta spec, para no perder ese instrumento de medida. Sin bloque sampleUsers: UMS se provisiona en entornos reales y no quiere cuentas sinteticas.",
+  "tenant": {
+    "code": "EVOLITH",
+    "_comentarioSucursales": "Identicas a las de sdlc-suite.json a proposito: son las sucursales del INQUILINO, no de un sistema, y las dos specs configuran el mismo inquilino EVOLITH. El cargador las resuelve por codigo, asi que la segunda carga las encuentra puestas y no crea nada.",
+    "branches": [
+      { "code": "UNI_CALLAO", "name": "Operaciones Callao" },
+      { "code": "UNI_PAITA", "name": "Sucursal Paita" }
+    ]
+  },
+  "suite": {
+    "code": "UMS",
+    "name": "Sistema de Gestion de Usuarios",
+    "description": "Funcionalidad principal del UMS",
+    "status": "Active"
+  },
+  "profiles": [
+    {
+      "_comentario": "Liga el perfil de gobierno a una cuenta que YA existe. El correo llega por variable de entorno y no escrito aqui: quien administra UMS es dato del entorno, no del contrato del sistema. Es lo que permite que el paso 10 tenga a quien asignarle la plantilla en un arranque en frio. SE CONSERVA junto al padron: sin el, una instancia nueva cuyo padron todavia no exista se queda sin un solo ADMIN_UMS al que asignarle la plantilla. Si la variable apunta a alguien que ya esta en el padron, el alta duplicada se resuelve como «ya existia» y no estorba.",
+      "userEmailEnv": "UMS_BOOTSTRAP_EMAIL",
+      "role": "ADMIN_UMS"
+    },
+    { "tenant": "EVOLITH", "userEmail": "aarroyo@evolith.example", "role": "ADMIN_UMS", "branches": ["UNI_CALLAO", "UNI_PAITA"] }
+  ],
+  "_comentarioPadronRetirado": "LOS OTROS CINCO SE RETIRARON EL 2026-08-17, y no por politica de privilegio sino porque les QUITABA EL TABLERO. Un usuario con perfiles en dos suites no puede elegir con cual entra: el login resuelve UNO por desempate --jerarquia del rol, luego codigo de suite-- y construye el grafo de esa suite. Con ADMIN_UMS ganando a JEFE o DESARROLLADOR, el Tablero recibia el grafo de UMS, se quedaba sin menu y caia en su vista por defecto. Medido en vivo: cvillanueva, mhernandez, lromero, cjara y avaldez entraban y solo veian la lista de satelites. La causa de fondo es G-204 --el login no admite el sistema solicitado-- y su sintoma ya estaba descrito en G-184. Mientras eso no se cierre, dar un perfil en una segunda suite a quien trabaja en la primera es quitarle la primera. Volver a anadirlos exige antes que el Tablero use POST /client/switch-profile, que ya existe y para el que el grafo ya entrega el id de cada perfil.",
+  "actions": [
+    { "code": "VIEW", "name": "Ver Nucleo Logistico" },
+    { "code": "MANAGE", "name": "Gestionar Nucleo Logistico" },
+    { "code": "APPROVE", "name": "Aprobar Operaciones" },
+    { "code": "CREATE", "name": "Crear Registro" },
+    { "code": "READ", "name": "Leer Registro" },
+    { "code": "UPDATE", "name": "Actualizar Registro" },
+    { "code": "DELETE", "name": "Eliminar Registro" },
+    { "code": "SEARCH", "name": "Buscar Registros" },
+    { "code": "EXECUTE", "name": "Ejecutar Proceso" },
+    { "code": "CERTIFY", "name": "Certificar por Seguridad" }
+  ],
+  "appSettings": [
+    { "key": "SessionTimeout", "value": "30", "scope": "Global" },
+    { "key": "MaxRetries", "value": "5", "scope": "Global" }
+  ],
+  "modules": [
+    {
+      "code": "IDM",
+      "name": "Identidad y Accesos",
+      "description": "Gestion de empresas, usuarios y delegaciones",
+      "sortOrder": 1,
+      "icon": "shield-check",
+      "_comentario": "La RUTA va en el nodo Menu, no en las opciones. Con ruta real en el menu, las opciones son PERMISOS sobre esa pantalla y no destinos distintos: darles ruta propia llenaria la barra lateral de enlaces rotos. Mismo criterio que SeedNavMenu.",
+      "menus": [
+        {
+          "code": "TENANTS",
+          "name": "Empresas",
+          "sortOrder": 1,
+          "icon": "building-2",
+          "route": "/tenants",
+          "submenus": [
+            {
+              "code": "TENANTS_LIST",
+              "name": "Lista de Empresas",
+              "sortOrder": 1,
+              "options": [
+                { "code": "VIEW_TENANTS", "name": "Ver Empresas", "sortOrder": 1, "actions": ["VIEW"] },
+                { "code": "MANAGE_TENANTS", "name": "Gestionar Empresas", "sortOrder": 2, "actions": ["MANAGE"] }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "USERS",
+          "name": "Usuarios",
+          "sortOrder": 2,
+          "icon": "users",
+          "route": "/users",
+          "submenus": [
+            {
+              "code": "USERS_LIST",
+              "name": "Lista de Usuarios",
+              "sortOrder": 1,
+              "options": [
+                { "code": "VIEW_USERS", "name": "Ver Usuarios", "sortOrder": 1, "actions": ["VIEW"] },
+                { "code": "MANAGE_USERS", "name": "Gestionar Usuarios", "sortOrder": 2, "actions": ["MANAGE"] }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "DELEGATIONS",
+          "name": "Delegaciones",
+          "sortOrder": 3,
+          "icon": "users",
+          "route": "/delegations",
+          "submenus": [
+            {
+              "code": "DELEGATIONS_LIST",
+              "name": "Lista de Delegaciones",
+              "sortOrder": 1,
+              "options": [
+                { "code": "VIEW_DELEGATIONS", "name": "Ver Delegaciones", "sortOrder": 1, "actions": ["VIEW"] },
+                { "code": "MANAGE_DELEGATIONS", "name": "Gestionar Delegaciones", "sortOrder": 2, "actions": ["MANAGE"] }
+              ]
+            }
+          ]
+        }
+      ],
+      "_comentarioDominio": "UN SOLO objeto de dominio, y a proposito. El dominio se declara A DEMANDA: solo entra el que tenga codigo que lo consulte. USER se conserva como ejemplo ejercitable --mantiene vivo el mecanismo y las pruebas que lo recorren-- igual que SDLC conserva PRD. Los otros ocho (TENANT, DELEGATION, SYSTEM_SUITE, PERMISSION_TEMPLATE, PROFILE, FEATURE_FLAG, APP_CONFIG, PARAMETER) se RETIRAN de la declaracion, no se borran de UMS: dejar de concederlos no destruye el rastro de quien los tuvo. Enumerarlos costaba 90 de los 120 scopes de ADMIN_UMS sin conceder nada evaluable, y es lo que ya rompio el login de ADMIN_SDLC en SDLC.",
+      "domainResources": [
+        { "type": "Aggregate", "code": "USER", "name": "Agregado de Usuario", "description": "Raiz del agregado de usuario. Unico objeto de dominio declarado: ejemplo ejercitable del mecanismo" }
+      ]
+    },
+    {
+      "code": "AUTH",
+      "name": "Autorizacion",
+      "description": "Perfiles, plantillas y sistemas",
+      "sortOrder": 2,
+      "icon": "shield-check",
+      "menus": [
+        {
+          "code": "SYSTEM_SUITES",
+          "name": "Sistemas",
+          "sortOrder": 1,
+          "icon": "cpu",
+          "route": "/system-suites",
+          "submenus": [
+            {
+              "code": "SUITES_LIST",
+              "name": "Lista de Sistemas",
+              "sortOrder": 1,
+              "options": [
+                { "code": "VIEW_SUITES", "name": "Ver Sistemas", "sortOrder": 1, "actions": ["VIEW"] },
+                { "code": "MANAGE_SUITES", "name": "Gestionar Sistemas", "sortOrder": 2, "actions": ["MANAGE"] }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "PERMISSION_TEMPLATES",
+          "name": "Plantillas de Permisos",
+          "sortOrder": 2,
+          "icon": "shield-check",
+          "route": "/permission-templates",
+          "submenus": [
+            {
+              "code": "TEMPLATES_LIST",
+              "name": "Lista de Plantillas",
+              "sortOrder": 1,
+              "options": [
+                { "code": "VIEW_TEMPLATES", "name": "Ver Plantillas", "sortOrder": 1, "actions": ["VIEW"] },
+                { "code": "MANAGE_TEMPLATES", "name": "Gestionar Plantillas", "sortOrder": 2, "actions": ["MANAGE"] }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "PROFILES",
+          "name": "Perfiles",
+          "sortOrder": 3,
+          "icon": "shield-check",
+          "route": "/profiles",
+          "submenus": [
+            {
+              "code": "PROFILES_LIST",
+              "name": "Lista de Perfiles",
+              "sortOrder": 1,
+              "options": [
+                { "code": "VIEW_PROFILES", "name": "Ver Perfiles", "sortOrder": 1, "actions": ["VIEW"] },
+                { "code": "MANAGE_PROFILES", "name": "Gestionar Perfiles", "sortOrder": 2, "actions": ["MANAGE"] }
+              ]
+            }
+          ]
+        }
+,
+        {
+          "code": "ROLES",
+          "name": "Roles",
+          "_comentarioNavegable": "El modulo AUTH si navega, pero este menu no tiene pantalla todavia. El marcador va al nivel del MENU y no del modulo, porque la granularidad de la navegacion es el menu: un modulo puede tener destinos reales y uno pendiente.",
+          "navegable": false,
+          "sortOrder": 4,
+          "icon": "user-cog",
+          "route": "/roles",
+          "submenus": [
+            {
+              "code": "ROLES_LIST",
+              "name": "Catalogo de Roles",
+              "sortOrder": 1,
+              "options": [
+                { "code": "VIEW_ROLES", "name": "Ver Roles", "sortOrder": 1, "actions": ["VIEW"] },
+                { "code": "MANAGE_ROLES", "name": "Gestionar Roles y Reglas de Asignacion", "sortOrder": 2, "actions": ["MANAGE"] }
+              ]
+            }
+          ]
+        }
+      ],
+      "domainResources": []
+    },
+    {
+      "code": "SYS",
+      "name": "Configuracion del Sistema",
+      "description": "Propiedades globales, ajustes y banderas",
+      "sortOrder": 3,
+      "icon": "settings",
+      "menus": [
+        {
+          "code": "FEATURE_FLAGS",
+          "name": "Banderas de Funcion",
+          "sortOrder": 1,
+          "icon": "settings",
+          "route": "/feature-flags",
+          "submenus": [
+            {
+              "code": "FLAGS_LIST",
+              "name": "Lista de Banderas",
+              "sortOrder": 1,
+              "options": [
+                { "code": "VIEW_FLAGS", "name": "Ver Banderas", "sortOrder": 1, "actions": ["VIEW"] },
+                { "code": "MANAGE_FLAGS", "name": "Gestionar Banderas", "sortOrder": 2, "actions": ["MANAGE"] }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "APP_CONFIG",
+          "name": "Configuraciones",
+          "sortOrder": 2,
+          "icon": "settings",
+          "route": "/app-configurations",
+          "submenus": [
+            {
+              "code": "CONFIG_LIST",
+              "name": "Lista de Configuraciones",
+              "sortOrder": 1,
+              "options": [
+                { "code": "VIEW_CONFIG", "name": "Ver Configuraciones", "sortOrder": 1, "actions": ["VIEW"] },
+                { "code": "MANAGE_CONFIG", "name": "Gestionar Configuraciones", "sortOrder": 2, "actions": ["MANAGE"] }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "PARAM_CATALOG",
+          "name": "Catalogo de Parametros",
+          "sortOrder": 3,
+          "icon": "settings",
+          "route": "/parameter-catalog",
+          "submenus": [
+            {
+              "code": "PARAM_LIST",
+              "name": "Lista de Parametros",
+              "sortOrder": 1,
+              "options": [
+                { "code": "VIEW_PARAMS", "name": "Ver Parametros", "sortOrder": 1, "actions": ["VIEW"] },
+                { "code": "MANAGE_PARAMS", "name": "Gestionar Parametros", "sortOrder": 2, "actions": ["MANAGE"] }
+              ]
+            }
+          ]
+        }
+      ],
+      "domainResources": []
+    },
+    {
+      "code": "APR",
+      "_comentarioNavegable": "SIN PANTALLA TODAVIA. Sus permisos existen y se conceden --los handlers de la API los exigen-- pero la aplicacion web no tiene destino para ellos. Declararlo aqui evita el unico desenlace peor: un menu que no lleva a ninguna parte. Cuando exista la pantalla, se quita este marcador y se declara la ruta. Mismo criterio que rutasNoNavegables en la spec de SDLC.",
+      "navegable": false,
+      "name": "Aprobaciones",
+      "description": "Solicitudes, documentos y las reglas que gobiernan el flujo",
+      "sortOrder": 4,
+      "icon": "clipboard-check",
+      "menus": [
+        {
+          "code": "APPROVALS",
+          "name": "Solicitudes y Documentos",
+          "sortOrder": 1,
+          "icon": "inbox",
+          "route": "/approvals",
+          "submenus": [
+            {
+              "code": "APPROVALS_LIST",
+              "name": "Bandeja de Aprobaciones",
+              "sortOrder": 1,
+              "options": [
+                { "code": "VIEW_APPROVALS", "name": "Ver Solicitudes y Documentos", "sortOrder": 1, "actions": ["VIEW"] },
+                { "code": "MANAGE_APPROVALS", "name": "Operar el Flujo de Aprobacion", "sortOrder": 2, "actions": ["MANAGE"] }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "APPROVAL_RULES",
+          "name": "Reglas de Aprobacion",
+          "sortOrder": 2,
+          "icon": "sliders",
+          "route": "/approval-rules",
+          "submenus": [
+            {
+              "code": "APPROVAL_RULES_LIST",
+              "name": "Tipos, Flujos, Notificaciones y Politicas",
+              "sortOrder": 1,
+              "options": [
+                { "code": "VIEW_APPROVAL_RULES", "name": "Ver Reglas de Aprobacion", "sortOrder": 1, "actions": ["VIEW"] },
+                { "code": "MANAGE_APPROVAL_RULES", "name": "Definir Reglas de Aprobacion", "sortOrder": 2, "actions": ["MANAGE"] }
+              ]
+            }
+          ]
+        }
+      ],
+      "domainResources": []
+    },
+    {
+      "code": "IGA",
+      "_comentarioNavegable": "SIN PANTALLA TODAVIA. Sus permisos existen y se conceden --los handlers de la API los exigen-- pero la aplicacion web no tiene destino para ellos. Declararlo aqui evita el unico desenlace peor: un menu que no lleva a ninguna parte. Cuando exista la pantalla, se quita este marcador y se declara la ruta. Mismo criterio que rutasNoNavegables en la spec de SDLC.",
+      "navegable": false,
+      "name": "Gobierno de Identidades",
+      "description": "Promocion de roles con separacion de funciones",
+      "sortOrder": 5,
+      "icon": "trending-up",
+      "menus": [
+        {
+          "code": "ROLE_PROMOTIONS",
+          "name": "Promociones de Rol",
+          "sortOrder": 1,
+          "icon": "award",
+          "route": "/role-promotions",
+          "submenus": [
+            {
+              "code": "ROLE_PROMOTIONS_LIST",
+              "name": "Solicitudes de Promocion",
+              "sortOrder": 1,
+              "options": [
+                { "code": "VIEW_ROLE_PROMOTIONS", "name": "Ver Promociones y Madurez de Rol", "sortOrder": 1, "actions": ["VIEW"] },
+                { "code": "MANAGE_ROLE_PROMOTIONS", "name": "Solicitar, Enviar y Cancelar", "sortOrder": 2, "actions": ["MANAGE"] },
+                { "code": "APPROVE_ROLE_PROMOTIONS", "name": "Aprobar como Jefe", "sortOrder": 3, "actions": ["APPROVE"] },
+                { "code": "CERTIFY_ROLE_PROMOTIONS", "name": "Certificar como Seguridad", "sortOrder": 4, "actions": ["CERTIFY"] },
+                { "code": "EXECUTE_ROLE_PROMOTIONS", "name": "Ejecutar la Promocion Aprobada", "sortOrder": 5, "actions": ["EXECUTE"] }
+              ]
+            }
+          ]
+        }
+      ],
+      "domainResources": []
+    },
+    {
+      "code": "AUD",
+      "_comentarioNavegable": "SIN PANTALLA TODAVIA. Sus permisos existen y se conceden --los handlers de la API los exigen-- pero la aplicacion web no tiene destino para ellos. Declararlo aqui evita el unico desenlace peor: un menu que no lleva a ninguna parte. Cuando exista la pantalla, se quita este marcador y se declara la ruta. Mismo criterio que rutasNoNavegables en la spec de SDLC.",
+      "navegable": false,
+      "name": "Auditoria",
+      "description": "Consulta del rastro de auditoria. SIN verbo de escritura a proposito",
+      "sortOrder": 6,
+      "icon": "file-search",
+      "menus": [
+        {
+          "code": "AUDIT",
+          "name": "Rastro de Auditoria",
+          "sortOrder": 1,
+          "icon": "history",
+          "route": "/audit",
+          "submenus": [
+            {
+              "code": "AUDIT_LIST",
+              "name": "Registros",
+              "sortOrder": 1,
+              "options": [
+                { "code": "VIEW_AUDIT", "name": "Ver Registros de Auditoria", "sortOrder": 1, "actions": ["VIEW"] }
+              ]
+            }
+          ]
+        }
+      ],
+      "domainResources": []
+    }
+  ],
+  "roles": [
+    {
+      "_comentario": "Los tres a hierarchyLevel 0 a proposito: el cargador busca padre para todo rol de nivel > 0 y UMS rechaza el alta si no lo encuentra. Son responsabilidades separadas, no una cadena de mando: quien da de alta a un usuario no es quien decide que permisos concede un rol.",
+      "code": "ADMIN_UMS",
+      "name": "Administrador de UMS",
+      "description": "Gobierna identidad, autorizacion y configuracion de la suite",
+      "hierarchyLevel": 0,
+      "promotionOrder": 0
+    },
+    {
+      "code": "MESA_ACCESOS",
+      "name": "Mesa de Accesos",
+      "description": "Da de alta usuarios y asigna perfiles; no altera roles ni plantillas",
+      "hierarchyLevel": 0,
+      "promotionOrder": 0
+    },
+    {
+      "code": "AUDITOR_ACCESOS",
+      "name": "Auditor de Accesos",
+      "description": "Consulta quien pudo hacer que, sin poder cambiarlo",
+      "hierarchyLevel": 0,
+      "promotionOrder": 0
+    }
+  ],
+  "permissionTemplates": [
+    {
+      "code": "PLT_ADMIN_UMS",
+      "role": "ADMIN_UMS",
+      "grants": [{ "suite": "*", "actions": "*" }]
+    },
+    {
+      "code": "PLT_MESA_ACCESOS",
+      "role": "MESA_ACCESOS",
+      "grants": [
+        { "module": "IDM", "actions": "*" },
+        { "module": "AUTH", "actions": ["VIEW"] }
+      ]
+    },
+    {
+      "code": "PLT_AUDITOR_ACCESOS",
+      "role": "AUDITOR_ACCESOS",
+      "grants": [
+        { "module": "IDM", "actions": ["VIEW"] },
+        { "module": "AUTH", "actions": ["VIEW"] },
+        { "module": "SYS", "actions": ["VIEW"] },
+        { "module": "APR", "actions": ["VIEW"] },
+        { "module": "IGA", "actions": ["VIEW"] },
+        { "module": "AUD", "actions": ["VIEW"] }
+      ]
+    }
+  ]
+}

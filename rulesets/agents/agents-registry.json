@@ -1,0 +1,89 @@
+{
+  "agents": [
+    {
+      "name": "pachacutec-governance",
+      "version": "1.0.0",
+      "template": "standard",
+      "description": "Pachacutec — governance agent for the Evolith UMS tenant user-management system.",
+      "adrs": [
+        "adr-0002",
+        "adr-0018",
+        "adr-0050"
+      ],
+      "rulesets": [
+        "acl",
+        "open-core",
+        "inheritance"
+      ],
+      "rulesetFiles": [
+        "agent.rules.json"
+      ],
+      "installedAt": "2026-10-12T14:06:10.535Z",
+      "lastValidated": "2026-10-12T14:17:55.148Z"
+    },
+    {
+      "name": "manco-capac-architecture",
+      "version": "1.0.0",
+      "template": "standard",
+      "description": "Manco Capac — architecture agent for the Evolith UMS tenant user-management system.",
+      "adrs": [
+        "adr-0002",
+        "adr-0018",
+        "adr-0050"
+      ],
+      "rulesets": [
+        "acl",
+        "open-core",
+        "inheritance"
+      ],
+      "rulesetFiles": [
+        "agent.rules.json"
+      ],
+      "installedAt": "2026-10-12T14:11:46.637Z",
+      "lastValidated": "2026-10-12T14:17:56.129Z"
+    },
+    {
+      "name": "tupac-yupanqui-qa",
+      "version": "1.0.0",
+      "template": "standard",
+      "description": "Tupac Yupanqui — QA agent for the Evolith UMS tenant user-management system.",
+      "adrs": [
+        "adr-0002",
+        "adr-0018",
+        "adr-0050"
+      ],
+      "rulesets": [
+        "acl",
+        "open-core",
+        "inheritance"
+      ],
+      "rulesetFiles": [
+        "agent.rules.json"
+      ],
+      "installedAt": "2026-10-12T14:11:51.053Z",
+      "lastValidated": "2026-10-12T14:17:57.108Z"
+    },
+    {
+      "name": "huayna-capac-sdlc",
+      "version": "1.0.0",
+      "template": "standard",
+      "description": "Huayna Capac — SDLC agent for the Evolith UMS tenant user-management system.",
+      "adrs": [
+        "adr-0002",
+        "adr-0018",
+        "adr-0050"
+      ],
+      "rulesets": [
+        "acl",
+        "open-core",
+        "inheritance"
+      ],
+      "rulesetFiles": [
+        "agent.rules.json"
+      ],
+      "installedAt": "2026-10-12T14:11:55.455Z",
+      "lastValidated": "2026-10-12T14:17:57.993Z"
+    }
+  ],
+  "lastUpdated": "2026-10-12T14:17:57.993Z"
+}

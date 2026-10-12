@@ -1,0 +1,61 @@
+server {
+    listen 80;
+    root /usr/share/nginx/html;
+    index index.html index.htm;
+
+    # The SPA calls the API with relative /api URLs. Behind the ingress that path is
+    # routed to the API before reaching this server; when the pod is reached directly
+    # (no ingress / port-forward) nginx must proxy it to the backend service itself.
+    location /api/ {
+        proxy_pass ${API_UPSTREAM};
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Los metadatos de descubrimiento del emisor: el JWKS con las claves PÚBLICAS con las que UMS
+    # firma sus portadores, y la configuración OIDC que lo anuncia.
+    #
+    # POR QUÉ ESTÁ AQUÍ. Un satélite verifica la firma de un token trayendo la clave de este
+    # camino, y el camino es fijo por estándar: no se puede mover bajo /api/. Sin esta regla, la
+    # petición caía en el `try_files` de abajo y nginx devolvía el HTML de la SPA con un 200. Un
+    # cliente que solo mire el código de estado da el JWKS por publicado y falla al interpretarlo;
+    # uno que mire el contenido falla igual, pero al menos sabe por qué. Medido el 2026-08-04: el
+    # Tablero SDLC no podía validar ningún token de UMS por esto, y los carriles C y D de la
+    # certificación estaban rojos.
+    #
+    # No expone nada sensible: son claves públicas, y publicarlas es justamente su función.
+    location /.well-known/ {
+        proxy_pass ${API_UPSTREAM};
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Observabilidad: la barra de navegación enlaza a Grafana bajo el mismo
+    # origen (/grafana/) para ver métricas, trazas y logs de la zona de
+    # autorización sin CORS ni un host aparte. Grafana sirve desde subpath
+    # (GF_SERVER_SERVE_FROM_SUB_PATH=true), así que se preserva el prefijo.
+    location /grafana/ {
+        # `GRAFANA_UPSTREAM` lo inyecta el chart. Con observabilidad desactivada apunta a
+        # una IP literal (127.0.0.1) para que nginx ARRANQUE —no hay resolución DNS de un
+        # host inexistente— y `/grafana/` devuelva 502 en vez de tumbar el pod.
+        proxy_pass ${GRAFANA_UPSTREAM};
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        # Live tail / websockets de Grafana.
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $http_connection;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

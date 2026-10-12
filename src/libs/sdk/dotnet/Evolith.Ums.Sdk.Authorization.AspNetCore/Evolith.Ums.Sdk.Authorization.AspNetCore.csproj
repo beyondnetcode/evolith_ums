@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>true</IsPackable>
+    <PackageId>Evolith.Ums.Sdk.Authorization.AspNetCore</PackageId>
+    <Version>1.0.0</Version>
+    <Description>UMS SDK — ASP.NET Core integration: UseUmsAuthGraph middleware that decodes the per-request authorization graph and stores it on HttpContext.Items for the validator/aspect to consume. See ADR-0073.</Description>
+    <Authors>Evolith UMS</Authors>
+    <PackageProjectUrl>https://github.com/beyondnetcode/ums</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>ums;sdk;authorization;aspnetcore;middleware</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <UmsSchemaCompatibility>&gt;=1.0.0 &lt;2.0.0</UmsSchemaCompatibility>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Evolith.Ums.Sdk.Contracts/Evolith.Ums.Sdk.Contracts.csproj" />
+    <ProjectReference Include="../Evolith.Ums.Sdk.Authorization/Evolith.Ums.Sdk.Authorization.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Evolith.Ums.Sdk.Tests" />
+  </ItemGroup>
+
+</Project>

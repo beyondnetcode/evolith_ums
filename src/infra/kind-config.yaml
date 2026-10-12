@@ -1,0 +1,34 @@
+# Configuración reproducible del clúster kind de UMS (G-125).
+# Antes vivía solo en el scratchpad, impidiendo recrear el clúster de forma determinista.
+#
+# Crear el clúster:
+#   kind create cluster --name evolith-cluster-ums --config src/infra/kind-config.yaml
+#
+# Instalar el Ingress (nginx) y esperar a que esté listo:
+#   kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+#   kubectl wait --namespace ingress-nginx --for=condition=ready pod \
+#     --selector=app.kubernetes.io/component=controller --timeout=180s
+#
+# El Ingress queda accesible en http://evolith-ums.local:8080 (mapea /etc/hosts a 127.0.0.1)
+# o directamente en http://localhost:8080. El extraPortMapping 80->8080 y 443->8443 replica
+# el binding real del control-plane (0.0.0.0:8080->80/tcp, 0.0.0.0:8443->443/tcp).
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: evolith-cluster-ums
+nodes:
+  - role: control-plane
+    # node-labels ingress-ready=true habilita el scheduling del ingress-nginx en el control-plane
+    # (patrón oficial de kind para ingress en clúster de un solo nodo).
+    kubeadmConfigPatches:
+      - |
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "ingress-ready=true"
+    extraPortMappings:
+      - containerPort: 80
+        hostPort: 8080
+        protocol: TCP
+      - containerPort: 443
+        hostPort: 8443
+        protocol: TCP

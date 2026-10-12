@@ -1,0 +1,31 @@
+{
+  "name": "app-web",
+  "projectType": "application",
+  "sourceRoot": "src",
+  "targets": {
+    "build": {
+      "command": "vite build",
+      "options": {
+        "cwd": "apps/ums.web-app"
+      }
+    },
+    "lint": {
+      "command": "npm run lint",
+      "options": {
+        "cwd": "apps/ums.web-app"
+      }
+    },
+    "test": {
+      "command": "npm run test",
+      "options": {
+        "cwd": "apps/ums.web-app"
+      }
+    },
+    "dev": {
+      "command": "vite",
+      "options": {
+        "cwd": "apps/ums.web-app"
+      }
+    }
+  }
+}

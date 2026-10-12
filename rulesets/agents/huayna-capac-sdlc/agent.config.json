@@ -1,0 +1,20 @@
+{
+  "name": "huayna-capac-sdlc",
+  "version": "1.0.0",
+  "template": "standard",
+  "description": "Huayna Capac — SDLC agent for the Evolith UMS tenant user-management system.",
+  "adrs": [
+    "adr-0002",
+    "adr-0018",
+    "adr-0050"
+  ],
+  "rulesets": [
+    "acl",
+    "open-core",
+    "inheritance"
+  ],
+  "rulesetFiles": [
+    "agent.rules.json"
+  ],
+  "installedAt": "2026-10-12T14:11:55.455Z"
+}

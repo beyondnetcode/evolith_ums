@@ -1,0 +1,34 @@
+# G-125 — Compose MÍNIMO: solo PostgreSQL (base de datos `UmsReadModel`) + pgAdmin, para un
+# arranque rápido de BD aislada. NO es el entorno completo de desarrollo.
+# Para el stack de dev local completo (API, Redis, observabilidad Grafana/Loki/Tempo/Prometheus)
+# usar `src/infra/local/compose/docker-compose.yml`. La versión de PostgreSQL se alinea con el
+# chart Helm (`ums-helm`) y el compose completo en `postgres:15-alpine` para evitar drift.
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: ums_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root   # password set to 'root'
+      POSTGRES_DB: UmsReadModel
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  admin:
+    image: dpage/pgadmin4:8
+    container_name: ums_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@ums.local
+      PGADMIN_DEFAULT_PASSWORD: root   # same password for convenience
+    ports:
+      - "5051:80"
+    depends_on:
+      db:
+        condition: service_healthy

@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Ensamblado de migraciones de SQL Server.
+
+    POR QUÉ ES UN PROYECTO APARTE. EF Core descubre las migraciones escaneando UN ensamblado en
+    busca de clases con [Migration]. Si los juegos de PostgreSQL y SQL Server conviven en el mismo
+    ensamblado, el tooling los mezcla y aplica migraciones del motor equivocado: separarlos por
+    carpetas no basta. Un ensamblado por proveedor es la vía documentada por Microsoft para
+    escenarios multi-proveedor.
+
+    Aquí NO vive lógica de dominio ni repositorios: solo el andamiaje de esquema. Los DbContext
+    siguen en Evolith.Ums.Infrastructure y en Evolith.Ums.ReadModels.
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <!-- Las migraciones las genera el tooling; sus avisos de estilo no aportan aquí. -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Da acceso a UmsPlatformDbContext y TenantProjectionDbContext, y transitivamente
+         a ReadModelDbContext (Infrastructure ya referencia Evolith.Ums.ReadModels). -->
+    <ProjectReference Include="../Evolith.Ums.Infrastructure/Evolith.Ums.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.7">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

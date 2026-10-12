@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>true</IsPackable>
+    <PackageId>Evolith.Ums.Sdk.Contracts</PackageId>
+    <Version>1.0.0</Version>
+    <Description>UMS SDK — Typed contracts (DTOs) for the AuthorizationGraph payload, error code constants and schema version metadata. See ADR-0073 and ADR-0074.</Description>
+    <Authors>Evolith UMS</Authors>
+    <PackageProjectUrl>https://github.com/beyondnetcode/ums</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>ums;sdk;authorization;contracts</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <UmsSchemaCompatibility>&gt;=1.0.0 &lt;2.0.0</UmsSchemaCompatibility>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Evolith.Ums.Sdk.Authorization" />
+    <InternalsVisibleTo Include="Evolith.Ums.Sdk.Authorization.Aop" />
+    <InternalsVisibleTo Include="Evolith.Ums.Sdk.Authorization.Testing" />
+    <InternalsVisibleTo Include="Evolith.Ums.Sdk.Tests" />
+  </ItemGroup>
+
+</Project>

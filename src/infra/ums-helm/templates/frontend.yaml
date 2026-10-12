@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ums-frontend
+  labels:
+    app: ums-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ums-frontend
+  template:
+    metadata:
+      labels:
+        app: ums-frontend
+    spec:
+      containers:
+        - name: ums-frontend
+          image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          env:
+            - name: API_UPSTREAM
+              value: http://ums-backend:80
+            # GRAFANA_UPSTREAM controla el proxy `/grafana/` del nginx. La imagen trae
+            # `http://grafana:3000` por defecto, pero si la observabilidad está apagada
+            # ese host no existe y nginx no arranca. Se inyecta explícito: al servicio
+            # real cuando hay observabilidad, o a una IP literal (arranca; `/grafana/`→502)
+            # cuando no la hay. Desacopla el frontend del stack de observabilidad.
+            - name: GRAFANA_UPSTREAM
+              {{- if .Values.observability.enabled }}
+              value: "http://grafana:{{ .Values.observability.grafana.service.port | default 3000 }}"
+              {{- else }}
+              value: "http://127.0.0.1:9"
+              {{- end }}
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ums-frontend
+spec:
+  type: ClusterIP
+  selector:
+    app: ums-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

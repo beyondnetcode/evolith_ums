@@ -1,0 +1,42 @@
+{
+  "name": "@evolith-ums/ums-sdk-client",
+  "version": "1.0.0",
+  "description": "UMS SDK — Typed fetch-based client for POST /api/v1/client/authenticate. Deserializes the AuthorizationGraph, validates schemaVersion and returns a typed Result. See ADR-0073.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@evolith-ums/ums-sdk-contracts": "1.0.0",
+    "@evolith-ums/ums-sdk-authorization": "1.0.0"
+  },
+  "umsSchemaCompatibility": ">=1.0.0 <2.0.0",
+  "keywords": [
+    "ums",
+    "sdk",
+    "client",
+    "authentication",
+    "fetch"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beyondnetcode/ums"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "apps/**/*.{ts,tsx,js,jsx}": [
+    "eslint --fix",
+    "prettier --write"
+  ],
+  "apps/api/**/*.ts": [
+    "jest --findRelatedTests --passWithNoTests"
+  ]
+}

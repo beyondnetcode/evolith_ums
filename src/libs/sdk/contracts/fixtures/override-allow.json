@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "2.4.0",
+  "onboardingPending": false,
+  "accessState": "Granted",
+  "context": {
+    "user": {
+      "email": "override.test@logistics-corp.example",
+      "username": "override.test",
+      "value": "Override Test User",
+      "status": "Active"
+    },
+    "tenant": {
+      "code": "LOGISTICS_CORE",
+      "value": "Logistics Corp",
+      "status": "Active",
+      "isManagementOwner": false
+    },
+    "systemSuite": {
+      "code": "WMS_SUITE",
+      "value": "Warehouse Management Suite",
+      "status": "Active"
+    },
+    "role": {
+      "code": "WAREHOUSE_SUPERVISOR",
+      "value": "Warehouse Supervisor",
+      "hierarchyLevel": 3
+    },
+    "profile": {
+      "scope": "OrgWide",
+      "isActive": true
+    },
+    "branch": null,
+    "requestedSystem": null
+  },
+  "profiles": [
+    {
+      "id": "2e84b15c-b7fe-5818-a985-480090a6f018",
+      "system": {
+        "code": "WMS_SUITE",
+        "value": "Warehouse Management Suite"
+      },
+      "role": {
+        "code": "WAREHOUSE_SUPERVISOR",
+        "value": "Warehouse Supervisor",
+        "hierarchyLevel": 3
+      },
+      "branch": null,
+      "scope": "OrgWide",
+      "isCurrent": true
+    }
+  ],
+  "authentication": {
+    "method": "Local",
+    "provider": null,
+    "mfaRequired": false,
+    "issuedAt": "2026-05-31T14:30:00Z",
+    "sessionExpiresAt": "2026-05-31T15:30:00Z"
+  },
+  "actions": [
+    {
+      "code": "APPROVE",
+      "value": "Approve"
+    }
+  ],
+  "menuAccess": [],
+  "domainPermissions": [
+    {
+      "resourceType": "Aggregate",
+      "resourceCode": "PURCHASE_ORDER",
+      "value": "Purchase Order",
+      "actions": [
+        {
+          "actionCode": "APPROVE",
+          "value": "Approve",
+          "effect": "Allow",
+          "source": "Override"
+        }
+      ]
+    }
+  ],
+  "featureFlags": [],
+  "effectiveConfig": {
+    "sessionTimeoutMinutes": 60,
+    "maxLoginAttempts": 5,
+    "minPasswordLength": 12,
+    "mfaRequiredForAdmin": true,
+    "mfaAllowedMethods": [
+      "Totp"
+    ],
+    "accessTokenDurationMs": 3600000,
+    "authUseExternalIdp": false
+  },
+  "settings": {},
+  "scopes": [
+    "purchase_order.approve"
+  ],
+  "generatedAt": "2026-05-31T14:30:00Z",
+  "validUntil": "2026-05-31T15:30:00Z"
+}

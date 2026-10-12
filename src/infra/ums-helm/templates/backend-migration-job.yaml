@@ -1,0 +1,118 @@
+{{- if .Values.backend.migrationJob.enabled }}
+# G-169 — la migración y la siembra salen del arranque de CADA réplica.
+#
+# Con una sola réplica no se nota. Con dos, ambas arrancan a la vez contra la misma base: EF Core
+# toma un bloqueo de aviso, así que no se corrompe nada, pero la segunda espera a la primera y
+# puede agotar su sonda de vivacidad antes de servir una sola petición. El síntoma sería un
+# CrashLoop en el pod nuevo, que no señala a la migración por ningún lado.
+#
+# Este Job corre UNA vez, antes de instalar o actualizar, con el mismo binario y la misma
+# configuración que el backend. `Persistence__MigrateAndExit` hace que el proceso migre, siembre y
+# termine sin levantar el servidor.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ums-backend-migracion
+  labels:
+    app: ums-backend
+    componente: migracion
+  annotations:
+    # Hook de Helm: se ejecuta ANTES del Deployment, y `helm upgrade --wait` no continúa hasta que
+    # termina. Sin el hook, el Job y las réplicas arrancarían a la vez y no habríamos resuelto nada.
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-5"
+    # El Job se conserva al terminar para poder leer su log cuando algo falla: un
+    # `hook-delete-policy` que lo borre al acabar se lleva la única prueba de qué pasó.
+    # `ttlSecondsAfterFinished` lo recoge después, sin dejar basura acumulándose.
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  # Un fallo de migración no se reintenta indefinidamente: si la migración está mal, repetirla no
+  # la arregla y el Job quedaría girando mientras el despliegue espera.
+  backoffLimit: {{ .Values.backend.migrationJob.backoffLimit }}
+  ttlSecondsAfterFinished: {{ .Values.backend.migrationJob.ttlSecondsAfterFinished }}
+  template:
+    metadata:
+      labels:
+        app: ums-backend
+        componente: migracion
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migracion
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: {{ .Values.backend.environment | default "Development" }}
+            # La copia EFIMERA, no el secreto del release (G-282): los hooks se aplican antes que
+            # los manifiestos normales, asi que `ums-db-secret` todavia guarda aqui la cadena de la
+            # revision ANTERIOR. Cuando el chart no gobierna los secretos (`secrets.create=false`)
+            # no hay copia que leer y se cae al secreto que custodie el operador.
+            - name: ConnectionStrings__DefaultConnection
+              valueFrom:
+                secretKeyRef:
+                  name: {{ if .Values.secrets.create }}ums-db-secret-migracion{{ else }}ums-db-secret{{ end }}
+                  key: CONNECTION_STRING
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ums-admin-secret
+                  key: ADMIN_PASSWORD
+            # La siembra crea la cuenta de administración y firma tokens de arranque: necesita el
+            # mismo secreto que el backend, o sembraría con el marcador de posición (G-203).
+            - name: Jwt__Secret
+              valueFrom:
+                secretKeyRef:
+                  name: ums-jwt-secret
+                  key: JWT_SECRET
+                  optional: true
+            # La clave PRIVADA RSA con la que se firma en RS256 (ADR-0157).
+            #
+            # Sin ella cada replica genera la suya al arrancar y publica en su
+            # JWKS solo la propia: un token emitido por una replica NO verifica
+            # contra el JWKS que responde otra. Con dos replicas es la mitad de
+            # los tokens, de forma intermitente. El respaldo efimero de
+            # `MaterialDeFirma` sirve para UN proceso, no para un Deployment.
+            - name: Jwt__PrivateKeyPem
+              valueFrom:
+                secretKeyRef:
+                  name: ums-jwt-secret
+                  key: JWT_PRIVATE_KEY_PEM
+                  optional: true
+            # Mismo motor que las réplicas (ADR-UMS-102): si el Job migrara contra un motor y los
+            # pods arrancaran contra otro, la base quedaría migrada donde nadie la lee.
+            - name: Persistence__Provider
+              value: {{ .Values.backend.persistenceProvider | default "PostgreSql" | quote }}
+            - name: Persistence__UsePostgreSqlIdentityStores
+              value: "true"
+            - name: Persistence__UsePostgreSqlAuthorizationStores
+              value: "true"
+            - name: Persistence__UsePostgreSqlConfigurationStores
+              value: "true"
+            - name: Persistence__UsePostgreSqlApprovalsStores
+              value: "true"
+            - name: Persistence__UsePostgreSqlIgaStores
+              value: "true"
+            - name: Persistence__InitializePlatformStoreOnStartup
+              value: "true"
+            - name: Persistence__SeedDevData
+              value: "true"
+            # Escotilla de convergencia. La guarda de idempotencia omite TODA la siembra en cuanto
+            # existe el inquilino ancla, asi que un catalogo ampliado despues del primer arranque
+            # no llega nunca a una base ya sembrada. Con esto en `true` los sembradores vuelven a
+            # pasar y anaden lo que falta por clave natural.
+            #
+            # Es de un solo uso: se enciende para un despliegue, se comprueba y se apaga. Va SOLO
+            # en el Job y no en el Deployment — corre una vez antes de las replicas, que es donde
+            # una re-siembra tiene sentido; en cada arranque de cada replica, no.
+            - name: Persistence__ForceReseed
+              value: {{ .Values.backend.migrationJob.forceReseed | default false | quote }}
+            # Migra, siembra y termina. Sin esto el Job levantaría el servidor y no acabaría nunca,
+            # y el despliegue se quedaría esperando a un hook que no puede terminar.
+            - name: Persistence__MigrateAndExit
+              value: "true"
+            - name: REDIS_CONNECTION
+              value: redis://ums-redis:6379
+          resources:
+            {{- toYaml .Values.backend.resources | nindent 12 }}
+{{- end }}

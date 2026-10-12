@@ -1,0 +1,41 @@
+{
+  "common.required": "El campo {0} es obligatorio.",
+  "common.invalid": "El valor de {0} no es válido.",
+  "common.not_found": "{0} no encontrado.",
+  "common.duplicate": "{0} ya existe.",
+
+  "user.tenant.required": "El identificador del inquilino es obligatorio.",
+  "user.tenant.not_found": "Inquilino no encontrado.",
+
+  "tenant.branch_code_not_unique": "El código de sucursal debe ser único dentro del inquilino.",
+  "tenant.branch_not_found": "Sucursal no encontrada.",
+  "tenant.branch_active": "No se puede eliminar una sucursal activa. Desactívela primero.",
+  "tenant.archived_cannot_suspend": "Los inquilinos archivados no pueden ser suspendidos.",
+  "tenant.archived_cannot_activate": "Los inquilinos archivados no pueden ser activados.",
+
+  "value_object.email_required": "Se requiere una dirección de correo electrónico válida.",
+  "value_object.property_required": "{0} es obligatorio.",
+  "value_object.date_range_invalid": "La fecha de finalización no puede ser anterior a la fecha de inicio.",
+
+  "system.internal_error": "Se produjo un error interno del sistema.",
+  "system.validation_failed": "La validación de la solicitud falló.",
+  "system.configuration_invalid": "La configuración del sistema no es válida.",
+
+  "error.authentication.required": "No se pudo completar la operación porque debe iniciar sesión nuevamente.",
+  "error.authorization.forbidden": "No se pudo completar la operación porque no tiene permisos suficientes. Solicite acceso al administrador.",
+  "error.resource.not_found": "No se pudo completar la operación porque el registro solicitado no existe o ya no está disponible.",
+  "error.operation.conflict": "No se pudo completar la operación porque el registro cambió o entra en conflicto con una regla vigente. Actualice la información e intente nuevamente.",
+  "error.validation.invalid": "No se pudo completar la operación porque existen campos inválidos. Revise los datos ingresados e intente nuevamente.",
+  "error.request.invalid": "No se pudo completar la operación porque la solicitud contiene datos inválidos. Revise la información e intente nuevamente.",
+  "error.unexpected": "No se pudo completar la operación debido a un error inesperado. Intente nuevamente más tarde.",
+
+  "system_suite.module.suite_required": "No se pudo registrar el módulo porque debe seleccionar una suite del sistema.",
+  "system_suite.module.code_required": "No se pudo registrar el módulo porque el campo Código es obligatorio. Ingrese un código válido.",
+  "system_suite.module.code_too_long": "No se pudo registrar el módulo porque el campo Código excede el máximo de 50 caracteres. Reduzca su longitud e intente nuevamente.",
+  "system_suite.module.code_invalid_format": "No se pudo registrar el módulo porque el campo Código tiene un formato inválido. Use solo letras, números y guion bajo, por ejemplo REPORTS_01. Valor ingresado: {0}.",
+  "system_suite.module.name_required": "No se pudo registrar el módulo porque el campo Nombre es obligatorio. Ingrese un nombre.",
+  "system_suite.module.name_too_long": "No se pudo registrar el módulo porque el campo Nombre excede el máximo de 150 caracteres. Reduzca su longitud e intente nuevamente.",
+  "system_suite.module.description_too_long": "No se pudo registrar el módulo porque el campo Descripción excede el máximo de 500 caracteres. Reduzca su longitud e intente nuevamente.",
+  "system_suite.module.sort_order_invalid": "No se pudo registrar el módulo porque el campo Orden debe ser un entero positivo. Ingrese un número mayor que cero.",
+  "system_suite.module.code_not_unique": "No se pudo registrar el módulo porque ya existe otro módulo con el mismo Código. Ingrese un código diferente."
+}

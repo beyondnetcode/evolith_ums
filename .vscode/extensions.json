@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "nrwl.angular-console",
+    "ms-dotnettools.csdevkit",
+    "dbaeumer.vscode-eslint",
+    "ms-playwright.playwright",
+    "ms-azuretools.vscode-docker"
+  ]
+}

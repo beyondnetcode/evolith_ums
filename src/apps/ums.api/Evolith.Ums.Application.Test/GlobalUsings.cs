@@ -1,0 +1,7 @@
+global using Evolith.Ums.Domain.Kernel;
+global using Evolith.Ums.Domain.Kernel.ValueObjects;
+global using Evolith.Ums.Domain.Enums;
+global using Evolith.Ums.Domain.Events;
+global using BeyondNetCode.Shell.Ddd;
+global using Moq;
+global using Xunit;

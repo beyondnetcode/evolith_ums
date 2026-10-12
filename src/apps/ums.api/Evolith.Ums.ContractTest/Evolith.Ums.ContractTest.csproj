@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Exe</OutputType>
+    <!--
+      OPS-02: Pact contract tests.
+      Run directly with: dotnet test Evolith.Ums.ContractTest
+      Not included in Evolith.Ums.sln — like Evolith.Ums.Presentation.IntegrationTest, run standalone.
+
+      Two test suites:
+        1. Consumer tests  — simulate a consumer (e.g., ums-web-app) and record
+                             expectations as pact files under /pacts/.
+        2. Provider tests  — start the real API (InMemory mode via WAF) and verify
+                             that every recorded pact is satisfied.
+    -->
+    <EnableMSTestRunner>true</EnableMSTestRunner>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- PactNet 5.x — supports pact specification v4 + .NET 6+ -->
+    <PackageReference Include="PactNet" Version="5.0.0" />
+    <PackageReference Include="xunit.v3" Version="1.0.1" />
+    <PackageReference Include="xunit.v3.extensibility.core" Version="1.0.1" />
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Evolith.Ums.Presentation/Evolith.Ums.Presentation.csproj" />
+    <ProjectReference Include="../Evolith.Ums.Infrastructure/Evolith.Ums.Infrastructure.csproj" />
+    <ProjectReference Include="../Evolith.Ums.Application/Evolith.Ums.Application.csproj" />
+    <ProjectReference Include="../Evolith.Ums.Domain/Evolith.Ums.Domain.csproj" />
+  </ItemGroup>
+
+  <!-- Embed pact files so the provider tests can locate them at runtime. -->
+  <ItemGroup>
+    <None Update="pacts/*.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

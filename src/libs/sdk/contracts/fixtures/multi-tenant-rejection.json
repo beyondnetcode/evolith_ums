@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "2.4.0",
+  "onboardingPending": false,
+  "accessState": "Granted",
+  "context": {
+    "user": {
+      "email": "alice@acme-retail.example",
+      "username": "alice",
+      "value": "Alice Retail",
+      "status": "Active"
+    },
+    "tenant": {
+      "code": "ACME_RETAIL",
+      "value": "Acme Retail",
+      "status": "Active",
+      "isManagementOwner": false
+    },
+    "systemSuite": {
+      "code": "POS_SUITE",
+      "value": "Point of Sale Suite",
+      "status": "Active"
+    },
+    "role": {
+      "code": "CASHIER",
+      "value": "Cashier",
+      "hierarchyLevel": 1
+    },
+    "profile": {
+      "scope": "OrgWide",
+      "isActive": true
+    },
+    "branch": null,
+    "requestedSystem": null
+  },
+  "profiles": [
+    {
+      "id": "4a8c05fc-a7fb-503b-ad86-aac4f2141c32",
+      "system": {
+        "code": "POS_SUITE",
+        "value": "Point of Sale Suite"
+      },
+      "role": {
+        "code": "CASHIER",
+        "value": "Cashier",
+        "hierarchyLevel": 1
+      },
+      "branch": null,
+      "scope": "OrgWide",
+      "isCurrent": true
+    }
+  ],
+  "authentication": {
+    "method": "Local",
+    "provider": null,
+    "mfaRequired": false,
+    "issuedAt": "2026-05-31T14:30:00Z",
+    "sessionExpiresAt": "2026-05-31T15:30:00Z"
+  },
+  "actions": [],
+  "menuAccess": [],
+  "domainPermissions": [],
+  "featureFlags": [],
+  "effectiveConfig": {
+    "sessionTimeoutMinutes": 30,
+    "maxLoginAttempts": 3,
+    "minPasswordLength": 8,
+    "mfaRequiredForAdmin": false,
+    "mfaAllowedMethods": [
+      "Totp"
+    ],
+    "accessTokenDurationMs": 1800000,
+    "authUseExternalIdp": false
+  },
+  "settings": {},
+  "scopes": [
+    "sale.create",
+    "sale.view"
+  ],
+  "generatedAt": "2026-05-31T14:30:00Z",
+  "validUntil": "2026-05-31T15:00:00Z"
+}

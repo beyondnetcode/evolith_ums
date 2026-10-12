@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "2.4.0",
+  "onboardingPending": false,
+  "accessState": "Granted",
+  "context": {
+    "user": {
+      "email": "newbie@logistics-corp.example",
+      "username": "newbie",
+      "value": "New User",
+      "status": "Active"
+    },
+    "tenant": {
+      "code": "LOGISTICS_CORE",
+      "value": "Logistics Corp",
+      "status": "Active",
+      "isManagementOwner": false
+    },
+    "systemSuite": {
+      "code": "WMS_SUITE",
+      "value": "Warehouse Management Suite",
+      "status": "Active"
+    },
+    "role": {
+      "code": "READ_ONLY_VIEWER",
+      "value": "Read-Only Viewer",
+      "hierarchyLevel": 1
+    },
+    "profile": {
+      "scope": "OrgWide",
+      "isActive": true
+    },
+    "branch": null,
+    "requestedSystem": null
+  },
+  "profiles": [
+    {
+      "id": "32d97185-ece8-5e0f-af34-60a87a1fec09",
+      "system": {
+        "code": "WMS_SUITE",
+        "value": "Warehouse Management Suite"
+      },
+      "role": {
+        "code": "READ_ONLY_VIEWER",
+        "value": "Read-Only Viewer",
+        "hierarchyLevel": 1
+      },
+      "branch": null,
+      "scope": "OrgWide",
+      "isCurrent": true
+    }
+  ],
+  "authentication": {
+    "method": "Local",
+    "provider": null,
+    "mfaRequired": false,
+    "issuedAt": "2026-05-31T14:30:00Z",
+    "sessionExpiresAt": "2026-05-31T15:30:00Z"
+  },
+  "actions": [],
+  "menuAccess": [],
+  "domainPermissions": [],
+  "featureFlags": [],
+  "effectiveConfig": {
+    "sessionTimeoutMinutes": 60,
+    "maxLoginAttempts": 5,
+    "minPasswordLength": 12,
+    "mfaRequiredForAdmin": true,
+    "mfaAllowedMethods": [
+      "Totp"
+    ],
+    "accessTokenDurationMs": 3600000,
+    "authUseExternalIdp": false
+  },
+  "settings": {},
+  "scopes": [],
+  "generatedAt": "2026-05-31T14:30:00Z",
+  "validUntil": "2026-05-31T15:30:00Z"
+}

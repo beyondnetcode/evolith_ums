@@ -1,0 +1,193 @@
+/* Los tokens NO se escriben aquí: los emite el generador del núcleo desde la semilla de marca
+   (ADR-0228) y este fichero solo los consume. Regenerar con `npm run tokens` (P-UX-04).
+
+   La fuente tampoco se enlaza desde un CDN: la CSP desplegada es `default-src 'self'`, así que
+   `fonts.googleapis.com` sencillamente no carga (ADR-0228 §2.8). Montserrat se autoaloja; mientras
+   el binario no esté, la pila de respaldo del token mantiene la métrica. */
+@import './styles/tokens-evolith.generated.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root[data-density='compact'] {
+  --densidad-y: 0.5rem;
+  --densidad-y-sm: 0.375rem;
+}
+
+:root[data-density='spacious'] {
+  --densidad-y: 1.25rem;
+  --densidad-y-sm: 0.875rem;
+}
+
+/* Escala de la interfaz en escritorio.
+
+   Escala TODA la UI de forma uniforme —incluidos los tamaños fijos en píxeles,
+   no solo los `rem`—, que es la razón de usar `zoom` y no `font-size`: tocando
+   solo la tipografía, los textos crecen respecto a un layout que no los sigue y
+   la interfaz se descuadra. Móvil y tablet quedan a escala natural para no
+   sacrificar legibilidad táctil.
+
+   El valor vive en una variable para que ajustarlo sea un solo cambio evidente.
+   Estuvo en 0.85 buscando una interfaz compacta, y resultó demasiado pequeña
+   para uso prolongado. Subir a 1 devuelve la escala natural del navegador; bajar
+   vuelve a compactar. */
+:root {
+  --ui-escala-escritorio: 0.95;
+}
+
+@media (min-width: 1024px) {
+  body {
+    zoom: var(--ui-escala-escritorio);
+  }
+}
+
+/* Accesibilidad táctil: en dispositivos sin hover (móvil/tablet) los grupos de
+   acciones revelados por `group-hover` quedarían invisibles e inalcanzables.
+   Se revelan siempre (opacidad completa para targets claros al tacto). Solo
+   afecta a elementos que combinan `opacity-0` con una clase `group-hover…`. */
+@media (hover: none) {
+  .opacity-0[class*='group-hover'] {
+    opacity: 1;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-m3-surface text-m3-on-surface antialiased selection:bg-m3-primary/30;
+    font-family: var(--md-sys-typescale-font);
+    /* SIN `transition` sobre background-color ni color, a proposito.
+     *
+     * Ambos se resuelven desde variables CSS --`bg-m3-surface` compila a
+     * `hsl(var(--m3-surface))`-- y el cambio de tema no altera la declaracion: altera la
+     * VARIABLE. Ante eso el navegador no dispara la transicion, y el valor usado se queda
+     * congelado en el del tema anterior. No es un retraso de 0.3s: es permanente.
+     *
+     * Medido el 2026-09-01 sobre el UAT, con la clase ya en <html> y el token correcto:
+     *   --m3-surface en body        214 17% 8%         (oscuro)
+     *   background-color a los 2 s  rgb(252,250,255)   (claro, atascado)
+     *   con `transition: none`      rgb(17,20,24)      (oscuro, al instante)
+     *
+     * Ese era el fallo original: cambiar de claro a oscuro dejaba el fondo de la pagina sin
+     * cambiar mientras los componentes --que no transicionan-- si lo hacian. Un fundido de
+     * 0.3s no vale que el tema no funcione. */
+  }
+}
+
+/* Premium custom elevation styles mapping standard Material Design 3 heights */
+.elevation-1 {
+  box-shadow:
+    0px 1px 3px 1px rgba(0, 0, 0, 0.05),
+    0px 1px 2px 0px rgba(0, 0, 0, 0.08);
+}
+
+.elevation-2 {
+  box-shadow:
+    0px 2px 6px 2px rgba(0, 0, 0, 0.06),
+    0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+}
+
+.elevation-3 {
+  box-shadow:
+    0px 4px 12px 4px rgba(0, 0, 0, 0.08),
+    0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+}
+
+/* Custom premium ambient glow */
+.m3-glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(100px);
+  pointer-events: none;
+  opacity: 0.15;
+  transition: opacity 0.3s ease;
+}
+.dark .m3-glow {
+  opacity: 0.08;
+}
+
+/* Hide scrollbar utility class */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* ── Escala tipográfica de Material Design 3 ─────────────────────────────────
+   Los quince estilos que ADR-0110 §2.7 exige —cinco familias por tres tamaños—,
+   con los valores de ADR-0228 §2.7. No se escriben aquí: cada clase lee los
+   tokens generados, así que cambiar la escala es cambiar la semilla y regenerar.
+
+   Antes no existía ninguno: la aplicación tipografiaba con `text-xs` y `text-sm`
+   sueltos, que es exactamente la deriva que el sistema de diseño evita. */
+@layer components {
+  .md-display-large { font-size: var(--md-sys-typescale-display-large-size); line-height: var(--md-sys-typescale-display-large-line-height); font-weight: var(--md-sys-typescale-display-large-weight); letter-spacing: var(--md-sys-typescale-display-large-tracking); }
+  .md-display-medium { font-size: var(--md-sys-typescale-display-medium-size); line-height: var(--md-sys-typescale-display-medium-line-height); font-weight: var(--md-sys-typescale-display-medium-weight); letter-spacing: var(--md-sys-typescale-display-medium-tracking); }
+  .md-display-small { font-size: var(--md-sys-typescale-display-small-size); line-height: var(--md-sys-typescale-display-small-line-height); font-weight: var(--md-sys-typescale-display-small-weight); letter-spacing: var(--md-sys-typescale-display-small-tracking); }
+  .md-headline-large { font-size: var(--md-sys-typescale-headline-large-size); line-height: var(--md-sys-typescale-headline-large-line-height); font-weight: var(--md-sys-typescale-headline-large-weight); letter-spacing: var(--md-sys-typescale-headline-large-tracking); }
+  .md-headline-medium { font-size: var(--md-sys-typescale-headline-medium-size); line-height: var(--md-sys-typescale-headline-medium-line-height); font-weight: var(--md-sys-typescale-headline-medium-weight); letter-spacing: var(--md-sys-typescale-headline-medium-tracking); }
+  .md-headline-small { font-size: var(--md-sys-typescale-headline-small-size); line-height: var(--md-sys-typescale-headline-small-line-height); font-weight: var(--md-sys-typescale-headline-small-weight); letter-spacing: var(--md-sys-typescale-headline-small-tracking); }
+  .md-title-large { font-size: var(--md-sys-typescale-title-large-size); line-height: var(--md-sys-typescale-title-large-line-height); font-weight: var(--md-sys-typescale-title-large-weight); letter-spacing: var(--md-sys-typescale-title-large-tracking); }
+  .md-title-medium { font-size: var(--md-sys-typescale-title-medium-size); line-height: var(--md-sys-typescale-title-medium-line-height); font-weight: var(--md-sys-typescale-title-medium-weight); letter-spacing: var(--md-sys-typescale-title-medium-tracking); }
+  .md-title-small { font-size: var(--md-sys-typescale-title-small-size); line-height: var(--md-sys-typescale-title-small-line-height); font-weight: var(--md-sys-typescale-title-small-weight); letter-spacing: var(--md-sys-typescale-title-small-tracking); }
+  .md-body-large { font-size: var(--md-sys-typescale-body-large-size); line-height: var(--md-sys-typescale-body-large-line-height); font-weight: var(--md-sys-typescale-body-large-weight); letter-spacing: var(--md-sys-typescale-body-large-tracking); }
+  .md-body-medium { font-size: var(--md-sys-typescale-body-medium-size); line-height: var(--md-sys-typescale-body-medium-line-height); font-weight: var(--md-sys-typescale-body-medium-weight); letter-spacing: var(--md-sys-typescale-body-medium-tracking); }
+  .md-body-small { font-size: var(--md-sys-typescale-body-small-size); line-height: var(--md-sys-typescale-body-small-line-height); font-weight: var(--md-sys-typescale-body-small-weight); letter-spacing: var(--md-sys-typescale-body-small-tracking); }
+  .md-label-large { font-size: var(--md-sys-typescale-label-large-size); line-height: var(--md-sys-typescale-label-large-line-height); font-weight: var(--md-sys-typescale-label-large-weight); letter-spacing: var(--md-sys-typescale-label-large-tracking); }
+  .md-label-medium { font-size: var(--md-sys-typescale-label-medium-size); line-height: var(--md-sys-typescale-label-medium-line-height); font-weight: var(--md-sys-typescale-label-medium-weight); letter-spacing: var(--md-sys-typescale-label-medium-tracking); }
+  .md-label-small { font-size: var(--md-sys-typescale-label-small-size); line-height: var(--md-sys-typescale-label-small-line-height); font-weight: var(--md-sys-typescale-label-small-weight); letter-spacing: var(--md-sys-typescale-label-small-tracking); }
+}
+
+/* ── Foco visible (P-UX-02, ADR-0110 §2.8) ───────────────────────────────────
+   Nunca `outline: none` a secas: el contorno se sustituye, no se quita. Se apoya
+   en `:focus-visible` para que el ratón no lo dispare y en el rol `primary`, que
+   supera 3:1 contra las superficies del sistema por construcción. */
+@layer base {
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 2px solid hsl(var(--m3-primary));
+    outline-offset: 2px;
+  }
+}
+
+/* ── Movimiento reducido (P-UX-07) ───────────────────────────────────────────
+   Para una persona con trastorno vestibular una animación no es un adorno: es
+   una barrera. Se neutraliza TODA transición y animación, no una lista de
+   clases, porque la lista se queda corta el día que alguien añade otra. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* <body> no transiciona NADA, ni siquiera los 0.01ms que impone el bloque de arriba.
+ *
+ * No es una excepcion a la accesibilidad: va en su misma direccion --menos movimiento, no mas--
+ * y por eso se declara justo aqui.
+ *
+ * El motivo es un defecto de resolucion, no de estetica. El fondo y el color de <body> salen de
+ * variables CSS: `bg-m3-surface` compila a `hsl(var(--m3-surface))`. Al cambiar de tema la
+ * declaracion no cambia, cambia la VARIABLE, y ante eso el navegador no dispara la transicion:
+ * deja el valor USADO en el del tema anterior. De forma permanente, no con retraso.
+ *
+ * Con una duracion de 0.3s o de 0.01ms da igual: basta que exista una transicion. Medido el
+ * 2026-09-01 sobre el UAT, con la clase ya en <html> y la variable ya propagada a <body>:
+ *
+ *   --m3-surface en body                    214 17% 8%         (oscuro)
+ *   background-color de body                rgb(252,250,255)   (claro, congelado)
+ *   un div hijo con hsl(var(--m3-surface))  rgb(17,20,24)      (oscuro)
+ *   body con transition-property: none      rgb(17,20,24)      (oscuro, al instante)
+ *
+ * Los dos ultimos renglones son la prueba: el valor declarado siempre fue correcto, y lo unico
+ * que lo retiene es la transicion. Explica tambien por que el sintoma parecia parcial --los
+ * componentes cambiaban, porque su color no viene por esta via-- y por que solo se notaba en el
+ * fondo de la pagina. */
+body {
+  transition-property: none !important;
+}

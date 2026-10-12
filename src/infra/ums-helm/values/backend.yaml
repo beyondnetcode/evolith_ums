@@ -1,0 +1,60 @@
+image:
+  repository: ums/backend
+  tag: latest
+env:
+  - name: ASPNETCORE_ENVIRONMENT
+    value: Development
+  - name: ConnectionStrings__DefaultConnection
+    valueFrom:
+      secretKeyRef:
+        name: ums-db-secret
+        key: CONNECTION_STRING
+  - name: ADMIN_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: ums-admin-secret
+        key: ADMIN_PASSWORD
+  - name: Persistence__Provider
+    value: PostgreSql
+  - name: Persistence__UsePostgreSqlIdentityStores
+    value: "true"
+  - name: Persistence__UsePostgreSqlAuthorizationStores
+    value: "true"
+  - name: Persistence__UsePostgreSqlConfigurationStores
+    value: "true"
+  - name: Persistence__UsePostgreSqlApprovalsStores
+    value: "true"
+  - name: Persistence__UsePostgreSqlIgaStores
+    value: "true"
+  - name: Persistence__InitializePlatformStoreOnStartup
+    value: "true"
+  - name: Persistence__SeedDevData
+    value: "true"
+  - name: REDIS_CONNECTION
+    value: redis://ums-redis:6379
+  - name: OTEL_EXPORTER_JAEGER_ENDPOINT
+    value: http://ums-jaeger:14268/api/traces
+  - name: OTEL_METRICS_EXPORTER
+    value: prometheus
+service:
+  type: ClusterIP
+replicaCount: 1
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
+livenessProbe:
+  httpGet:
+    path: /health/live
+    port: 8080
+  initialDelaySeconds: 10
+  periodSeconds: 10
+readinessProbe:
+  httpGet:
+    path: /health/ready
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 5

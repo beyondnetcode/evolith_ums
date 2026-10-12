@@ -1,0 +1,55 @@
+{
+  "agent": {
+    "name": "manco-capac-architecture",
+    "template": "standard",
+    "version": "1.0.0",
+    "installedAt": "2026-10-12T14:11:46.637Z"
+  },
+  "ruleset": {
+    "version": "1.0",
+    "type": "agent",
+    "scope": "governance"
+  },
+  "principles": [
+    {
+      "id": "AGT-01",
+      "principle": "Agent Identity",
+      "statement": "Agent Manco Capac enforces Evolith governance standards",
+      "severity": "MUST",
+      "blocking": true
+    },
+    {
+      "id": "AGT-HXA-01",
+      "principle": "Hexagonal Architecture Compliance",
+      "statement": "Domain layer has zero framework dependencies",
+      "severity": "MUST",
+      "blocking": true
+    },
+    {
+      "id": "AGT-TP-01",
+      "principle": "Testing Pyramid",
+      "statement": "70% unit / 20% integration / 10% E2E distribution",
+      "severity": "SHOULD",
+      "blocking": false
+    },
+    {
+      "id": "AGT-ACL-01",
+      "principle": "Schema Validation",
+      "statement": "All external data validated before ingestion",
+      "severity": "MUST",
+      "blocking": true
+    }
+  ],
+  "metadata": {
+    "adrs": [
+      "adr-0002",
+      "adr-0018",
+      "adr-0050"
+    ],
+    "rulesets": [
+      "acl",
+      "open-core",
+      "inheritance"
+    ]
+  }
+}

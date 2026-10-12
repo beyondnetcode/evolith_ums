@@ -1,0 +1,247 @@
+# UMS SDK — Canonical Error Codes Catalog
+# Governed by ADR-0073 (SDK) and ADR-0066 (Actionable User Error Contract).
+# Codes are stable strings; never reused. New codes added via MINOR bump.
+# Deprecated codes remain listed with `deprecated: true`.
+
+schemaVersion: "1.0.0"
+
+categories:
+  - id: authentication
+    range: "AUTH_001..AUTH_010"
+    description: "Server-emitted errors raised during the authentication flow."
+
+  - id: idp-resolution
+    range: "AUTH_011..AUTH_019"
+    description: "Server-emitted errors raised while resolving the active IDP for a tenant."
+
+  - id: profile
+    range: "AUTH_020..AUTH_039"
+    description: "Server-emitted errors raised while resolving or switching the active profile."
+
+  - id: authorization
+    range: "AUTH_100..AUTH_199"
+    description: "SDK-emitted errors for declarative authorization decisions."
+
+  - id: graph-lifecycle
+    range: "AUTH_200..AUTH_299"
+    description: "SDK-emitted errors for graph validity, schema compatibility and lifecycle."
+
+codes:
+  # --- Authentication (server-emitted) -------------------------------------
+  - code: AUTH_001
+    httpStatus: 400
+    title: "Validation error"
+    message: "Required fields missing or malformed."
+    emittedBy: [server, sdk]
+    deprecated: false
+
+  - code: AUTH_002
+    httpStatus: 404
+    title: "Tenant not found"
+    message: "The supplied tenant code did not match any registered tenant."
+    emittedBy: [server]
+    deprecated: false
+
+  - code: AUTH_003
+    httpStatus: 403
+    title: "Tenant not active"
+    message: "The tenant is suspended or archived."
+    emittedBy: [server]
+    deprecated: false
+
+  - code: AUTH_004
+    httpStatus: 401
+    title: "IDP user has no UMS account"
+    message: "The IDP-asserted identity has no matching UserAccount in UMS."
+    emittedBy: [server]
+    deprecated: false
+
+  - code: AUTH_005
+    httpStatus: 403
+    title: "User not active"
+    message: "The UserAccount status is not ACTIVE."
+    emittedBy: [server]
+    deprecated: false
+
+  - code: AUTH_006
+    httpStatus: 401
+    title: "Invalid credentials"
+    message: "BCrypt verification failed for the supplied password."
+    emittedBy: [server]
+    deprecated: false
+
+  - code: AUTH_007
+    httpStatus: 423
+    title: "Account locked"
+    message: "The account is locked due to max login attempts exceeded."
+    emittedBy: [server]
+    deprecated: false
+
+  - code: AUTH_008
+    httpStatus: 401
+    title: "MFA challenge required"
+    message: "MFA challenge is required but was not provided."
+    emittedBy: [server]
+    deprecated: false
+
+  - code: AUTH_009
+    httpStatus: 401
+    title: "MFA challenge failed"
+    message: "The supplied MFA challenge could not be verified."
+    emittedBy: [server]
+    deprecated: false
+
+  - code: AUTH_010
+    httpStatus: 401
+    title: "Session expired"
+    message: "The session has expired and must be re-established."
+    emittedBy: [server]
+    deprecated: false
+
+  # --- IDP resolution (server-emitted) ------------------------------------
+  - code: AUTH_011
+    httpStatus: 503
+    title: "No active IDP configured"
+    message: "Tenant is configured for IDP authentication but no active provider exists."
+    emittedBy: [server]
+    deprecated: false
+
+  - code: AUTH_012
+    httpStatus: 501
+    title: "No IDP adapter registered"
+    message: "No IIdpAuthAdapter is registered for the provider's strategy name."
+    emittedBy: [server]
+    deprecated: false
+
+  - code: AUTH_013
+    httpStatus: 502
+    title: "IDP call failed"
+    message: "The external IDP authentication call failed (network or provider error)."
+    emittedBy: [server]
+    deprecated: false
+
+  - code: AUTH_014
+    httpStatus: 401
+    title: "IDP token validation failed"
+    message: "The IDP token signature, expiry or issuer did not validate."
+    emittedBy: [server]
+    deprecated: false
+
+  # --- Profile (server-emitted) -------------------------------------------
+  # AUTH_020 y AUTH_021 los emitia el servidor desde que existe el cambio de perfil, sin
+  # figurar en este catalogo: un consumidor que lo leyera como la lista completa se
+  # equivocaba. Se documentan aqui por primera vez (G-226); no son codigos nuevos.
+  - code: AUTH_020
+    httpStatus: 404
+    title: "Profile not found"
+    message: "The requested profile does not exist, or does not belong to the authenticated user and tenant. Both cases return this same code on purpose: distinguishing them would let a caller enumerate other users' profiles."
+    emittedBy: [server]
+    deprecated: false
+
+  - code: AUTH_021
+    httpStatus: 409
+    title: "Profile inactive"
+    message: "The requested profile exists and belongs to the user, but is not active."
+    emittedBy: [server]
+    deprecated: false
+
+  - code: AUTH_036
+    httpStatus: 409
+    title: "Profile outside the requested system"
+    message: "The requested profile does not belong to the system supplied in `systemCode`. Coherence guard: it never fires in the normal flow, where `profiles[]` is already scoped to the caller's system."
+    emittedBy: [server]
+    deprecated: false
+
+  # --- Authorization (SDK-emitted) ----------------------------------------
+  - code: AUTH_101
+    title: "Scope not granted"
+    message: "The required scope is not present in the user's authorization graph."
+    primitive: RequiresScope
+    emittedBy: [sdk]
+    deprecated: false
+
+  - code: AUTH_102
+    title: "Scope explicitly denied"
+    message: "The required scope is explicitly denied in the user's authorization graph."
+    primitive: RequiresScope
+    emittedBy: [sdk]
+    deprecated: false
+
+  - code: AUTH_103
+    title: "Menu option not granted"
+    message: "The required menu option resolves to NotGranted."
+    primitive: RequiresMenuOption
+    emittedBy: [sdk]
+    deprecated: false
+
+  - code: AUTH_104
+    title: "Menu option denied"
+    message: "The required menu option resolves to Deny."
+    primitive: RequiresMenuOption
+    emittedBy: [sdk]
+    deprecated: false
+
+  - code: AUTH_105
+    title: "Domain access not granted"
+    message: "The required domain resource/action resolves to NotGranted."
+    primitive: RequiresDomainAccess
+    emittedBy: [sdk]
+    deprecated: false
+
+  - code: AUTH_106
+    title: "Domain access denied"
+    message: "The required domain resource/action resolves to Deny."
+    primitive: RequiresDomainAccess
+    emittedBy: [sdk]
+    deprecated: false
+
+  - code: AUTH_107
+    title: "Feature flag disabled"
+    message: "The required feature flag is present but isEnabled is false."
+    primitive: RequiresFeatureFlag
+    emittedBy: [sdk]
+    deprecated: false
+
+  - code: AUTH_108
+    title: "Feature flag not found"
+    message: "The required feature flag is not present in featureFlags[]."
+    primitive: RequiresFeatureFlag
+    emittedBy: [sdk]
+    deprecated: false
+
+  - code: AUTH_109
+    title: "Tenant mismatch"
+    message: "The expected tenant code does not match the tenant in the authorization graph."
+    emittedBy: [sdk]
+    deprecated: false
+
+  # --- Graph lifecycle (SDK-emitted) --------------------------------------
+  - code: AUTH_201
+    title: "Authorization graph expired"
+    message: "The graph's validUntil timestamp is in the past."
+    emittedBy: [sdk]
+    deprecated: false
+
+  - code: AUTH_202
+    title: "Authorization graph missing"
+    message: "No authorization graph is available in the current accessor scope."
+    emittedBy: [sdk]
+    deprecated: false
+
+  - code: AUTH_203
+    title: "Authorization graph malformed"
+    message: "The graph failed JSON Schema validation."
+    emittedBy: [sdk]
+    deprecated: false
+
+  - code: AUTH_204
+    title: "Schema version missing"
+    message: "The graph payload does not declare a schemaVersion."
+    emittedBy: [sdk]
+    deprecated: false
+
+  - code: AUTH_205
+    title: "Schema version unsupported"
+    message: "The graph's MAJOR schema version is outside the SDK's compatibility range."
+    emittedBy: [sdk]
+    deprecated: false

@@ -1,0 +1,1791 @@
+{
+  "specVersion": "1.0.0",
+  "sampleUsers": {
+    "_comentario": "Andamiaje de PRUEBA, no configuracion del sistema: una cuenta por rol para poder comparar que ve cada uno. Solo se aplica fuera de produccion. Los patrones son LITERALES a proposito: las pruebas E2E de src/tests/e2e-functional reconstruyen el correo y la clave desde estos mismos valores, asi que derivarlos del codigo de suite romperia ese carril sin tocarlo.",
+    "emailPattern": "{rol}.sdlc@evolith.example",
+    "passwordPattern": "Sdlc.{Nombre}.2026!",
+    "multiProfileSubject": {
+      "_comentario": "AUDITOR + DESARROLLADOR a proposito: uno es de solo lectura y el otro no, asi que sus grafos DEBEN diferir. Dos roles parecidos harian pasar la prueba de cambio de perfil sin demostrar nada (G-209). Antes era AUDITOR + EQUIPO; DESARROLLADOR es el rol equivalente en el modelo nuevo y conserva la propiedad.",
+      "role": "AUDITOR",
+      "extraRole": "DESARROLLADOR"
+    }
+  },
+  "origen": {
+    "repositorio": "evolith_arch",
+    "ruta": "reference/governance/tablero-ejecutivo/app",
+    "extraidoEn": "2026-08-01",
+    "evidencia": {
+      "vistasNavegacion": 7,
+      "rutasApi": 96,
+      "tablas": 22
+    },
+    "rutasNoNavegables": {
+      "motivo": "Endpoints de infraestructura del servicio, no pantallas del Tablero: no cuelgan del arbol de navegacion ni se conceden por plantilla. Se listan aqui para que la cobertura del inventario siga siendo exhaustiva.",
+      "rutas": [
+        "GET /health",
+        "GET /ready",
+        "GET /api/health",
+        "GET /metrics"
+      ]
+    }
+  },
+  "tenant": {
+    "code": "EVOLITH",
+    "_comentarioSucursales": "Las DOS sucursales reales del operador (FS-25). Los codigos son UNI_CALLAO y UNI_PAITA, que es como las siembra IdentityDevDataSeeder; declarar CALLAO y PAITA a secas no las habria corregido, habria creado dos mas. Una sucursal solo se cierra logicamente (ADR-0164): la fila permanece y el codigo queda ocupado para siempre, asi que un codigo equivocado no se corrige, se arrastra. El cargador las resuelve por codigo y solo las crea si faltan, que es el caso de un arranque en frio sobre una base sin sembrar.",
+    "branches": [
+      {
+        "code": "UNI_CALLAO",
+        "name": "Operaciones Callao"
+      },
+      {
+        "code": "UNI_PAITA",
+        "name": "Sucursal Paita"
+      }
+    ]
+  },
+  "suite": {
+    "code": "SDLC",
+    "name": "Tablero de Gobierno SDLC",
+    "description": "Tablero ejecutivo de gobierno del ciclo de vida: satélites, PRDs, fases, gates, artefactos, demandas y capacidad",
+    "status": "Active"
+  },
+  "_comentarioPadron": "EL PADRON: quien entra al Tablero, con que rol y en que sucursal. Es distinto de sampleUsers, que son cuentas sinteticas de prueba: estas son personas reales y este cargador NO las da de alta —esa decision es de la mesa de accesos—; si la cuenta no existe, la fila falla y se ve. Cada persona aparece DOS veces en el sistema, una por sucursal, porque la unicidad de un perfil es (usuario, rol, sucursal) y no (usuario, rol): son dos perfiles, no uno con dos sedes. El campo tenant se declara para que se pueda COMPROBAR contra el inquilino de la sesion; el cargador no lo usa para elegir donde escribe.",
+  "profiles": [
+    {
+      "tenant": "EVOLITH",
+      "userEmail": "aarroyo@evolith.example",
+      "role": "ADMIN_SDLC",
+      "branches": [
+        "UNI_CALLAO",
+        "UNI_PAITA"
+      ]
+    },
+    {
+      "tenant": "EVOLITH",
+      "userEmail": "cvillanueva@evolith.example",
+      "role": "GERENTE",
+      "branches": [
+        "UNI_CALLAO",
+        "UNI_PAITA"
+      ]
+    },
+    {
+      "tenant": "EVOLITH",
+      "userEmail": "mhernandez@evolith.example",
+      "role": "JEFE",
+      "branches": [
+        "UNI_CALLAO",
+        "UNI_PAITA"
+      ]
+    },
+    {
+      "tenant": "EVOLITH",
+      "userEmail": "lromero@evolith.example",
+      "role": "JEFE",
+      "branches": [
+        "UNI_CALLAO",
+        "UNI_PAITA"
+      ]
+    },
+    {
+      "tenant": "EVOLITH",
+      "userEmail": "cjara@evolith.example",
+      "role": "DESARROLLADOR",
+      "branches": [
+        "UNI_CALLAO",
+        "UNI_PAITA"
+      ]
+    },
+    {
+      "tenant": "EVOLITH",
+      "userEmail": "avaldez@evolith.example",
+      "role": "ANALISTA",
+      "branches": [
+        "UNI_CALLAO",
+        "UNI_PAITA"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "code": "VIEW",
+      "name": "Ver"
+    },
+    {
+      "code": "CREATE",
+      "name": "Crear"
+    },
+    {
+      "code": "UPDATE",
+      "name": "Actualizar"
+    },
+    {
+      "code": "DELETE",
+      "name": "Eliminar"
+    },
+    {
+      "code": "SEARCH",
+      "name": "Buscar"
+    },
+    {
+      "code": "APPROVE",
+      "name": "Aprobar"
+    },
+    {
+      "code": "EXECUTE",
+      "name": "Ejecutar proceso"
+    },
+    {
+      "code": "SYNC",
+      "name": "Sincronizar con la fuente"
+    },
+    {
+      "code": "IMPORT",
+      "name": "Importar"
+    },
+    {
+      "code": "EXPORT",
+      "name": "Exportar"
+    },
+    {
+      "code": "CERTIFY",
+      "name": "Certificar artefacto"
+    },
+    {
+      "code": "UPLOAD",
+      "name": "Adjuntar archivo"
+    },
+    {
+      "code": "ASSIST",
+      "name": "Invocar asistencia IA"
+    }
+  ],
+  "modules": [
+    {
+      "code": "GOB",
+      "name": "Gobierno de Satélites",
+      "description": "Registro de satélites, sistemas de la suite y sus equipos",
+      "sortOrder": 1,
+      "icon": "satellite-dish",
+      "menus": [
+        {
+          "code": "SATELITES",
+          "name": "Satélites",
+          "sortOrder": 1,
+          "submenus": [
+            {
+              "code": "SAT_INV",
+              "name": "Inventario",
+              "sortOrder": 1,
+              "options": [
+                {
+                  "code": "SAT_LISTA",
+                  "name": "Satélites",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW",
+                    "CREATE",
+                    "UPDATE",
+                    "SYNC"
+                  ],
+                  "routes": [
+                    "POST /api/v1/satelites",
+                    "POST /api/v1/satelites/sincronizacion",
+                    "PATCH /api/v1/satelites/:sat",
+                    "GET /api/v1/satelites",
+                    "GET /api/v1/satelites/ausentes",
+                    "GET /api/v1/satelites/fuente",
+                    "GET /api/v1/suites"
+                  ],
+                  "route": "/satelites"
+                },
+                {
+                  "code": "SAT_BAJA",
+                  "name": "Baja de satélite",
+                  "sortOrder": 2,
+                  "actions": [
+                    "DELETE"
+                  ],
+                  "routes": [
+                    "DELETE /api/v1/satelites/:sat"
+                  ],
+                  "route": "/satelites"
+                },
+                {
+                  "code": "SAT_SYNC_LOG",
+                  "name": "Bitácora de sincronización",
+                  "sortOrder": 3,
+                  "actions": [
+                    "VIEW"
+                  ],
+                  "routes": [
+                    "GET /api/v1/satelites/bitacora"
+                  ],
+                  "route": "/satelites/sync-log"
+                }
+              ]
+            },
+            {
+              "code": "SAT_SIS",
+              "name": "Sistemas",
+              "sortOrder": 2,
+              "options": [
+                {
+                  "code": "SIS_LISTA",
+                  "name": "Sistemas del satélite",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW",
+                    "CREATE",
+                    "UPDATE"
+                  ],
+                  "routes": [
+                    "POST /api/v1/satelites/:sat/sistemas",
+                    "PATCH /api/v1/sistemas/:id",
+                    "POST /api/v1/sistemas/:id/mudanza",
+                    "GET /api/v1/satelites/:sat/sistemas",
+                    "GET /api/v1/sistemas/:id"
+                  ],
+                  "route": "/satelites/sistemas"
+                },
+                {
+                  "code": "SIS_BAJA",
+                  "name": "Baja de sistema",
+                  "sortOrder": 2,
+                  "actions": [
+                    "DELETE"
+                  ],
+                  "routes": [
+                    "DELETE /api/v1/sistemas/:id"
+                  ],
+                  "route": "/satelites/sistemas"
+                },
+                {
+                  "code": "SIS_EQUIPO",
+                  "name": "Equipo del sistema",
+                  "sortOrder": 3,
+                  "actions": [
+                    "VIEW",
+                    "UPDATE"
+                  ],
+                  "routes": [
+                    "POST /api/v1/sistemas/:id/equipo",
+                    "GET /api/v1/satelites/:sat/equipo",
+                    "GET /api/v1/sistemas/:id/equipo"
+                  ],
+                  "route": "/satelites/equipo"
+                }
+              ]
+            }
+          ],
+          "icon": "satellite-dish"
+        }
+      ]
+    },
+    {
+      "code": "PORT",
+      "name": "Portafolio Ejecutivo",
+      "description": "Vista ejecutiva del portafolio: salud, alertas y KPIs",
+      "sortOrder": 2,
+      "icon": "layout-dashboard",
+      "menus": [
+        {
+          "code": "DASHBOARDS",
+          "name": "Dashboards",
+          "sortOrder": 1,
+          "submenus": [
+            {
+              "code": "DASH_EJEC",
+              "name": "Dashboard ejecutivo",
+              "sortOrder": 1,
+              "options": [
+                {
+                  "code": "PORT_DASHBOARD",
+                  "name": "Dashboard del portafolio",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW"
+                  ],
+                  "routes": [
+                    "GET /api/v1/programas",
+                    "GET /api/v1/programas/:id"
+                  ],
+                  "_comentarioRutas": "El BACKLOG DEL AREA salio de aqui el 2026-08-25 y vive en PRD > PRD_PLANIFICACION > PLAN_BACKLOG > PLAN_TAREAS. Este nodo gobernaba siete rutas que no pinta ningun dashboard —actividades, su bitacora, su contexto y el catalogo de tipos de tarea—, de modo que recortar el menu DASHBOARDS a un perfil le apagaba tambien la pantalla de Tareas, que usa a diario quien hace el trabajo. Lo que queda aqui es lo que el menu dice ser: el dashboard ejecutivo y el roadmap del programa, que se conceden y se ocultan juntos. La lectura de PRDs que alimenta el dashboard la gobierna PRD_LISTA, su dueño del dato.",
+                  "paneles": [
+                    "Salud del portafolio",
+                    "Alertas y bloqueos",
+                    "KPIs de portafolio"
+                  ],
+                  "route": "/portafolio"
+                }
+              ]
+            },
+            {
+              "code": "DASH_PUB",
+              "name": "Publicacion",
+              "sortOrder": 2,
+              "options": [
+                {
+                  "code": "WRITE_BACK",
+                  "name": "Estado de write-back",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW"
+                  ],
+                  "routes": [
+                    "GET /api/v1/configuracion/capacidades"
+                  ],
+                  "route": "/portafolio/write-back"
+                }
+              ]
+            }
+          ],
+          "icon": "layout-dashboard"
+        }
+      ]
+    },
+    {
+      "code": "PRD",
+      "name": "Iniciativas (PRD)",
+      "description": "Ciclo de vida de la iniciativa: plan, fases, gates, artefactos, equipo y riesgos",
+      "sortOrder": 3,
+      "icon": "folder-kanban",
+      "menus": [
+        {
+          "code": "PRD_CATALOGO",
+          "name": "Catálogo de PRDs",
+          "sortOrder": 1,
+          "submenus": [
+            {
+              "code": "PRD_BANDEJA",
+              "name": "Bandeja",
+              "sortOrder": 1,
+              "options": [
+                {
+                  "code": "PRD_LISTA",
+                  "name": "PRDs del satélite",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW",
+                    "SEARCH",
+                    "EXPORT"
+                  ],
+                  "routes": [
+                    "GET /api/v1/prds/:id/export",
+                    "GET /api/v1/prds/search",
+                    "GET /api/v1/prds",
+                    "GET /api/v1/prds/:id",
+                    "GET /api/v1/satelites/:sat/prds"
+                  ],
+                  "route": "/prds"
+                },
+                {
+                  "code": "PRD_INGESTA",
+                  "name": "Sincronización e importacion",
+                  "sortOrder": 2,
+                  "actions": [
+                    "VIEW",
+                    "SYNC",
+                    "IMPORT"
+                  ],
+                  "routes": [
+                    "POST /api/v1/ingesta/prds",
+                    "POST /api/v1/ingesta/prds/refresco",
+                    "GET /api/v1/ingesta/prds"
+                  ],
+                  "route": "/prds/sincronizacion"
+                }
+              ]
+            }
+          ],
+          "icon": "folder-kanban"
+        },
+        {
+          "code": "PRD_PLANIFICACION",
+          "name": "Planificación",
+          "sortOrder": 2,
+          "submenus": [
+            {
+              "code": "PLAN_CRONOGRAMA",
+              "name": "Cronograma",
+              "sortOrder": 1,
+              "options": [
+                {
+                  "code": "PLAN_TABLERO",
+                  "name": "Board, Kanban y Gantt",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW"
+                  ],
+                  "routes": [],
+                  "route": "/prds/:id",
+                  "_comentarioRutas": "Sin ruta propia en la v1 del Tablero: la lectura que alimenta esta pantalla la gobierna el nodo dueño del dato (criterio del mapa de permisos del Tablero). El nodo conserva sus acciones —y por tanto sus scopes—; lo que no tiene es ruta."
+                },
+                {
+                  "code": "PLAN_HITOS",
+                  "name": "Hitos y línea base",
+                  "sortOrder": 2,
+                  "actions": [
+                    "VIEW",
+                    "UPDATE",
+                    "EXECUTE"
+                  ],
+                  "routes": [
+                    "POST /api/v1/prds/:id/inicio",
+                    "PUT /api/v1/prds/:id/hitos"
+                  ],
+                  "route": "/prds/:id/hitos"
+                },
+                {
+                  "code": "PLAN_CAMBIOS",
+                  "name": "Cambios de plan",
+                  "sortOrder": 3,
+                  "actions": [
+                    "VIEW",
+                    "UPDATE",
+                    "EXECUTE"
+                  ],
+                  "routes": [
+                    "PATCH /api/v1/programas/:id/actividades/:aid/ejecucion",
+                    "POST /api/v1/actividades/:id/replanificacion",
+                    "POST /api/v1/prds/:id/regularizacion",
+                    "PUT /api/v1/actividades/:id/ciclo",
+                    "PUT /api/v1/prds/:id/ciclo",
+                    "DELETE /api/v1/actividades/:id",
+                    "PATCH /api/v1/actividades/:id",
+                    "POST /api/v1/actividades",
+                    "POST /api/v1/actividades/:id/decisiones",
+                    "POST /api/v1/actividades/:id/premisas",
+                    "POST /api/v1/decisiones/:id/cierre",
+                    "POST /api/v1/prds/:id/cambios",
+                    "POST /api/v1/premisas/:id/invalidacion",
+                    "POST /api/v1/prds/:id/cambios/previsualizacion"
+                  ],
+                  "route": "/prds/:id/cambios"
+                },
+                {
+                  "code": "PLAN_DEPENDENCIAS",
+                  "name": "Dependencias",
+                  "sortOrder": 4,
+                  "actions": [
+                    "VIEW",
+                    "CREATE",
+                    "DELETE"
+                  ],
+                  "routes": [
+                    "POST /api/v1/prds/:id/dependencias",
+                    "DELETE /api/v1/prds/:id/dependencias/:depId"
+                  ],
+                  "route": "/prds/:id/dependencias"
+                }
+              ]
+            },
+            {
+              "code": "PLAN_FASES",
+              "name": "Fases y gates",
+              "sortOrder": 2,
+              "options": [
+                {
+                  "code": "FASE_EJECUCION",
+                  "name": "Inicio y cierre de fase",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW",
+                    "EXECUTE",
+                    "APPROVE"
+                  ],
+                  "routes": [
+                    "POST /api/v1/prds/:id/hitos/:hitoId/reconciliacion",
+                    "DELETE /api/v1/anotaciones/:id",
+                    "PATCH /api/v1/anotaciones/:id",
+                    "POST /api/v1/prds/:id/hitos/:hitoId/cierre",
+                    "POST /api/v1/prds/:id/hitos/:hitoId/inicio",
+                    "POST /api/v1/prds/:prdId/anotaciones",
+                    "PUT /api/v1/anotaciones/:id/asignaciones/:partId"
+                  ],
+                  "route": "/prds/:id/fases"
+                },
+                {
+                  "code": "FASE_GATE",
+                  "name": "Gate de fase",
+                  "sortOrder": 2,
+                  "actions": [
+                    "VIEW",
+                    "EXECUTE"
+                  ],
+                  "routes": [
+                    "GET /api/v1/prds/:id/hitos/:hitoId/gate",
+                    "POST /api/v1/prds/:id/hitos/:hid/recomendacion",
+                    "POST /api/v1/prds/:id/hitos/:hitoId/gate"
+                  ],
+                  "route": "/prds/:id/fases/gate",
+                  "_comentarioAcciones": "Sin APPROVE (decidido el 2026-08-21): ninguna ruta del Tablero lo exigia, asi que conceder `fase_gate.approve` no habilitaba nada. La aprobacion de fase ya esta cubierta dos veces —`fase_gate.execute` sobre las rutas de cierre y la certificacion del artefacto—, de modo que no gobernaba un tercer acto: nombraba uno que no existe."
+                }
+              ]
+            },
+            {
+              "code": "PLAN_BACKLOG",
+              "name": "Backlog del área",
+              "sortOrder": 3,
+              "options": [
+                {
+                  "code": "PLAN_TAREAS",
+                  "name": "Tareas del área",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW"
+                  ],
+                  "routes": [
+                    "GET /api/v1/actividades",
+                    "GET /api/v1/actividades/areas",
+                    "GET /api/v1/actividades/:id",
+                    "GET /api/v1/actividades/:id/bitacora",
+                    "GET /api/v1/actividades/:id/contexto",
+                    "GET /api/v1/programas/:id/actividades/:aid/bitacora",
+                    "GET /api/v1/tareas/tipos"
+                  ],
+                  "route": "/tareas",
+                  "_comentario": "El trabajo que se le plantea a un area y no cuelga de ningun PRD. Estaba colgado de PORT_DASHBOARD —el dashboard ejecutivo— y eso ataba dos publicos distintos al mismo permiso: el informe que la Direccion lee una vez por sprint y el backlog que se opera a diario. Su sitio es PLANIFICACION, que es de donde el Tablero cuelga ya la seccion Tareas y de donde salen los scopes con que se ESCRIBE en ella (`plan_cambios.update`, `plan_cambios.execute`). Solo VIEW: escribir el backlog no estrena permiso, sigue siendo PLAN_CAMBIOS. La ESCRITURA del seguimiento (`PATCH /programas/:id/actividades/:aid/ejecucion`) tambien es de PLAN_CAMBIOS; aqui solo viaja la LECTURA de su bitacora, que es la que la pantalla necesita."
+                }
+              ]
+            }
+          ],
+          "icon": "calendar-range"
+        },
+        {
+          "code": "PRD_ARTEFACTOS",
+          "name": "Artefactos",
+          "sortOrder": 3,
+          "submenus": [
+            {
+              "code": "ART_DOCS",
+              "name": "Documentos",
+              "sortOrder": 1,
+              "options": [
+                {
+                  "code": "ART_CATALOGO",
+                  "name": "Artefactos de la fase",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW",
+                    "CREATE",
+                    "UPDATE",
+                    "DELETE"
+                  ],
+                  "routes": [
+                    "POST /api/v1/prds/:id/hitos/:hitoId/artefactos",
+                    "DELETE /api/v1/prds/:id/artefactos/:aid",
+                    "PATCH /api/v1/prds/:id/artefactos/:aid"
+                  ],
+                  "route": "/prds/:id/artefactos"
+                },
+                {
+                  "code": "ART_EDITOR",
+                  "name": "Borrador y contenido",
+                  "sortOrder": 2,
+                  "actions": [
+                    "VIEW",
+                    "UPDATE",
+                    "UPLOAD"
+                  ],
+                  "routes": [
+                    "DELETE /api/v1/prds/:id/artefactos/:aid/borrador",
+                    "POST /api/v1/prds/:id/artefactos/:aid/publicacion",
+                    "PUT /api/v1/prds/:id/artefactos/:aid/borrador",
+                    "GET /api/v1/prds/:id/artefactos/:aid/borrador",
+                    "GET /api/v1/prds/:id/artefactos/:aid/borrador/versiones",
+                    "GET /api/v1/prds/:id/artefactos/:aid/borrador/versiones/:vid",
+                    "GET /api/v1/prds/:id/artefactos/:aid/contenido",
+                    "GET /api/v1/prds/:id/artefactos/:aid/contenido/plantilla",
+                    "POST /api/v1/render/docx",
+                    "POST /api/v1/render/plantuml"
+                  ],
+                  "route": "/prds/:id/artefactos/editor"
+                },
+                {
+                  "code": "ART_IA",
+                  "name": "Asistencia IA",
+                  "sortOrder": 3,
+                  "actions": [
+                    "VIEW",
+                    "ASSIST"
+                  ],
+                  "routes": [
+                    "POST /api/v1/prds/:id/artefactos/:aid/asistencia"
+                  ],
+                  "route": "/prds/:id/artefactos/asistencia"
+                }
+              ]
+            },
+            {
+              "code": "ART_CALIDAD",
+              "name": "Revisión y certificación",
+              "sortOrder": 2,
+              "options": [
+                {
+                  "code": "ART_REVISION",
+                  "name": "Revisión",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW",
+                    "UPDATE",
+                    "APPROVE"
+                  ],
+                  "routes": [
+                    "POST /api/v1/prds/:id/artefactos/:aid/transicion",
+                    "DELETE /api/v1/prds/:id/artefactos/:aid/revision/comentarios/:cid",
+                    "DELETE /api/v1/prds/:id/artefactos/:aid/revision/revisores/:rid",
+                    "POST /api/v1/prds/:id/artefactos/:aid/revision/comentarios",
+                    "POST /api/v1/prds/:id/artefactos/:aid/revision/revisores",
+                    "PUT /api/v1/prds/:id/artefactos/:aid/revision/comentarios/:cid/resolucion",
+                    "PUT /api/v1/prds/:id/artefactos/:aid/revision/revisores/:rid/opinion",
+                    "GET /api/v1/prds/:id/artefactos/:aid/revision"
+                  ],
+                  "route": "/prds/:id/artefactos/revision"
+                },
+                {
+                  "code": "ART_CERT",
+                  "name": "Certificación y evidencia",
+                  "sortOrder": 2,
+                  "actions": [
+                    "VIEW",
+                    "CERTIFY"
+                  ],
+                  "routes": [
+                    "DELETE /api/v1/prds/:id/artefactos/:aid/aprobacion",
+                    "POST /api/v1/prds/:id/artefactos/:aid/aprobacion",
+                    "PUT /api/v1/prds/:id/artefactos/:aid/evidencia"
+                  ],
+                  "route": "/prds/:id/artefactos/certificacion"
+                }
+              ]
+            }
+          ],
+          "icon": "file-text"
+        },
+        {
+          "code": "PRD_EQUIPO",
+          "name": "Equipo y riesgos",
+          "sortOrder": 4,
+          "submenus": [
+            {
+              "code": "EQ_PRD",
+              "name": "Equipo del PRD",
+              "sortOrder": 1,
+              "options": [
+                {
+                  "code": "EQ_MIEMBROS",
+                  "name": "Miembros",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW",
+                    "CREATE",
+                    "UPDATE",
+                    "DELETE"
+                  ],
+                  "routes": [],
+                  "route": "/prds/:id/equipo",
+                  "_comentarioRutas": "Sin ruta propia en la v1 del Tablero: la lectura que alimenta esta pantalla la gobierna el nodo dueño del dato (criterio del mapa de permisos del Tablero). El nodo conserva sus acciones —y por tanto sus scopes—; lo que no tiene es ruta."
+                }
+              ]
+            },
+            {
+              "code": "RSK",
+              "name": "Riesgos",
+              "sortOrder": 2,
+              "options": [
+                {
+                  "code": "RSK_REGISTRO",
+                  "name": "Riesgos e issues",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW",
+                    "CREATE",
+                    "UPDATE",
+                    "DELETE"
+                  ],
+                  "routes": [
+                    "POST /api/v1/actividades/:id/riesgos",
+                    "POST /api/v1/prds/:id/riesgos",
+                    "DELETE /api/v1/prds/:id/riesgos/:rid",
+                    "PATCH /api/v1/prds/:id/riesgos/:rid"
+                  ],
+                  "route": "/prds/:id/riesgos"
+                }
+              ]
+            }
+          ],
+          "icon": "users"
+        },
+        {
+          "code": "PRD_EVOLUCION",
+          "name": "Evolucion del plan",
+          "sortOrder": 5,
+          "submenus": [
+            {
+              "code": "EVO_HIST",
+              "name": "Historial",
+              "sortOrder": 1,
+              "options": [
+                {
+                  "code": "EVO_COMPARATIVA",
+                  "name": "Original vs hoy y versiones",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW"
+                  ],
+                  "routes": [],
+                  "route": "/prds/:id/evolucion",
+                  "_comentarioRutas": "Sin ruta propia en la v1 del Tablero: la lectura que alimenta esta pantalla la gobierna el nodo dueño del dato (criterio del mapa de permisos del Tablero). El nodo conserva sus acciones —y por tanto sus scopes—; lo que no tiene es ruta."
+                },
+                {
+                  "code": "EVO_RESTAURAR",
+                  "name": "Restaurar versión del plan",
+                  "sortOrder": 2,
+                  "actions": [
+                    "EXECUTE"
+                  ],
+                  "routes": [
+                    "POST /api/v1/prds/:id/restauracion"
+                  ],
+                  "route": "/prds/:id/evolucion/restaurar"
+                },
+                {
+                  "code": "EVO_BITACORA",
+                  "name": "Bitácora",
+                  "sortOrder": 3,
+                  "actions": [
+                    "VIEW"
+                  ],
+                  "routes": [
+                    "GET /api/v1/anotaciones/:id/versiones",
+                    "GET /api/v1/anotaciones/tipos",
+                    "GET /api/v1/prds/:id/ciclo",
+                    "GET /api/v1/prds/:prdId/anotaciones"
+                  ],
+                  "route": "/prds/:id/bitacora"
+                }
+              ]
+            }
+          ],
+          "icon": "history"
+        }
+      ],
+      "domainResources": [
+        {
+          "type": "Aggregate",
+          "code": "PRD",
+          "name": "Agregado de PRD",
+          "description": "Raiz de la iniciativa y su plan",
+          "tabla": "prd"
+        }
+      ]
+    },
+    {
+      "code": "DEM",
+      "name": "Demandas inter-sistema",
+      "description": "Bandeja de demandas entre sistemas de la suite y sus indicadores",
+      "sortOrder": 4,
+      "icon": "inbox",
+      "menus": [
+        {
+          "code": "DEM_TABLERO",
+          "name": "Demandas",
+          "sortOrder": 1,
+          "submenus": [
+            {
+              "code": "DEM_BANDEJA",
+              "name": "Bandeja",
+              "sortOrder": 1,
+              "options": [
+                {
+                  "code": "DEM_LISTA",
+                  "name": "Demandas",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW",
+                    "UPDATE",
+                    "SYNC"
+                  ],
+                  "routes": [
+                    "POST /api/v1/demandas/sync",
+                    "DELETE /api/v1/demandas/:id/revision/comentarios/:cid",
+                    "DELETE /api/v1/demandas/:id/revision/revisores/:rid",
+                    "PATCH /api/v1/demandas/:id/ejecucion",
+                    "PATCH /api/v1/demandas/:id/revision/comentarios/:cid",
+                    "PATCH /api/v1/demandas/:id/revision/revisores/:rid",
+                    "POST /api/v1/demandas/:id/decision",
+                    "POST /api/v1/demandas/:id/revision/comentarios",
+                    "POST /api/v1/demandas/:id/revision/revisores",
+                    "GET /api/v1/actividad",
+                    "GET /api/v1/demandas",
+                    "GET /api/v1/demandas/:id",
+                    "GET /api/v1/demandas/:id/bitacora",
+                    "GET /api/v1/demandas/:id/documento",
+                    "GET /api/v1/demandas/:id/revision"
+                  ],
+                  "route": "/demandas"
+                }
+              ]
+            },
+            {
+              "code": "DEM_IND",
+              "name": "Indicadores",
+              "sortOrder": 2,
+              "options": [
+                {
+                  "code": "DEM_KPIS",
+                  "name": "KPIs de demanda",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW",
+                    "EXECUTE"
+                  ],
+                  "routes": [
+                    "POST /api/v1/kpis/snapshot",
+                    "GET /api/v1/kpis/serie"
+                  ],
+                  "route": "/demandas/kpis"
+                }
+              ]
+            }
+          ],
+          "icon": "inbox"
+        }
+      ]
+    },
+    {
+      "code": "PER",
+      "name": "Personas y capacidad",
+      "description": "Registro raiz de personas, asignaciones por porcentaje y carga",
+      "sortOrder": 5,
+      "icon": "users",
+      "menus": [
+        {
+          "code": "PER_REGISTRO",
+          "name": "Personas",
+          "sortOrder": 1,
+          "submenus": [
+            {
+              "code": "PER_MAESTRO",
+              "name": "Registro",
+              "sortOrder": 1,
+              "options": [
+                {
+                  "code": "PER_LISTA",
+                  "name": "Personas",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW",
+                    "CREATE",
+                    "UPDATE",
+                    "DELETE"
+                  ],
+                  "routes": [
+                    "POST /api/v1/personas",
+                    "DELETE /api/v1/personas/:id",
+                    "PATCH /api/v1/personas/:id",
+                    "GET /api/v1/personas",
+                    "GET /api/v1/personas/:id"
+                  ],
+                  "route": "/personas"
+                }
+              ]
+            },
+            {
+              "code": "PER_CARGA",
+              "name": "Asignación",
+              "sortOrder": 2,
+              "options": [
+                {
+                  "code": "PER_ASIGNACIONES",
+                  "name": "Asignaciones",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW",
+                    "CREATE",
+                    "UPDATE",
+                    "DELETE"
+                  ],
+                  "routes": [
+                    "POST /api/v1/personas/:id/asignaciones",
+                    "POST /api/v1/prds/:id/asignaciones",
+                    "DELETE /api/v1/asignaciones/:id",
+                    "PATCH /api/v1/asignaciones/:id",
+                    "POST /api/v1/prds/:id/asignaciones/:aid/liberacion",
+                    "GET /api/v1/prds/:id/asignaciones"
+                  ],
+                  "route": "/personas/asignaciones"
+                },
+                {
+                  "code": "PER_CAPACIDAD",
+                  "name": "Carga y sobre-asignación",
+                  "sortOrder": 2,
+                  "actions": [
+                    "VIEW"
+                  ],
+                  "routes": [],
+                  "route": "/personas/carga",
+                  "_comentarioRutas": "Sin ruta propia en la v1 del Tablero: la lectura que alimenta esta pantalla la gobierna el nodo dueño del dato (criterio del mapa de permisos del Tablero). El nodo conserva sus acciones —y por tanto sus scopes—; lo que no tiene es ruta."
+                }
+              ]
+            }
+          ],
+          "icon": "user-round"
+        }
+      ]
+    },
+    {
+      "code": "CFG",
+      "name": "Configuración del Tablero",
+      "description": "Jornada laboral, feriados, artefactos exigidos por fase y salud del servicio",
+      "sortOrder": 6,
+      "icon": "settings",
+      "menus": [
+        {
+          "code": "CFG_CALENDARIO",
+          "name": "Jornada y feriados",
+          "sortOrder": 1,
+          "submenus": [
+            {
+              "code": "CFG_JORNADA",
+              "name": "Jornada laboral",
+              "sortOrder": 1,
+              "options": [
+                {
+                  "code": "CFG_LABORAL",
+                  "name": "Días laborables",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW",
+                    "UPDATE"
+                  ],
+                  "routes": [
+                    "PUT /api/v1/configuracion/jornada",
+                    "GET /api/v1/configuracion"
+                  ],
+                  "route": "/config/jornada"
+                }
+              ]
+            },
+            {
+              "code": "CFG_FERIADOS",
+              "name": "Feriados",
+              "sortOrder": 2,
+              "options": [
+                {
+                  "code": "CFG_FERIADO",
+                  "name": "Calendario de feriados",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW",
+                    "CREATE",
+                    "UPDATE",
+                    "DELETE",
+                    "EXECUTE"
+                  ],
+                  "routes": [
+                    "POST /api/v1/feriados",
+                    "DELETE /api/v1/feriados/:id",
+                    "POST /api/v1/feriados/precarga",
+                    "PATCH /api/v1/feriados/:id",
+                    "GET /api/v1/feriados"
+                  ],
+                  "route": "/config/feriados"
+                }
+              ]
+            }
+          ],
+          "icon": "calendar-days"
+        },
+        {
+          "code": "CFG_ARTEFACTOS",
+          "name": "Artefactos por fase",
+          "sortOrder": 2,
+          "submenus": [
+            {
+              "code": "CFG_ART_CAT",
+              "name": "Catálogo",
+              "sortOrder": 1,
+              "options": [
+                {
+                  "code": "CFG_ART_FASE",
+                  "name": "Artefactos exigidos por fase",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW",
+                    "UPDATE"
+                  ],
+                  "routes": [
+                    "DELETE /api/v1/anotaciones/tipos/:id",
+                    "DELETE /api/v1/tareas/tipos/:id",
+                    "PATCH /api/v1/anotaciones/tipos/:id",
+                    "PATCH /api/v1/tareas/tipos/:id",
+                    "POST /api/v1/anotaciones/tipos",
+                    "POST /api/v1/anotaciones/tipos/:id/reactivacion",
+                    "POST /api/v1/tareas/tipos",
+                    "POST /api/v1/tareas/tipos/:id/reactivacion",
+                    "PUT /api/v1/configuracion/artefactos",
+                    "GET /api/v1/configuracion/artefactos"
+                  ],
+                  "route": "/config/artefactos"
+                }
+              ]
+            }
+          ],
+          "icon": "list-checks"
+        },
+        {
+          "code": "CFG_SERVICIO",
+          "name": "Salud del servicio",
+          "sortOrder": 3,
+          "submenus": [
+            {
+              "code": "CFG_ESTADO",
+              "name": "Estado del despliegue",
+              "sortOrder": 1,
+              "options": [
+                {
+                  "code": "CFG_CAPACIDADES",
+                  "name": "Capacidades del despliegue",
+                  "sortOrder": 1,
+                  "actions": [
+                    "VIEW"
+                  ],
+                  "routes": [
+                    "GET /api/v1/configuracion/capacidades"
+                  ],
+                  "route": "/config/capacidades"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "appSettings": [
+    {
+      "key": "SDLC_JORNADA_DIAS",
+      "value": "1,2,3,4,5",
+      "description": "Días laborables por defecto (0=Dom)",
+      "isClientVisible": false
+    },
+    {
+      "key": "SDLC_FERIADOS_PAIS",
+      "value": "PE",
+      "description": "Calendario de feriados base",
+      "isClientVisible": false
+    },
+    {
+      "key": "SDLC_IA_ASISTENCIA",
+      "value": "false",
+      "description": "Habilita la asistencia IA por tipo de artefacto (ADR-0145)",
+      "isClientVisible": false
+    },
+    {
+      "key": "SDLC_WRITE_BACK",
+      "value": "false",
+      "description": "Habilita el write-back a git (ADR-0144)",
+      "isClientVisible": false
+    },
+    {
+      "key": "BRAND_DISPLAY_NAME",
+      "value": "Tablero de Gobierno SDLC",
+      "description": "Nombre comercial en la barra superior",
+      "isClientVisible": true
+    },
+    {
+      "key": "BRAND_SHORT_NAME",
+      "value": "SDLC",
+      "description": "Nombre corto para espacios reducidos",
+      "isClientVisible": true
+    },
+    {
+      "key": "BRAND_TAGLINE",
+      "value": "Gobierno del ciclo de vida de los sistemas satelite",
+      "description": "Descriptor bajo el nombre comercial en la barra superior",
+      "isClientVisible": true
+    },
+    {
+      "key": "BRAND_LOGO_URL",
+      "value": "/branding/sdlc/logo.svg",
+      "description": "Logotipo",
+      "isClientVisible": true
+    },
+    {
+      "key": "BRAND_ICON_URL",
+      "value": "/branding/sdlc/icon.svg",
+      "description": "Iconografia",
+      "isClientVisible": true
+    },
+    {
+      "key": "THEME_PRIMARY",
+      "value": "#0f3e67",
+      "description": "Color primario (azul corporativo Evolith)",
+      "isClientVisible": true
+    },
+    {
+      "key": "THEME_ACCENT",
+      "value": "#27ae60",
+      "description": "Color de acento",
+      "isClientVisible": true
+    },
+    {
+      "key": "THEME_MODE",
+      "value": "system",
+      "description": "Claro, oscuro o según el sistema",
+      "isClientVisible": true
+    },
+    {
+      "key": "UI_LAYOUT",
+      "value": "nav-rail",
+      "description": "Disposicion de la navegacion",
+      "isClientVisible": true
+    },
+    {
+      "key": "UI_HOME_ROUTE",
+      "value": "/portafolio",
+      "description": "Pantalla inicial tras autenticar",
+      "isClientVisible": true
+    },
+    {
+      "key": "UI_DENSITY",
+      "value": "comfortable",
+      "description": "Densidad visual",
+      "isClientVisible": true
+    },
+    {
+      "key": "LOCALE_LANGUAGE",
+      "value": "es-PE",
+      "description": "Idioma por defecto",
+      "isClientVisible": true
+    },
+    {
+      "key": "LOCALE_TIMEZONE",
+      "value": "America/Lima",
+      "description": "Zona horaria",
+      "isClientVisible": true
+    },
+    {
+      "key": "LOCALE_CURRENCY",
+      "value": "PEN",
+      "description": "Moneda",
+      "isClientVisible": true
+    }
+  ],
+  "roles": [
+    {
+      "code": "ADMIN_SDLC",
+      "name": "Administrador del Tablero",
+      "description": "Configura el tablero y administra el catálogo de satélites y sistemas",
+      "hierarchyLevel": 0,
+      "promotionOrder": 0
+    },
+    {
+      "code": "GERENTE",
+      "name": "Gerente",
+      "description": "Lectura ejecutiva del portafolio; aprueba gates y certifica artefactos",
+      "hierarchyLevel": 0,
+      "promotionOrder": 1
+    },
+    {
+      "code": "AUDITOR",
+      "name": "Auditor de Cumplimiento",
+      "description": "Lectura completa para auditoría; ninguna escritura",
+      "hierarchyLevel": 0,
+      "promotionOrder": 2
+    },
+    {
+      "code": "APROBADOR",
+      "name": "Aprobador del Gate",
+      "description": "Certifica artefactos, emite la opinion de revisión y opera el gate de fase. NO edita el artefacto que aprueba: esa separacion es el control.",
+      "hierarchyLevel": 0,
+      "promotionOrder": 3
+    },
+    {
+      "code": "COORDINADOR",
+      "name": "Coordinador",
+      "description": "Coordina cronograma, capacidad y demanda; da de alta satélites y sistemas",
+      "hierarchyLevel": 1,
+      "promotionOrder": 3
+    },
+    {
+      "code": "JEFE",
+      "name": "Jefe de Proyecto",
+      "description": "Ejecuta el plan de fases; mantiene equipo, riesgos y artefactos",
+      "hierarchyLevel": 2,
+      "promotionOrder": 4
+    },
+    {
+      "code": "ANALISTA",
+      "name": "Analista",
+      "description": "Analiza y redacta sobre el PRD; no ejecuta fases ni cierra gates",
+      "hierarchyLevel": 2,
+      "promotionOrder": 5
+    },
+    {
+      "code": "DESARROLLADOR",
+      "name": "Desarrollador",
+      "description": "Redacta borradores, participa en revisión y registra riesgos",
+      "hierarchyLevel": 3,
+      "promotionOrder": 6
+    }
+  ],
+  "permissionTemplates": [
+    {
+      "code": "PLT_ADMIN_SDLC",
+      "role": "ADMIN_SDLC",
+      "description": "Acceso total a la navegacion del Tablero SDLC. NO concede objetos de dominio por comodín: se conceden uno a uno, cuando exista código que los consulte.",
+      "grants": [
+        {
+          "suite": "*",
+          "actions": "*"
+        }
+      ]
+    },
+    {
+      "code": "PLT_GERENTE",
+      "role": "GERENTE",
+      "description": "Acceso total a la navegacion del Tablero, igual que ADMIN_SDLC y JEFE (decision de negocio 2026-08-17). NO concede objetos de dominio por comodín.",
+      "grants": [
+        {
+          "suite": "*",
+          "actions": [
+            "VIEW",
+            "SEARCH",
+            "EXPORT"
+          ]
+        },
+        {
+          "resource": "*",
+          "actions": [
+            "VIEW"
+          ]
+        },
+        {
+          "option": "PLAN_CAMBIOS",
+          "actions": [
+            "VIEW",
+            "UPDATE",
+            "EXECUTE"
+          ]
+        },
+        {
+          "option": "PLAN_HITOS",
+          "actions": [
+            "VIEW",
+            "UPDATE",
+            "EXECUTE"
+          ]
+        },
+        {
+          "option": "PLAN_DEPENDENCIAS",
+          "actions": [
+            "VIEW",
+            "CREATE",
+            "DELETE"
+          ]
+        },
+        {
+          "option": "CFG_ART_FASE",
+          "actions": [
+            "VIEW",
+            "UPDATE"
+          ]
+        },
+        {
+          "option": "FASE_EJECUCION",
+          "actions": [
+            "VIEW",
+            "APPROVE"
+          ]
+        },
+        {
+          "option": "EVO_RESTAURAR",
+          "actions": [
+            "EXECUTE"
+          ]
+        },
+        {
+          "option": "PER_ASIGNACIONES",
+          "actions": [
+            "VIEW",
+            "CREATE",
+            "UPDATE",
+            "DELETE"
+          ]
+        },
+        {
+          "option": "DEM_LISTA",
+          "actions": [
+            "VIEW",
+            "UPDATE",
+            "SYNC"
+          ]
+        },
+        {
+          "option": "PRD_INGESTA",
+          "actions": [
+            "VIEW",
+            "SYNC",
+            "IMPORT"
+          ]
+        }
+      ],
+      "_comentario": "Recortado (G-284). Tenia `{suite:'*', actions:'*'}`: alcanzaba las 226 rutas, la misma superficie que el administrador, asi que declararlo como rol distinto no distinguia nada. Un gerente gobierna el cronograma, la gente y la entrada de trabajo; no edita artefactos ni los certifica. Y NO lleva `eq_miembros.*`: sus tres escrituras solo las usaba `/api/prds/{id}/equipo`, que la v1 no publica —escribia al equipo del SISTEMA en vez de al del PRD—. El equipo de un PRD se compone con `per_asignaciones.*`, que si tiene rutas. Conceder un permiso que no habilita nada le da al rol una apariencia de alcance que ninguna capacidad respalda."
+    },
+    {
+      "code": "PLT_AUDITOR",
+      "role": "AUDITOR",
+      "description": "Lectura completa para auditoría; ninguna escritura en ningún modulo",
+      "grants": [
+        {
+          "suite": "*",
+          "actions": [
+            "VIEW",
+            "SEARCH",
+            "EXPORT"
+          ]
+        },
+        {
+          "resource": "*",
+          "actions": [
+            "VIEW"
+          ]
+        },
+        {
+          "menu": "DASHBOARDS",
+          "actions": [
+            "VIEW"
+          ],
+          "effect": "deny"
+        }
+      ]
+    },
+    {
+      "code": "PLT_COORDINADOR",
+      "role": "COORDINADOR",
+      "description": "Cronograma, capacidad y demanda, más el alta de satélites y sistemas; no certifica",
+      "grants": [
+        {
+          "module": "GOB",
+          "actions": "*"
+        },
+        {
+          "module": "PORT",
+          "actions": "*"
+        },
+        {
+          "module": "PRD",
+          "actions": [
+            "VIEW",
+            "SEARCH",
+            "EXPORT"
+          ]
+        },
+        {
+          "submenu": "PLAN_CRONOGRAMA",
+          "actions": [
+            "VIEW",
+            "CREATE",
+            "UPDATE",
+            "DELETE",
+            "EXECUTE"
+          ]
+        },
+        {
+          "module": "DEM",
+          "actions": "*"
+        },
+        {
+          "module": "PER",
+          "actions": "*"
+        },
+        {
+          "option": "CFG_LABORAL",
+          "actions": [
+            "VIEW",
+            "UPDATE"
+          ]
+        },
+        {
+          "option": "CFG_FERIADO",
+          "actions": [
+            "VIEW",
+            "CREATE",
+            "UPDATE",
+            "DELETE",
+            "EXECUTE"
+          ]
+        },
+        {
+          "option": "CFG_ART_FASE",
+          "actions": [
+            "VIEW"
+          ]
+        },
+        {
+          "option": "CFG_CAPACIDADES",
+          "actions": [
+            "VIEW"
+          ]
+        },
+        {
+          "resource": "*",
+          "actions": [
+            "VIEW"
+          ]
+        },
+        {
+          "resource": "SATELITE",
+          "actions": [
+            "VIEW",
+            "CREATE",
+            "UPDATE",
+            "DELETE",
+            "SYNC"
+          ]
+        },
+        {
+          "resource": "SISTEMA",
+          "actions": [
+            "VIEW",
+            "CREATE",
+            "UPDATE",
+            "DELETE"
+          ]
+        },
+        {
+          "resource": "PERSONA",
+          "actions": [
+            "VIEW",
+            "CREATE",
+            "UPDATE",
+            "DELETE"
+          ]
+        },
+        {
+          "resource": "ASIGNACION",
+          "actions": [
+            "VIEW",
+            "CREATE",
+            "UPDATE",
+            "DELETE"
+          ]
+        },
+        {
+          "resource": "DEMANDA",
+          "actions": [
+            "VIEW",
+            "UPDATE",
+            "SYNC"
+          ]
+        },
+        {
+          "resource": "CONFIG",
+          "actions": [
+            "VIEW",
+            "UPDATE"
+          ]
+        },
+        {
+          "resource": "FERIADO",
+          "actions": [
+            "VIEW",
+            "CREATE",
+            "UPDATE",
+            "DELETE"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "PLT_JEFE",
+      "role": "JEFE",
+      "description": "Acceso total a la navegacion del Tablero, igual que ADMIN_SDLC y GERENTE (decision de negocio 2026-08-17). NO concede objetos de dominio por comodín.",
+      "grants": [
+        {
+          "suite": "*",
+          "actions": [
+            "VIEW",
+            "SEARCH",
+            "EXPORT"
+          ]
+        },
+        {
+          "resource": "*",
+          "actions": [
+            "VIEW"
+          ]
+        },
+        {
+          "option": "ART_EDITOR",
+          "actions": [
+            "VIEW",
+            "UPDATE"
+          ]
+        },
+        {
+          "option": "ART_IA",
+          "actions": [
+            "VIEW",
+            "ASSIST"
+          ]
+        },
+        {
+          "option": "ART_REVISION",
+          "actions": [
+            "VIEW",
+            "UPDATE"
+          ]
+        },
+        {
+          "option": "FASE_EJECUCION",
+          "actions": [
+            "VIEW",
+            "EXECUTE"
+          ]
+        },
+        {
+          "option": "RSK_REGISTRO",
+          "actions": [
+            "VIEW",
+            "CREATE",
+            "UPDATE",
+            "DELETE"
+          ]
+        },
+        {
+          "menu": "DASHBOARDS",
+          "actions": [
+            "VIEW"
+          ],
+          "effect": "deny"
+        }
+      ],
+      "_comentario": "Recortado (G-284), por el mismo motivo que GERENTE. Un jefe de proyecto hace el trabajo con su equipo —redacta, adjunta evidencia, pide asistencia de IA, comenta la revision, ejecuta sus fases y lleva sus riesgos— y NO certifica: `art_cert.certify` y `art_revision.approve` son del aprobador. Ahi esta el control. Sin `art_editor.upload`: su unica ruta era la subida de archivo, que la v1 no publica porque la evidencia va por referencia. Mismo criterio que con `eq_miembros.*` en GERENTE. DASHBOARDS denegado el 2026-08-25, el recorte que AUDITOR y APROBADOR recibieron el 25/08: el jefe de proyecto no lee el informe ejecutivo del portafolio, lo alimenta. Quedaba fuera porque el menu se llevaba tambien `write_back.view` —con el que el Tablero preguntaba `GET /configuracion/capacidades`, de donde salen la IA y PlantUML del editor— y porque `port_dashboard.view` gateaba de paso el backlog de Tareas. Las dos ataduras estan cortadas: las capacidades cuelgan de CFG_CAPACIDADES y el backlog de PLAN_TAREAS. Lo que pierde ahora es lo que dice perder: el dashboard y el roadmap."
+    },
+    {
+      "code": "PLT_ANALISTA",
+      "role": "ANALISTA",
+      "description": "Satélites y tareas (menu PRD_Planificación). SIN las bajas irreversibles SAT_Baja/SIS_Baja y SIN cierre de gates: aprobar es de GERENTE.",
+      "grants": [
+        {
+          "option": "SAT_LISTA",
+          "actions": [
+            "VIEW",
+            "CREATE",
+            "UPDATE",
+            "SYNC"
+          ]
+        },
+        {
+          "option": "SAT_SYNC_LOG",
+          "actions": [
+            "VIEW"
+          ]
+        },
+        {
+          "option": "SIS_LISTA",
+          "actions": [
+            "VIEW",
+            "CREATE",
+            "UPDATE"
+          ]
+        },
+        {
+          "option": "SIS_EQUIPO",
+          "actions": [
+            "VIEW",
+            "UPDATE"
+          ]
+        },
+        {
+          "option": "PLAN_TABLERO",
+          "actions": [
+            "VIEW"
+          ]
+        },
+        {
+          "option": "PLAN_HITOS",
+          "actions": [
+            "VIEW",
+            "UPDATE",
+            "EXECUTE"
+          ]
+        },
+        {
+          "option": "PLAN_CAMBIOS",
+          "actions": [
+            "VIEW",
+            "UPDATE",
+            "EXECUTE"
+          ]
+        },
+        {
+          "option": "PLAN_DEPENDENCIAS",
+          "actions": [
+            "VIEW",
+            "CREATE",
+            "DELETE"
+          ]
+        },
+        {
+          "option": "FASE_EJECUCION",
+          "actions": [
+            "VIEW",
+            "EXECUTE"
+          ]
+        },
+        {
+          "option": "PLAN_TAREAS",
+          "actions": [
+            "VIEW"
+          ]
+        },
+        {
+          "option": "CFG_CAPACIDADES",
+          "actions": [
+            "VIEW"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "PLT_DESARROLLADOR",
+      "role": "DESARROLLADOR",
+      "description": "Satélites y tareas (menu PRD_Planificación). SIN las bajas irreversibles SAT_Baja/SIS_Baja y SIN cierre de gates: aprobar es de GERENTE.",
+      "grants": [
+        {
+          "option": "SAT_LISTA",
+          "actions": [
+            "VIEW",
+            "CREATE",
+            "UPDATE",
+            "SYNC"
+          ]
+        },
+        {
+          "option": "SAT_SYNC_LOG",
+          "actions": [
+            "VIEW"
+          ]
+        },
+        {
+          "option": "SIS_LISTA",
+          "actions": [
+            "VIEW",
+            "CREATE",
+            "UPDATE"
+          ]
+        },
+        {
+          "option": "SIS_EQUIPO",
+          "actions": [
+            "VIEW",
+            "UPDATE"
+          ]
+        },
+        {
+          "option": "PLAN_TABLERO",
+          "actions": [
+            "VIEW"
+          ]
+        },
+        {
+          "option": "PLAN_HITOS",
+          "actions": [
+            "VIEW",
+            "UPDATE",
+            "EXECUTE"
+          ]
+        },
+        {
+          "option": "PLAN_CAMBIOS",
+          "actions": [
+            "VIEW",
+            "UPDATE",
+            "EXECUTE"
+          ]
+        },
+        {
+          "option": "PLAN_DEPENDENCIAS",
+          "actions": [
+            "VIEW",
+            "CREATE",
+            "DELETE"
+          ]
+        },
+        {
+          "option": "FASE_EJECUCION",
+          "actions": [
+            "VIEW",
+            "EXECUTE"
+          ]
+        },
+        {
+          "option": "PLAN_TAREAS",
+          "actions": [
+            "VIEW"
+          ]
+        },
+        {
+          "option": "CFG_CAPACIDADES",
+          "actions": [
+            "VIEW"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "PLT_APROBADOR",
+      "role": "APROBADOR",
+      "_comentario": "El unico perfil de los tres propuestos que es un CONTROL y no un reparto de trabajo. El Tablero ya separa escribir un artefacto (art_editor.update) de aprobarlo (art_cert.certify) y se niega a que un agente de IA apruebe, pero esa separacion no protege nada si la misma persona tiene los dos scopes. Este rol tiene el segundo y NO el primero.",
+      "grants": [
+        {
+          "suite": "*",
+          "actions": [
+            "VIEW",
+            "SEARCH",
+            "EXPORT"
+          ]
+        },
+        {
+          "resource": "*",
+          "actions": [
+            "VIEW"
+          ]
+        },
+        {
+          "option": "ART_CERT",
+          "actions": [
+            "VIEW",
+            "CERTIFY"
+          ]
+        },
+        {
+          "option": "ART_REVISION",
+          "actions": [
+            "VIEW",
+            "APPROVE"
+          ]
+        },
+        {
+          "option": "FASE_GATE",
+          "actions": [
+            "VIEW",
+            "EXECUTE"
+          ]
+        },
+        {
+          "menu": "DASHBOARDS",
+          "actions": [
+            "VIEW"
+          ],
+          "effect": "deny"
+        }
+      ]
+    }
+  ]
+}

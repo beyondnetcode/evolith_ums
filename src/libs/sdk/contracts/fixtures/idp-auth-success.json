@@ -1,0 +1,120 @@
+{
+  "schemaVersion": "2.4.0",
+  "onboardingPending": false,
+  "accessState": "Granted",
+  "context": {
+    "user": {
+      "email": "carlos.mendoza@logistics-corp.example",
+      "username": "carlos.mendoza",
+      "value": "Carlos Mendoza",
+      "status": "Active"
+    },
+    "tenant": {
+      "code": "LOGISTICS_CORE",
+      "value": "Logistics Corp",
+      "status": "Active",
+      "isManagementOwner": false
+    },
+    "systemSuite": {
+      "code": "WMS_SUITE",
+      "value": "Warehouse Management Suite",
+      "status": "Active"
+    },
+    "role": {
+      "code": "BRANCH_MANAGER",
+      "value": "Branch Manager",
+      "hierarchyLevel": 4
+    },
+    "profile": {
+      "scope": "BranchScoped",
+      "isActive": true
+    },
+    "branch": {
+      "code": "CALLAO_DC",
+      "value": "Callao Distribution Center"
+    },
+    "requestedSystem": null
+  },
+  "profiles": [
+    {
+      "id": "d5979fa0-2d1d-5393-a70e-524db63ac6e4",
+      "system": {
+        "code": "WMS_SUITE",
+        "value": "Warehouse Management Suite"
+      },
+      "role": {
+        "code": "BRANCH_MANAGER",
+        "value": "Branch Manager",
+        "hierarchyLevel": 4
+      },
+      "branch": {
+        "code": "CALLAO_DC",
+        "value": "Callao Distribution Center"
+      },
+      "scope": "BranchScoped",
+      "isCurrent": true
+    }
+  ],
+  "authentication": {
+    "method": "IDP",
+    "provider": {
+      "code": "AZURE_AD_LOGISTICS",
+      "name": "Azure AD - Logistics",
+      "value": "AZURE_AD"
+    },
+    "mfaRequired": true,
+    "issuedAt": "2026-05-31T14:30:00Z",
+    "sessionExpiresAt": "2026-05-31T15:30:00Z"
+  },
+  "actions": [
+    {
+      "code": "VIEW",
+      "value": "View"
+    },
+    {
+      "code": "APPROVE",
+      "value": "Approve"
+    }
+  ],
+  "menuAccess": [],
+  "domainPermissions": [
+    {
+      "resourceType": "Aggregate",
+      "resourceCode": "BRANCH_INVENTORY",
+      "value": "Branch Inventory",
+      "actions": [
+        {
+          "actionCode": "VIEW",
+          "value": "View",
+          "effect": "Allow",
+          "source": "Template"
+        },
+        {
+          "actionCode": "APPROVE",
+          "value": "Approve",
+          "effect": "Allow",
+          "source": "Override"
+        }
+      ]
+    }
+  ],
+  "featureFlags": [],
+  "effectiveConfig": {
+    "sessionTimeoutMinutes": 60,
+    "maxLoginAttempts": 5,
+    "minPasswordLength": 14,
+    "mfaRequiredForAdmin": true,
+    "mfaAllowedMethods": [
+      "Totp"
+    ],
+    "accessTokenDurationMs": 3600000,
+    "authUseExternalIdp": true
+  },
+  "settings": {},
+  "scopes": [
+    "branch_inventory.view",
+    "branch_inventory.approve"
+  ],
+  "generatedAt": "2026-05-31T14:30:00Z",
+  "validUntil": "2026-05-31T15:30:00Z"
+}

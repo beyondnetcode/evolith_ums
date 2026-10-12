@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "2.4.0",
+  "onboardingPending": false,
+  "accessState": "Granted",
+  "context": {
+    "user": {
+      "email": "flag.user@logistics-corp.example",
+      "username": "flag.user",
+      "value": "Flag User",
+      "status": "Active"
+    },
+    "tenant": {
+      "code": "LOGISTICS_CORE",
+      "value": "Logistics Corp",
+      "status": "Active",
+      "isManagementOwner": false
+    },
+    "systemSuite": {
+      "code": "WMS_SUITE",
+      "value": "Warehouse Management Suite",
+      "status": "Active"
+    },
+    "role": {
+      "code": "BRANCH_MANAGER",
+      "value": "Branch Manager",
+      "hierarchyLevel": 4
+    },
+    "profile": {
+      "scope": "BranchScoped",
+      "isActive": true
+    },
+    "branch": {
+      "code": "CALLAO_DC",
+      "value": "Callao Distribution Center"
+    },
+    "requestedSystem": null
+  },
+  "profiles": [
+    {
+      "id": "120cbe81-3fa8-51a0-a7a4-b7eb39d319a3",
+      "system": {
+        "code": "WMS_SUITE",
+        "value": "Warehouse Management Suite"
+      },
+      "role": {
+        "code": "BRANCH_MANAGER",
+        "value": "Branch Manager",
+        "hierarchyLevel": 4
+      },
+      "branch": {
+        "code": "CALLAO_DC",
+        "value": "Callao Distribution Center"
+      },
+      "scope": "BranchScoped",
+      "isCurrent": true
+    }
+  ],
+  "authentication": {
+    "method": "Local",
+    "provider": null,
+    "mfaRequired": false,
+    "issuedAt": "2026-05-31T14:30:00Z",
+    "sessionExpiresAt": "2026-05-31T15:30:00Z"
+  },
+  "actions": [],
+  "menuAccess": [],
+  "domainPermissions": [],
+  "featureFlags": [
+    {
+      "flagCode": "WMS_NEW_PICKING_UI",
+      "isEnabled": true,
+      "matchedCriteriaType": "BranchId"
+    },
+    {
+      "flagCode": "WMS_EXPRESS_CHECKOUT",
+      "isEnabled": true,
+      "matchedCriteriaType": "RoleCode"
+    }
+  ],
+  "effectiveConfig": {
+    "sessionTimeoutMinutes": 60,
+    "maxLoginAttempts": 5,
+    "minPasswordLength": 12,
+    "mfaRequiredForAdmin": true,
+    "mfaAllowedMethods": [
+      "Totp"
+    ],
+    "accessTokenDurationMs": 3600000,
+    "authUseExternalIdp": false
+  },
+  "settings": {},
+  "scopes": [],
+  "generatedAt": "2026-05-31T14:30:00Z",
+  "validUntil": "2026-05-31T15:30:00Z"
+}

@@ -1,0 +1,172 @@
+{
+  "schemaVersion": "2.4.0",
+  "onboardingPending": false,
+  "accessState": "Granted",
+  "context": {
+    "user": {
+      "email": "bruno.salas@logistics-corp.example",
+      "username": "bruno.salas",
+      "value": "Bruno Salas",
+      "status": "Active"
+    },
+    "tenant": {
+      "code": "LOGISTICS_CORE",
+      "value": "Logistics Corp",
+      "status": "Active",
+      "isManagementOwner": false
+    },
+    "systemSuite": {
+      "code": "WMS_SUITE",
+      "value": "Warehouse Management Suite",
+      "status": "Active"
+    },
+    "role": {
+      "code": "WAREHOUSE_SUPERVISOR",
+      "value": "Warehouse Supervisor",
+      "hierarchyLevel": 3
+    },
+    "profile": {
+      "scope": "OrgWide",
+      "isActive": true
+    },
+    "branch": null,
+    "requestedSystem": {
+      "code": "WMS_SUITE"
+    }
+  },
+  "profiles": [
+    {
+      "id": "c4d9e1f2-6a3b-5c7d-a8e9-0f1b2c3d4e5f",
+      "system": {
+        "code": "WMS_SUITE",
+        "value": "Warehouse Management Suite"
+      },
+      "role": {
+        "code": "WAREHOUSE_SUPERVISOR",
+        "value": "Warehouse Supervisor",
+        "hierarchyLevel": 3
+      },
+      "branch": null,
+      "scope": "OrgWide",
+      "isCurrent": true
+    }
+  ],
+  "authentication": {
+    "method": "Local",
+    "provider": null,
+    "mfaRequired": false,
+    "issuedAt": "2026-05-31T14:30:00Z",
+    "sessionExpiresAt": "2026-05-31T15:30:00Z"
+  },
+  "actions": [
+    {
+      "code": "VIEW",
+      "value": "View"
+    },
+    {
+      "code": "CREATE",
+      "value": "Create"
+    },
+    {
+      "code": "UPDATE",
+      "value": "Update"
+    },
+    {
+      "code": "DELETE",
+      "value": "Delete"
+    },
+    {
+      "code": "APPROVE",
+      "value": "Approve"
+    }
+  ],
+  "menuAccess": [
+    {
+      "code": "INVENTORY",
+      "value": "Inventory",
+      "sortOrder": 1,
+      "status": "Active",
+      "icon": "layout-grid",
+      "nodes": [
+        {
+          "code": "STOCK",
+          "value": "Stock Management",
+          "kind": "Menu",
+          "sortOrder": 1,
+          "actions": [],
+          "children": [
+            {
+              "code": "STOCK_OPS",
+              "value": "Operations",
+              "kind": "SubMenu",
+              "sortOrder": 1,
+              "actions": [],
+              "children": [
+                {
+                  "code": "STOCK_VIEW",
+                  "value": "View Stock",
+                  "kind": "Option",
+                  "sortOrder": 1,
+                  "actions": [
+                    {
+                      "actionCode": "VIEW",
+                      "effect": "Allow",
+                      "source": "Template"
+                    }
+                  ],
+                  "children": [],
+                  "icon": null,
+                  "route": null
+                }
+              ],
+              "icon": null,
+              "route": null
+            }
+          ],
+          "icon": null,
+          "route": null
+        }
+      ]
+    }
+  ],
+  "domainPermissions": [
+    {
+      "resourceType": "Aggregate",
+      "resourceCode": "PURCHASE_ORDER",
+      "value": "Purchase Order",
+      "actions": [
+        {
+          "actionCode": "VIEW",
+          "value": "View",
+          "effect": "Allow",
+          "source": "Template"
+        }
+      ]
+    }
+  ],
+  "featureFlags": [
+    {
+      "flagCode": "WMS_BULK_EXPORT",
+      "isEnabled": false,
+      "matchedCriteriaType": null
+    }
+  ],
+  "effectiveConfig": {
+    "sessionTimeoutMinutes": 60,
+    "maxLoginAttempts": 5,
+    "minPasswordLength": 12,
+    "mfaRequiredForAdmin": true,
+    "mfaAllowedMethods": [
+      "Totp"
+    ],
+    "accessTokenDurationMs": 3600000,
+    "authUseExternalIdp": false
+  },
+  "settings": {},
+  "scopes": [
+    "stock_view.view",
+    "purchase_order.view"
+  ],
+  "generatedAt": "2026-05-31T14:30:00Z",
+  "validUntil": "2026-05-31T15:30:00Z"
+}

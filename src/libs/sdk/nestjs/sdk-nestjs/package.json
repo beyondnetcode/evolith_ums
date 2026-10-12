@@ -1,0 +1,49 @@
+{
+  "name": "@evolith-ums/ums-sdk-nestjs",
+  "version": "1.0.0",
+  "description": "UMS SDK — NestJS distribution. Module, Guard, decorators (@RequiresScope, @RequiresMenuOption, @RequiresDomainAccess, @RequiresFeatureFlag) and middleware on top of @evolith-ums/ums-sdk-authorization. See ADR-0073.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
+  "peerDependencies": {
+    "@nestjs/common": ">=11.0.0",
+    "@nestjs/core": ">=11.0.0",
+    "reflect-metadata": ">=0.2.0",
+    "rxjs": ">=7.0.0"
+  },
+  "dependencies": {
+    "@evolith-ums/ums-sdk-contracts": "1.0.0",
+    "@evolith-ums/ums-sdk-authorization": "1.0.0"
+  },
+  "umsSchemaCompatibility": ">=2.0.0 <3.0.0",
+  "keywords": [
+    "ums",
+    "sdk",
+    "nestjs",
+    "guard",
+    "decorator",
+    "authorization"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beyondnetcode/ums"
+  }
+}

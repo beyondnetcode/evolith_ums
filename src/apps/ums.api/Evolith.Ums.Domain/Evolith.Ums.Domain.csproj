@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BeyondNetCode.Shell.Ddd" Version="1.0.0" />
+    <PackageReference Include="BeyondNetCode.Shell.Ddd.ValueObjects" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../../libs/sdk/dotnet/Evolith.Ums.Sdk.Contracts/Evolith.Ums.Sdk.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Evolith.Ums.Domain.Test" />
+  </ItemGroup>
+
+</Project>

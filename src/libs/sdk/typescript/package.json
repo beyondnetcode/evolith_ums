@@ -1,0 +1,24 @@
+{
+  "name": "@evolith-ums/ums-sdk-typescript-workspace",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Workspace root for the UMS TypeScript SDK packages. Not published.",
+  "workspaces": [
+    "sdk-contracts",
+    "sdk-authorization",
+    "sdk-testing",
+    "sdk-client",
+    "sdk-express"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "vitest run",
+    "clean": "rm -rf */dist */node_modules node_modules"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vitest": "4.1.8",
+    "@types/node": "22.19.20"
+  }
+}

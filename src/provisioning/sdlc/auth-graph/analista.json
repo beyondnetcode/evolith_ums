@@ -1,0 +1,610 @@
+{
+  "sessionId": "00000000-0000-0000-0000-000000000000",
+  "sessionTrackingId": "00000000-0000-0000-0000-000000000000-session",
+  "userId": "<guid del usuario>",
+  "username": "analista",
+  "email": "analista@evolith.example",
+  "tenantId": "<guid del tenant EVOLITH>",
+  "tenantCode": "EVOLITH",
+  "tenantName": "Evolith UMS",
+  "role": "ANALISTA",
+  "roleName": "Analista",
+  "profileId": "<guid del perfil>",
+  "permissions": [
+    "SAT_LISTA:VIEW",
+    "SAT_LISTA:CREATE",
+    "SAT_LISTA:UPDATE",
+    "SAT_LISTA:SYNC",
+    "SAT_SYNC_LOG:VIEW",
+    "SIS_LISTA:VIEW",
+    "SIS_LISTA:CREATE",
+    "SIS_LISTA:UPDATE",
+    "SIS_EQUIPO:VIEW",
+    "SIS_EQUIPO:UPDATE",
+    "PLAN_TABLERO:VIEW",
+    "PLAN_HITOS:VIEW",
+    "PLAN_HITOS:UPDATE",
+    "PLAN_HITOS:EXECUTE",
+    "PLAN_CAMBIOS:VIEW",
+    "PLAN_CAMBIOS:UPDATE",
+    "PLAN_CAMBIOS:EXECUTE",
+    "PLAN_DEPENDENCIAS:VIEW",
+    "PLAN_DEPENDENCIAS:CREATE",
+    "PLAN_DEPENDENCIAS:DELETE",
+    "FASE_EJECUCION:VIEW",
+    "FASE_EJECUCION:EXECUTE",
+    "PLAN_TAREAS:VIEW",
+    "CFG_CAPACIDADES:VIEW"
+  ],
+  "language": "es",
+  "token": "<jwt de grafo>",
+  "tokenType": "Bearer",
+  "expiresIn": 3600,
+  "refreshExpiresIn": 86400,
+  "isInternalAdmin": false,
+  "sessionParameters": {
+    "sessionTimeoutMinutes": 60,
+    "accessTokenDurationMs": 3600000,
+    "refreshTokenDurationMs": 86400000,
+    "maxLoginAttempts": 5,
+    "minPasswordLength": 12,
+    "mfaRequiredForAdmin": true,
+    "mfaAllowedMethods": [
+      "Totp"
+    ],
+    "customBrandingEnabled": false,
+    "defaultLanguage": "es",
+    "defaultTimezone": "America/Lima"
+  },
+  "authorizationGraph": {
+    "schemaVersion": "2.3.0",
+    "context": {
+      "user": {
+        "email": "analista@evolith.example",
+        "username": "analista",
+        "value": "Analista",
+        "status": "Active"
+      },
+      "tenant": {
+        "code": "EVOLITH",
+        "value": "Evolith UMS",
+        "status": "Active",
+        "isManagementOwner": false
+      },
+      "systemSuite": {
+        "code": "SDLC",
+        "value": "Tablero de Gobierno SDLC",
+        "status": "Active"
+      },
+      "role": {
+        "code": "ANALISTA",
+        "value": "Analista",
+        "hierarchyLevel": 2
+      },
+      "profile": {
+        "scope": "OrgWide",
+        "isActive": true
+      },
+      "branch": null
+    },
+    "onboardingPending": false,
+    "authentication": {
+      "method": "Local",
+      "provider": null,
+      "mfaRequired": false,
+      "issuedAt": "2026-08-01T09:00:00Z",
+      "sessionExpiresAt": "2026-08-01T10:00:00Z"
+    },
+    "actions": [
+      {
+        "code": "APPROVE",
+        "value": "Aprobar"
+      },
+      {
+        "code": "ASSIST",
+        "value": "Invocar asistencia IA"
+      },
+      {
+        "code": "CERTIFY",
+        "value": "Certificar artefacto"
+      },
+      {
+        "code": "CREATE",
+        "value": "Crear"
+      },
+      {
+        "code": "DELETE",
+        "value": "Eliminar"
+      },
+      {
+        "code": "EXECUTE",
+        "value": "Ejecutar proceso"
+      },
+      {
+        "code": "EXPORT",
+        "value": "Exportar"
+      },
+      {
+        "code": "IMPORT",
+        "value": "Importar"
+      },
+      {
+        "code": "SEARCH",
+        "value": "Buscar"
+      },
+      {
+        "code": "SYNC",
+        "value": "Sincronizar con la fuente"
+      },
+      {
+        "code": "UPDATE",
+        "value": "Actualizar"
+      },
+      {
+        "code": "UPLOAD",
+        "value": "Adjuntar archivo"
+      },
+      {
+        "code": "VIEW",
+        "value": "Ver"
+      }
+    ],
+    "menuAccess": [
+      {
+        "code": "GOB",
+        "value": "Gobierno de Satélites",
+        "sortOrder": 1,
+        "status": "Active",
+        "icon": "satellite-dish",
+        "nodes": [
+          {
+            "code": "SATELITES",
+            "value": "Satélites",
+            "kind": "Menu",
+            "sortOrder": 1,
+            "icon": "satellite-dish",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "SAT_INV",
+                "value": "Inventario",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "SAT_LISTA",
+                    "value": "Satélites",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": "/satelites",
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      },
+                      {
+                        "actionCode": "CREATE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      },
+                      {
+                        "actionCode": "UPDATE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      },
+                      {
+                        "actionCode": "SYNC",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "SAT_SYNC_LOG",
+                    "value": "Bitácora de sincronización",
+                    "kind": "Option",
+                    "sortOrder": 3,
+                    "icon": null,
+                    "route": "/satelites/sync-log",
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "code": "SAT_SIS",
+                "value": "Sistemas",
+                "kind": "SubMenu",
+                "sortOrder": 2,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "SIS_LISTA",
+                    "value": "Sistemas del satélite",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": "/satelites/sistemas",
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      },
+                      {
+                        "actionCode": "CREATE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      },
+                      {
+                        "actionCode": "UPDATE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "SIS_EQUIPO",
+                    "value": "Equipo del sistema",
+                    "kind": "Option",
+                    "sortOrder": 3,
+                    "icon": null,
+                    "route": "/satelites/equipo",
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      },
+                      {
+                        "actionCode": "UPDATE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "PRD",
+        "value": "Iniciativas (PRD)",
+        "sortOrder": 3,
+        "status": "Active",
+        "icon": "folder-kanban",
+        "nodes": [
+          {
+            "code": "PRD_PLANIFICACION",
+            "value": "Planificación",
+            "kind": "Menu",
+            "sortOrder": 2,
+            "icon": "calendar-range",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "PLAN_CRONOGRAMA",
+                "value": "Cronograma",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "PLAN_TABLERO",
+                    "value": "Board, Kanban y Gantt",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": "/prds/:id",
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "PLAN_HITOS",
+                    "value": "Hitos y línea base",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": "/prds/:id/hitos",
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      },
+                      {
+                        "actionCode": "UPDATE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      },
+                      {
+                        "actionCode": "EXECUTE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "PLAN_CAMBIOS",
+                    "value": "Cambios de plan",
+                    "kind": "Option",
+                    "sortOrder": 3,
+                    "icon": null,
+                    "route": "/prds/:id/cambios",
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      },
+                      {
+                        "actionCode": "UPDATE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      },
+                      {
+                        "actionCode": "EXECUTE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "PLAN_DEPENDENCIAS",
+                    "value": "Dependencias",
+                    "kind": "Option",
+                    "sortOrder": 4,
+                    "icon": null,
+                    "route": "/prds/:id/dependencias",
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      },
+                      {
+                        "actionCode": "CREATE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      },
+                      {
+                        "actionCode": "DELETE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "code": "PLAN_FASES",
+                "value": "Fases y gates",
+                "kind": "SubMenu",
+                "sortOrder": 2,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "FASE_EJECUCION",
+                    "value": "Inicio y cierre de fase",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": "/prds/:id/fases",
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      },
+                      {
+                        "actionCode": "EXECUTE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "code": "PLAN_BACKLOG",
+                "value": "Backlog del área",
+                "kind": "SubMenu",
+                "sortOrder": 3,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "PLAN_TAREAS",
+                    "value": "Tareas del área",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": "/tareas",
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "CFG",
+        "value": "Configuración del Tablero",
+        "sortOrder": 6,
+        "status": "Active",
+        "icon": "settings",
+        "nodes": [
+          {
+            "code": "CFG_SERVICIO",
+            "value": "Salud del servicio",
+            "kind": "Menu",
+            "sortOrder": 3,
+            "icon": null,
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "CFG_ESTADO",
+                "value": "Estado del despliegue",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "CFG_CAPACIDADES",
+                    "value": "Capacidades del despliegue",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": "/config/capacidades",
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "domainPermissions": [],
+    "featureFlags": [
+      {
+        "flagCode": "SDLC_JORNADA_DIAS",
+        "isEnabled": false,
+        "matchedCriteriaType": null
+      },
+      {
+        "flagCode": "SDLC_FERIADOS_PAIS",
+        "isEnabled": false,
+        "matchedCriteriaType": null
+      },
+      {
+        "flagCode": "SDLC_IA_ASISTENCIA",
+        "isEnabled": false,
+        "matchedCriteriaType": null
+      },
+      {
+        "flagCode": "SDLC_WRITE_BACK",
+        "isEnabled": false,
+        "matchedCriteriaType": null
+      }
+    ],
+    "effectiveConfig": {
+      "sessionTimeoutMinutes": 60,
+      "maxLoginAttempts": 5,
+      "minPasswordLength": 12,
+      "mfaRequiredForAdmin": true,
+      "mfaAllowedMethods": [
+        "Totp"
+      ],
+      "accessTokenDurationMs": 3600000,
+      "authUseExternalIdp": false
+    },
+    "settings": {
+      "brand": {
+        "display_name": "Tablero de Gobierno SDLC",
+        "short_name": "SDLC",
+        "tagline": "Gobierno del ciclo de vida de los sistemas satelite",
+        "logo_url": "/branding/sdlc/logo.svg",
+        "icon_url": "/branding/sdlc/icon.svg"
+      },
+      "theme": {
+        "primary": "#0f3e67",
+        "accent": "#27ae60",
+        "mode": "system"
+      },
+      "ui": {
+        "layout": "nav-rail",
+        "home_route": "/portafolio",
+        "density": "comfortable"
+      },
+      "locale": {
+        "language": "es-PE",
+        "timezone": "America/Lima",
+        "currency": "PEN"
+      }
+    },
+    "scopes": [
+      "cfg_capacidades.view",
+      "fase_ejecucion.execute",
+      "fase_ejecucion.view",
+      "plan_cambios.execute",
+      "plan_cambios.update",
+      "plan_cambios.view",
+      "plan_dependencias.create",
+      "plan_dependencias.delete",
+      "plan_dependencias.view",
+      "plan_hitos.execute",
+      "plan_hitos.update",
+      "plan_hitos.view",
+      "plan_tablero.view",
+      "plan_tareas.view",
+      "sat_lista.create",
+      "sat_lista.sync",
+      "sat_lista.update",
+      "sat_lista.view",
+      "sat_sync_log.view",
+      "sis_equipo.update",
+      "sis_equipo.view",
+      "sis_lista.create",
+      "sis_lista.update",
+      "sis_lista.view"
+    ],
+    "generatedAt": "2026-08-01T09:00:00Z",
+    "validUntil": "2026-08-01T10:00:00Z"
+  },
+  "graphFormat": "json",
+  "refreshToken": null
+}

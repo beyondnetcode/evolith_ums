@@ -1,0 +1,23 @@
+{
+  "name": "evolith_ums",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "npm --prefix src run build",
+    "start": "npm --prefix src run dev",
+    "dev": "npm --prefix src run dev",
+    "test": "npm --prefix src run test",
+    "lint": "npm --prefix src run lint",
+    "validate": "evolith validate"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "devDependencies": {
+    "@beyondnet/evolith-cli": "^1.3.2",
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.12.0",
+    "globals": "^17.13.0"
+  }
+}

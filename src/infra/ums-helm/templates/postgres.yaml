@@ -1,0 +1,81 @@
+{{- /* `postgres.enabled=false` NO despliega PostgreSQL: ni Deployment, ni Service, ni PVC.
+
+       LA BANDERA NO EXISTIA, y dos comentarios del propio chart mandaban apagarla
+       (`values.yaml` y `backend-deployment.yaml`, ambos en el parrafo de SqlServer). Se predicaba
+       un interruptor que nadie habia cableado: con `persistenceProvider: SqlServer` el chart
+       seguia levantando un Postgres que ningun backend consultaba, y quien siguiera la
+       instruccion al pie de la letra no obtenia error alguno —Helm ignora un `--set` de una clave
+       que ninguna plantilla lee—, solo un motor de mas corriendo en silencio. Aqui se cablea.
+
+       G-125: persistencia parametrizable. persistence.enabled=false => emptyDir (efimero, dev
+       local); true => PVC persistente (los datos sobreviven al reinicio del pod). */ -}}
+{{- if .Values.postgres.enabled }}
+{{- if .Values.postgres.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ums-postgres-pvc
+spec:
+  accessModes: ["ReadWriteOnce"]
+  {{- with .Values.postgres.persistence.storageClass }}
+  storageClassName: {{ . }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.postgres.persistence.size | default "5Gi" }}
+---
+{{- end }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ums-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ums-postgres
+  template:
+    metadata:
+      labels:
+        app: ums-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15-alpine
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ums-db-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              value: ums
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: pgdata
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: pgdata
+        {{- if .Values.postgres.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: ums-postgres-pvc
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ums-postgres
+spec:
+  type: ClusterIP
+  selector:
+    app: ums-postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+{{- end }}

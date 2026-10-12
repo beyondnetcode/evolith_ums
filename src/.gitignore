@@ -1,0 +1,61 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Production
+dist/
+build/
+
+# Local env files
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Log files
+**/*.log
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+**/lerna-debug.log*
+
+# IDEs, editors and OS metadata
+**/.idea/
+**/.vscode/
+**/.vs/
+**/*.suo
+**/*.user
+**/*.userosscache
+**/*.sln.docstates
+**/*.ntvs*
+**/*.njsproj
+**/*.sw?
+**/.DS_Store
+**/Thumbs.db
+
+# .NET build artifacts
+**/bin/
+**/obj/
+**/*.nupkg
+**/*.snupkg
+
+# Docker
+**/.docker/
+**/docker-compose.override.yml
+
+# Nx and Vite cache/temp files
+**/.nx/
+**/vite.config.*.timestamp*
+
+
+# Local appsettings overrides — never commit real credentials
+**/appsettings.Local.json
+**/appsettings.*.Local.json
+
+# Agentes de IA y Metodología BMAD
+.claude/
+.gemini/

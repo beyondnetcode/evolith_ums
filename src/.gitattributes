@@ -1,0 +1,29 @@
+# GitAttributes - Persistence Integrity Standard
+
+# Handle line endings automatically
+* text=auto eol=lf
+
+# Force UTF-8 for all text files
+*.md text eol=lf working-tree-encoding=UTF-8
+*.txt text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+
+# El codigo fuente se diffea SIEMPRE como texto.
+#
+# `text=auto` decide la conversion de fin de linea, pero NO obliga a git a mostrar el diff: eso lo
+# decide el atributo `diff`, y sin el git olfatea el contenido y declara BINARIO cualquier fichero
+# con un byte NUL en los primeros 8 KB. Ya paso: `sdk-authorization/src/graph-index.ts` usaba un NUL
+# literal como separador de claves y git dejo de mostrar su diff — justo el fichero que decide
+# permisos, ilegible en revision. El NUL se escapo a `<NUL>` en el fuente; esto evita que el
+# proximo descuido del mismo tipo vuelva a esconder un cambio.
+*.ts   text diff
+*.tsx  text diff
+*.cs   text diff
+*.py   text diff
+
+# Binary files
+*.png binary
+*.jpg binary
+*.svg text

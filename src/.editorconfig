@@ -1,0 +1,117 @@
+root = true
+
+[*]
+indent_style = space
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{cs,csx}]
+indent_size = 4
+tab_width = 4
+
+# Organizar usings: primero System, luego el resto
+dotnet_sort_system_directives_first = true
+dotnet_separate_import_directive_groups = false
+
+# Preferir var cuando el tipo es evidente
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_elsewhere = true:suggestion
+
+# Expresiones compactas (expression-bodied)
+csharp_style_expression_bodied_methods = when_on_single_line:suggestion
+csharp_style_expression_bodied_properties = when_on_single_line:suggestion
+csharp_style_expression_bodied_constructors = false:suggestion
+
+# Null-checking moderno
+csharp_style_throw_expression = true:suggestion
+csharp_style_conditional_delegate_call = true:suggestion
+dotnet_style_null_propagation = true:suggestion
+dotnet_style_coalesce_expression = true:suggestion
+
+# Modificadores de acceso explícitos
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:warning
+
+# Llaves en bloques de control
+csharp_prefer_braces = when_multiline:suggestion
+
+# Nuevas líneas
+csharp_new_line_before_open_brace = all
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+
+# Espaciado
+csharp_space_after_cast = false
+csharp_space_before_colon_in_inheritance_clause = true
+csharp_space_after_colon_in_inheritance_clause = true
+csharp_space_around_binary_operators = before_and_after
+
+# Convención de nombres: campos privados con prefijo _
+dotnet_naming_rule.private_fields_underscore.severity = suggestion
+dotnet_naming_rule.private_fields_underscore.symbols = private_fields
+dotnet_naming_rule.private_fields_underscore.style = camel_case_underscore_style
+
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+
+dotnet_naming_style.camel_case_underscore_style.required_prefix = _
+dotnet_naming_style.camel_case_underscore_style.capitalization = camel_case
+
+# Constantes en PascalCase
+dotnet_naming_rule.constants_pascal_case.severity = suggestion
+dotnet_naming_rule.constants_pascal_case.symbols = constants
+dotnet_naming_rule.constants_pascal_case.style = pascal_case_style
+
+dotnet_naming_symbols.constants.applicable_kinds = field
+dotnet_naming_symbols.constants.required_modifiers = const
+
+dotnet_naming_style.pascal_case_style.capitalization = pascal_case
+
+[*.{json,yml,yaml}]
+indent_size = 2
+
+[*.{xml,csproj,props,targets}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.cs]
+dotnet_diagnostic.S1481.severity = error   # variables locales sin usar
+dotnet_diagnostic.S1172.severity = error   # parámetros de método sin usar
+dotnet_diagnostic.S2325.severity = error   # miembros que pueden ser static
+dotnet_diagnostic.S1144.severity = error   # miembros privados sin usar
+dotnet_diagnostic.S1186.severity = error   # métodos vacíos
+dotnet_diagnostic.S125.severity = error    # código comentado
+dotnet_diagnostic.S3358.severity = error   # ternarios anidados
+dotnet_diagnostic.S927.severity = error    # nombres de parámetros coincidentes
+dotnet_diagnostic.S4144.severity = error   # implementaciones idénticas
+dotnet_diagnostic.S6562.severity = error   # DateTimeKind explícito al construir DateTime
+dotnet_diagnostic.S3973.severity = error   # llaves/indentación en bloques condicionales
+dotnet_diagnostic.S6608.severity = error   # indexación [0]/[^1] en lugar de First()/Last()
+dotnet_diagnostic.S3400.severity = error   # constante en lugar de método que devuelve un literal
+dotnet_diagnostic.S6966.severity = error   # await de la variante *Async (RunAsync/CancelAsync)
+dotnet_diagnostic.S6444.severity = error   # timeout explícito al construir Regex
+dotnet_diagnostic.S6580.severity = error   # IFormatProvider explícito al parsear fecha/hora
+dotnet_diagnostic.S4487.severity = error   # campos privados asignados pero nunca leídos
+dotnet_diagnostic.S3928.severity = error   # paramName válido en ArgumentException/ArgumentNullException
+dotnet_diagnostic.S3903.severity = error   # tipos en un namespace con nombre, no en el global
+dotnet_diagnostic.S3458.severity = error   # sin cláusulas 'case'/'default' vacías redundantes
+dotnet_diagnostic.S3260.severity = error   # clases privadas no derivadas marcadas como 'sealed'
+dotnet_diagnostic.S4136.severity = error   # sobrecargas de método adyacentes
+dotnet_diagnostic.S2068.severity = error   # credenciales hardcodeadas (excepciones: supresión justificada)
+dotnet_diagnostic.S2077.severity = error   # consultas parametrizadas, no formato de cadena (excep.: supresión justif.)
+dotnet_diagnostic.S3011.severity = error   # bypass de accesibilidad por reflexión: sancionado y suprimido con cita a ADR-UMS-099; un uso NUEVO sin suprimir rompe el build
+
+# S1135 (comentarios TODO) NO se gatea, y no es un olvido.
+# El analizador casa «TODO» SIN distinguir mayúsculas, así que dispara sobre la palabra
+# española «todo» en prosa corriente: 11 de los 17 hallazgos de la Tranche 6 eran comentarios
+# como «y todo su subárbol» o «única en todo el sistema». Elevarlo a error obligaría a
+# contorsionar el castellano para satisfacer a un analizador anglocéntrico, lo que choca de
+# frente con SD-08 (documentación exclusivamente en español). El analizador Roslyn no expone
+# configuración de la lista de marcadores, así que se queda como aviso no bloqueante y los
+# TODO reales se gobiernan por convención: TODO(D-016) y TODO(G-NNN) trazan a DECISIONS.md
+# y GAPS.md. Un TODO sin identificador de registro es la deuda invisible que SD-07 prohíbe.

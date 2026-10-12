@@ -1,0 +1,1130 @@
+{
+  "sessionId": "00000000-0000-0000-0000-000000000000",
+  "sessionTrackingId": "00000000-0000-0000-0000-000000000000-session",
+  "userId": "<guid del usuario>",
+  "username": "admin_ums",
+  "email": "admin_ums@evolith.example",
+  "tenantId": "<guid del tenant EVOLITH>",
+  "tenantCode": "EVOLITH",
+  "tenantName": "Evolith UMS",
+  "role": "ADMIN_UMS",
+  "roleName": "Administrador de UMS",
+  "profileId": "<guid del perfil>",
+  "permissions": [
+    "VIEW_TENANTS:VIEW",
+    "MANAGE_TENANTS:MANAGE",
+    "VIEW_USERS:VIEW",
+    "MANAGE_USERS:MANAGE",
+    "VIEW_DELEGATIONS:VIEW",
+    "MANAGE_DELEGATIONS:MANAGE",
+    "VIEW_SUITES:VIEW",
+    "MANAGE_SUITES:MANAGE",
+    "VIEW_TEMPLATES:VIEW",
+    "MANAGE_TEMPLATES:MANAGE",
+    "VIEW_PROFILES:VIEW",
+    "MANAGE_PROFILES:MANAGE",
+    "VIEW_ROLES:VIEW",
+    "MANAGE_ROLES:MANAGE",
+    "VIEW_FLAGS:VIEW",
+    "MANAGE_FLAGS:MANAGE",
+    "VIEW_CONFIG:VIEW",
+    "MANAGE_CONFIG:MANAGE",
+    "VIEW_PARAMS:VIEW",
+    "MANAGE_PARAMS:MANAGE",
+    "VIEW_APPROVALS:VIEW",
+    "MANAGE_APPROVALS:MANAGE",
+    "VIEW_APPROVAL_RULES:VIEW",
+    "MANAGE_APPROVAL_RULES:MANAGE",
+    "VIEW_ROLE_PROMOTIONS:VIEW",
+    "MANAGE_ROLE_PROMOTIONS:MANAGE",
+    "APPROVE_ROLE_PROMOTIONS:APPROVE",
+    "CERTIFY_ROLE_PROMOTIONS:CERTIFY",
+    "EXECUTE_ROLE_PROMOTIONS:EXECUTE",
+    "VIEW_AUDIT:VIEW"
+  ],
+  "language": "es",
+  "token": "<jwt de grafo>",
+  "tokenType": "Bearer",
+  "expiresIn": 3600,
+  "refreshExpiresIn": 86400,
+  "isInternalAdmin": false,
+  "sessionParameters": {
+    "sessionTimeoutMinutes": 60,
+    "accessTokenDurationMs": 3600000,
+    "refreshTokenDurationMs": 86400000,
+    "maxLoginAttempts": 5,
+    "minPasswordLength": 12,
+    "mfaRequiredForAdmin": true,
+    "mfaAllowedMethods": [
+      "Totp"
+    ],
+    "customBrandingEnabled": false,
+    "defaultLanguage": "es",
+    "defaultTimezone": "America/Lima"
+  },
+  "authorizationGraph": {
+    "schemaVersion": "2.3.0",
+    "context": {
+      "user": {
+        "email": "admin_ums@evolith.example",
+        "username": "admin_ums",
+        "value": "Administrador de UMS",
+        "status": "Active"
+      },
+      "tenant": {
+        "code": "EVOLITH",
+        "value": "Evolith UMS",
+        "status": "Active",
+        "isManagementOwner": false
+      },
+      "systemSuite": {
+        "code": "UMS",
+        "value": "Sistema de Gestion de Usuarios",
+        "status": "Active"
+      },
+      "role": {
+        "code": "ADMIN_UMS",
+        "value": "Administrador de UMS",
+        "hierarchyLevel": 0
+      },
+      "profile": {
+        "scope": "OrgWide",
+        "isActive": true
+      },
+      "branch": null
+    },
+    "onboardingPending": false,
+    "authentication": {
+      "method": "Local",
+      "provider": null,
+      "mfaRequired": false,
+      "issuedAt": "2026-08-01T09:00:00Z",
+      "sessionExpiresAt": "2026-08-01T10:00:00Z"
+    },
+    "actions": [
+      {
+        "code": "APPROVE",
+        "value": "Aprobar Operaciones"
+      },
+      {
+        "code": "CERTIFY",
+        "value": "Certificar por Seguridad"
+      },
+      {
+        "code": "CREATE",
+        "value": "Crear Registro"
+      },
+      {
+        "code": "DELETE",
+        "value": "Eliminar Registro"
+      },
+      {
+        "code": "EXECUTE",
+        "value": "Ejecutar Proceso"
+      },
+      {
+        "code": "MANAGE",
+        "value": "Gestionar Nucleo Logistico"
+      },
+      {
+        "code": "READ",
+        "value": "Leer Registro"
+      },
+      {
+        "code": "SEARCH",
+        "value": "Buscar Registros"
+      },
+      {
+        "code": "UPDATE",
+        "value": "Actualizar Registro"
+      },
+      {
+        "code": "VIEW",
+        "value": "Ver Nucleo Logistico"
+      }
+    ],
+    "menuAccess": [
+      {
+        "code": "IDM",
+        "value": "Identidad y Accesos",
+        "sortOrder": 1,
+        "status": "Active",
+        "icon": "shield-check",
+        "nodes": [
+          {
+            "code": "TENANTS",
+            "value": "Empresas",
+            "kind": "Menu",
+            "sortOrder": 1,
+            "icon": "building-2",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "TENANTS_LIST",
+                "value": "Lista de Empresas",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_TENANTS",
+                    "value": "Ver Empresas",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "MANAGE_TENANTS",
+                    "value": "Gestionar Empresas",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "MANAGE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "code": "USERS",
+            "value": "Usuarios",
+            "kind": "Menu",
+            "sortOrder": 2,
+            "icon": "users",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "USERS_LIST",
+                "value": "Lista de Usuarios",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_USERS",
+                    "value": "Ver Usuarios",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "MANAGE_USERS",
+                    "value": "Gestionar Usuarios",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "MANAGE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "code": "DELEGATIONS",
+            "value": "Delegaciones",
+            "kind": "Menu",
+            "sortOrder": 3,
+            "icon": "users",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "DELEGATIONS_LIST",
+                "value": "Lista de Delegaciones",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_DELEGATIONS",
+                    "value": "Ver Delegaciones",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "MANAGE_DELEGATIONS",
+                    "value": "Gestionar Delegaciones",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "MANAGE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "AUTH",
+        "value": "Autorizacion",
+        "sortOrder": 2,
+        "status": "Active",
+        "icon": "shield-check",
+        "nodes": [
+          {
+            "code": "SYSTEM_SUITES",
+            "value": "Sistemas",
+            "kind": "Menu",
+            "sortOrder": 1,
+            "icon": "cpu",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "SUITES_LIST",
+                "value": "Lista de Sistemas",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_SUITES",
+                    "value": "Ver Sistemas",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "MANAGE_SUITES",
+                    "value": "Gestionar Sistemas",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "MANAGE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "code": "PERMISSION_TEMPLATES",
+            "value": "Plantillas de Permisos",
+            "kind": "Menu",
+            "sortOrder": 2,
+            "icon": "shield-check",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "TEMPLATES_LIST",
+                "value": "Lista de Plantillas",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_TEMPLATES",
+                    "value": "Ver Plantillas",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "MANAGE_TEMPLATES",
+                    "value": "Gestionar Plantillas",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "MANAGE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "code": "PROFILES",
+            "value": "Perfiles",
+            "kind": "Menu",
+            "sortOrder": 3,
+            "icon": "shield-check",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "PROFILES_LIST",
+                "value": "Lista de Perfiles",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_PROFILES",
+                    "value": "Ver Perfiles",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "MANAGE_PROFILES",
+                    "value": "Gestionar Perfiles",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "MANAGE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "code": "ROLES",
+            "value": "Roles",
+            "kind": "Menu",
+            "sortOrder": 4,
+            "icon": "user-cog",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "ROLES_LIST",
+                "value": "Catalogo de Roles",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_ROLES",
+                    "value": "Ver Roles",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "MANAGE_ROLES",
+                    "value": "Gestionar Roles y Reglas de Asignacion",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "MANAGE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "SYS",
+        "value": "Configuracion del Sistema",
+        "sortOrder": 3,
+        "status": "Active",
+        "icon": "settings",
+        "nodes": [
+          {
+            "code": "FEATURE_FLAGS",
+            "value": "Banderas de Funcion",
+            "kind": "Menu",
+            "sortOrder": 1,
+            "icon": "settings",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "FLAGS_LIST",
+                "value": "Lista de Banderas",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_FLAGS",
+                    "value": "Ver Banderas",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "MANAGE_FLAGS",
+                    "value": "Gestionar Banderas",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "MANAGE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "code": "APP_CONFIG",
+            "value": "Configuraciones",
+            "kind": "Menu",
+            "sortOrder": 2,
+            "icon": "settings",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "CONFIG_LIST",
+                "value": "Lista de Configuraciones",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_CONFIG",
+                    "value": "Ver Configuraciones",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "MANAGE_CONFIG",
+                    "value": "Gestionar Configuraciones",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "MANAGE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "code": "PARAM_CATALOG",
+            "value": "Catalogo de Parametros",
+            "kind": "Menu",
+            "sortOrder": 3,
+            "icon": "settings",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "PARAM_LIST",
+                "value": "Lista de Parametros",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_PARAMS",
+                    "value": "Ver Parametros",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "MANAGE_PARAMS",
+                    "value": "Gestionar Parametros",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "MANAGE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "APR",
+        "value": "Aprobaciones",
+        "sortOrder": 4,
+        "status": "Active",
+        "icon": "clipboard-check",
+        "nodes": [
+          {
+            "code": "APPROVALS",
+            "value": "Solicitudes y Documentos",
+            "kind": "Menu",
+            "sortOrder": 1,
+            "icon": "inbox",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "APPROVALS_LIST",
+                "value": "Bandeja de Aprobaciones",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_APPROVALS",
+                    "value": "Ver Solicitudes y Documentos",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "MANAGE_APPROVALS",
+                    "value": "Operar el Flujo de Aprobacion",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "MANAGE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "code": "APPROVAL_RULES",
+            "value": "Reglas de Aprobacion",
+            "kind": "Menu",
+            "sortOrder": 2,
+            "icon": "sliders",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "APPROVAL_RULES_LIST",
+                "value": "Tipos, Flujos, Notificaciones y Politicas",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_APPROVAL_RULES",
+                    "value": "Ver Reglas de Aprobacion",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "MANAGE_APPROVAL_RULES",
+                    "value": "Definir Reglas de Aprobacion",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "MANAGE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "IGA",
+        "value": "Gobierno de Identidades",
+        "sortOrder": 5,
+        "status": "Active",
+        "icon": "trending-up",
+        "nodes": [
+          {
+            "code": "ROLE_PROMOTIONS",
+            "value": "Promociones de Rol",
+            "kind": "Menu",
+            "sortOrder": 1,
+            "icon": "award",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "ROLE_PROMOTIONS_LIST",
+                "value": "Solicitudes de Promocion",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_ROLE_PROMOTIONS",
+                    "value": "Ver Promociones y Madurez de Rol",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "MANAGE_ROLE_PROMOTIONS",
+                    "value": "Solicitar, Enviar y Cancelar",
+                    "kind": "Option",
+                    "sortOrder": 2,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "MANAGE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "APPROVE_ROLE_PROMOTIONS",
+                    "value": "Aprobar como Jefe",
+                    "kind": "Option",
+                    "sortOrder": 3,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "APPROVE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "CERTIFY_ROLE_PROMOTIONS",
+                    "value": "Certificar como Seguridad",
+                    "kind": "Option",
+                    "sortOrder": 4,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "CERTIFY",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "code": "EXECUTE_ROLE_PROMOTIONS",
+                    "value": "Ejecutar la Promocion Aprobada",
+                    "kind": "Option",
+                    "sortOrder": 5,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "EXECUTE",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "AUD",
+        "value": "Auditoria",
+        "sortOrder": 6,
+        "status": "Active",
+        "icon": "file-search",
+        "nodes": [
+          {
+            "code": "AUDIT",
+            "value": "Rastro de Auditoria",
+            "kind": "Menu",
+            "sortOrder": 1,
+            "icon": "history",
+            "route": null,
+            "actions": [],
+            "children": [
+              {
+                "code": "AUDIT_LIST",
+                "value": "Registros",
+                "kind": "SubMenu",
+                "sortOrder": 1,
+                "icon": null,
+                "route": null,
+                "actions": [],
+                "children": [
+                  {
+                    "code": "VIEW_AUDIT",
+                    "value": "Ver Registros de Auditoria",
+                    "kind": "Option",
+                    "sortOrder": 1,
+                    "icon": null,
+                    "route": null,
+                    "actions": [
+                      {
+                        "actionCode": "VIEW",
+                        "effect": "Allow",
+                        "source": "Template"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "domainPermissions": [
+      {
+        "resourceType": "Aggregate",
+        "resourceCode": "USER",
+        "value": "Agregado de Usuario",
+        "actions": [
+          {
+            "actionCode": "APPROVE",
+            "value": "Aprobar Operaciones",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "CERTIFY",
+            "value": "Certificar por Seguridad",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "CREATE",
+            "value": "Crear Registro",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "DELETE",
+            "value": "Eliminar Registro",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "EXECUTE",
+            "value": "Ejecutar Proceso",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "MANAGE",
+            "value": "Gestionar Nucleo Logistico",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "READ",
+            "value": "Leer Registro",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "SEARCH",
+            "value": "Buscar Registros",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "UPDATE",
+            "value": "Actualizar Registro",
+            "effect": "Allow",
+            "source": "Template"
+          },
+          {
+            "actionCode": "VIEW",
+            "value": "Ver Nucleo Logistico",
+            "effect": "Allow",
+            "source": "Template"
+          }
+        ]
+      }
+    ],
+    "featureFlags": [
+      {
+        "flagCode": "SessionTimeout",
+        "isEnabled": false,
+        "matchedCriteriaType": null
+      },
+      {
+        "flagCode": "MaxRetries",
+        "isEnabled": false,
+        "matchedCriteriaType": null
+      }
+    ],
+    "effectiveConfig": {
+      "sessionTimeoutMinutes": 60,
+      "maxLoginAttempts": 5,
+      "minPasswordLength": 12,
+      "mfaRequiredForAdmin": true,
+      "mfaAllowedMethods": [
+        "Totp"
+      ],
+      "accessTokenDurationMs": 3600000,
+      "authUseExternalIdp": false
+    },
+    "settings": {},
+    "scopes": [
+      "approve_role_promotions.approve",
+      "certify_role_promotions.certify",
+      "execute_role_promotions.execute",
+      "manage_approval_rules.manage",
+      "manage_approvals.manage",
+      "manage_config.manage",
+      "manage_delegations.manage",
+      "manage_flags.manage",
+      "manage_params.manage",
+      "manage_profiles.manage",
+      "manage_role_promotions.manage",
+      "manage_roles.manage",
+      "manage_suites.manage",
+      "manage_templates.manage",
+      "manage_tenants.manage",
+      "manage_users.manage",
+      "user.approve",
+      "user.certify",
+      "user.create",
+      "user.delete",
+      "user.execute",
+      "user.manage",
+      "user.read",
+      "user.search",
+      "user.update",
+      "user.view",
+      "view_approval_rules.view",
+      "view_approvals.view",
+      "view_audit.view",
+      "view_config.view",
+      "view_delegations.view",
+      "view_flags.view",
+      "view_params.view",
+      "view_profiles.view",
+      "view_role_promotions.view",
+      "view_roles.view",
+      "view_suites.view",
+      "view_templates.view",
+      "view_tenants.view",
+      "view_users.view"
+    ],
+    "generatedAt": "2026-08-01T09:00:00Z",
+    "validUntil": "2026-08-01T10:00:00Z"
+  },
+  "graphFormat": "json",
+  "refreshToken": null
+}

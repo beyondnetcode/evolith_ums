@@ -1,0 +1,41 @@
+{
+  "common.required": "The {0} field is required.",
+  "common.invalid": "The {0} value is invalid.",
+  "common.not_found": "{0} not found.",
+  "common.duplicate": "{0} already exists.",
+
+  "user.tenant.required": "Tenant identifier is required.",
+  "user.tenant.not_found": "Tenant not found.",
+
+  "tenant.branch_code_not_unique": "Branch code must be unique inside the tenant.",
+  "tenant.branch_not_found": "Branch not found.",
+  "tenant.branch_active": "Cannot remove an active branch. Deactivate it first.",
+  "tenant.archived_cannot_suspend": "Archived tenants cannot be suspended.",
+  "tenant.archived_cannot_activate": "Archived tenants cannot be activated.",
+
+  "value_object.email_required": "A valid email address is required.",
+  "value_object.property_required": "{0} is required.",
+  "value_object.date_range_invalid": "End date cannot be earlier than start date.",
+
+  "system.internal_error": "An internal system error occurred.",
+  "system.validation_failed": "Validation failed for the request.",
+  "system.configuration_invalid": "System configuration is invalid.",
+
+  "error.authentication.required": "The operation could not be completed because you must sign in again.",
+  "error.authorization.forbidden": "The operation could not be completed because you do not have sufficient permission. Request access from an administrator.",
+  "error.resource.not_found": "The operation could not be completed because the requested record does not exist or is no longer available.",
+  "error.operation.conflict": "The operation could not be completed because the record changed or conflicts with a current rule. Refresh the information and try again.",
+  "error.validation.invalid": "The operation could not be completed because one or more fields are invalid. Review the entered data and try again.",
+  "error.request.invalid": "The operation could not be completed because the request contains invalid data. Review the information and try again.",
+  "error.unexpected": "The operation could not be completed due to an unexpected error. Try again later.",
+
+  "system_suite.module.suite_required": "The module could not be registered because you must select a system suite.",
+  "system_suite.module.code_required": "The module could not be registered because the Code field is required. Enter a valid code.",
+  "system_suite.module.code_too_long": "The module could not be registered because the Code field exceeds the 50-character maximum. Shorten it and try again.",
+  "system_suite.module.code_invalid_format": "The module could not be registered because the Code field has an invalid format. Use letters, numbers, and underscores only, for example REPORTS_01. Entered value: {0}.",
+  "system_suite.module.name_required": "The module could not be registered because the Name field is required. Enter a name.",
+  "system_suite.module.name_too_long": "The module could not be registered because the Name field exceeds the 150-character maximum. Shorten it and try again.",
+  "system_suite.module.description_too_long": "The module could not be registered because the Description field exceeds the 500-character maximum. Shorten it and try again.",
+  "system_suite.module.sort_order_invalid": "The module could not be registered because the Order field must be a positive integer. Enter a number greater than zero.",
+  "system_suite.module.code_not_unique": "The module could not be registered because another module already uses the same Code. Enter a different code."
+}

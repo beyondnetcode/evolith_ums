@@ -1,0 +1,126 @@
+{
+  "graph": {
+    "nodes": {
+      "app-api-dotnet": {
+        "name": "app-api-dotnet",
+        "type": "app",
+        "data": {
+          "root": "apps/app-api-dotnet",
+          "name": "app-api-dotnet",
+          "projectType": "application",
+          "targets": {
+            "build": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "dotnet build Evolith.Ums.sln"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "cache": true,
+              "dependsOn": [
+                "^build"
+              ]
+            },
+            "test": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "dotnet test Evolith.Ums.sln"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "cache": true
+            },
+            "run": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "dotnet run --project Evolith.Ums.Presentation"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": [],
+          "tags": []
+        }
+      },
+      "app-web": {
+        "name": "app-web",
+        "type": "app",
+        "data": {
+          "root": "apps/app-web",
+          "name": "app-web",
+          "tags": [
+            "npm:private"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "lint",
+                "preview"
+              ]
+            },
+            "js": {
+              "packageName": "app-web",
+              "packageVersion": "0.0.9",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "lint": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint"
+              },
+              "metadata": {
+                "scriptContent": "eslint .",
+                "runCommand": "npm run lint"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "cache": true
+            },
+            "preview": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "preview"
+              },
+              "metadata": {
+                "scriptContent": "vite preview",
+                "runCommand": "npm run preview"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "vite build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "cache": true,
+              "dependsOn": [
+                "^build"
+              ]
+            },
+            "dev": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "vite"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "projectType": "application",
+          "sourceRoot": "src",
+          "implicitDependencies": []
+        }
+      }
+    },
+    "dependencies": {
+      "app-api-dotnet": [],
+      "app-web": []
+    }
+  }
+}

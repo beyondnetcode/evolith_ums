@@ -1,0 +1,20 @@
+{
+  "name": "manco-capac-architecture",
+  "version": "1.0.0",
+  "template": "standard",
+  "description": "Manco Capac — architecture agent for the Evolith UMS tenant user-management system.",
+  "adrs": [
+    "adr-0002",
+    "adr-0018",
+    "adr-0050"
+  ],
+  "rulesets": [
+    "acl",
+    "open-core",
+    "inheritance"
+  ],
+  "rulesetFiles": [
+    "agent.rules.json"
+  ],
+  "installedAt": "2026-10-12T14:11:46.637Z"
+}

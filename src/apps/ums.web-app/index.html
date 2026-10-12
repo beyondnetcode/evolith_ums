@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/brand/logo-evolith.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' https: data:; connect-src 'self' http: https: ws: wss:; font-src 'self' https://fonts.gstatic.com data:;"
+    />
+    <meta name="description" content="UMS Enterprise Identity Portal — Modular Monolith" />
+    <title>UMS Enterprise | Identity Portal</title>
+
+    <!-- Preconnect to font CDNs for improved FCP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--
+      Tema ANTES del primer pintado. Sin esto, la clase la ponia React en un efecto, es decir
+      DESPUES de que el navegador ya hubiera calculado el estilo de <body> en claro. Y `body`
+      declara `transition: background-color .3s`: al llegar la clase tarde, esa transicion no
+      llegaba a correr y el fondo se quedaba CONGELADO en el valor claro, indefinidamente.
+
+      El sintoma era una franja clara en el borde de la pagina con el resto de la interfaz ya
+      oscura --los componentes si cambiaban, porque no transicionan--. Medido el 2026-09-01:
+      `--m3-surface` en body valia `214 17% 8%` (oscuro) mientras su `background-color`
+      computado seguia en `rgb(252,250,255)` (claro); anular la transicion lo corregia al
+      instante. Mover la clase de <body> a <html> era necesario pero NO bastaba.
+
+      Aqui la clase existe antes de que haya nada que transicionar, asi que el primer pintado
+      ya sale en el tema correcto. La CSP de arriba permite `script-src unsafe-inline`.
+    -->
+    <script>
+      (function () {
+        try {
+          var g = JSON.parse(localStorage.getItem("ums-theme") || "{}");
+          if (g && g.state && g.state.isDarkMode) {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {
+          /* localStorage puede lanzar en modo privado: el tema no vale una pagina en blanco. */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "coreRef": {
+    "version": "1.0.0",
+    "path": "../evolith"
+  },
+  "governance": {
+    "version": "1.0.0"
+  },
+  "product": {
+    "name": "evolith_ums",
+    "type": "enterprise-application",
+    "phase": "phase-0"
+  },
+  "tools": {
+    "runtime": "nodejs",
+    "monorepo": "nx",
+    "architecture": "clean",
+    "database": "postgresql",
+    "api": "rest",
+    "ci": "github-actions",
+    "observability": "opentelemetry"
+  }
+}

@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>true</IsPackable>
+    <PackageId>Evolith.Ums.Sdk.Authorization.Aop</PackageId>
+    <Version>1.0.0</Version>
+    <Description>UMS SDK — Declarative authorization attributes ([RequiresScope], [RequiresMenuOption], [RequiresDomainAccess], [RequiresFeatureFlag]) and DispatchProxy aspect built on BeyondNetCode.Shell.Aop. See ADR-0073.</Description>
+    <Authors>Evolith UMS</Authors>
+    <PackageProjectUrl>https://github.com/beyondnetcode/ums</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>ums;sdk;authorization;aop;shell</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <UmsSchemaCompatibility>&gt;=1.0.0 &lt;2.0.0</UmsSchemaCompatibility>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Evolith.Ums.Sdk.Contracts/Evolith.Ums.Sdk.Contracts.csproj" />
+    <ProjectReference Include="../Evolith.Ums.Sdk.Authorization/Evolith.Ums.Sdk.Authorization.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BeyondNetCode.Shell.Aop" Version="1.0.0" />
+    <PackageReference Include="BeyondNetCode.Shell.Aop.Aspects" Version="1.0.0" />
+    <PackageReference Include="BeyondNetCode.Shell.Aop.DI" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Evolith.Ums.Sdk.Tests" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,20 @@
+<Project>
+
+  <!--
+    Análisis estático serverless para todo el .NET del monorepo (satélite Evolith).
+    SonarAnalyzer.CSharp aporta las MISMAS reglas de SonarSource como analizador
+    Roslyn: corren en `dotnet build` y en el IDE, sin servidor SonarQube ni token,
+    y funcionan en repositorios privados. Sustituye la dependencia de SonarCloud.
+
+    Los hallazgos aparecen como WARNINGS (no rompen el build): la base heredada ya
+    arrastra deuda; convertirlos en gate se hará por reglas y de forma incremental
+    (ver G-016). Este props lo heredan todos los .csproj bajo src/ automáticamente.
+  -->
+  <ItemGroup>
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.29.0.143774">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

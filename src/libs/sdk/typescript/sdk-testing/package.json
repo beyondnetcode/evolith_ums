@@ -1,0 +1,41 @@
+{
+  "name": "@evolith-ums/ums-sdk-testing",
+  "version": "1.0.0",
+  "description": "UMS SDK — Fluent AuthGraphBuilder and TestAuthGraphAccessor for unit-testing consumer code without spinning up UMS. See ADR-0073.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@evolith-ums/ums-sdk-contracts": "1.0.0",
+    "@evolith-ums/ums-sdk-authorization": "1.0.0"
+  },
+  "umsSchemaCompatibility": ">=1.0.0 <2.0.0",
+  "keywords": [
+    "ums",
+    "sdk",
+    "testing",
+    "builder"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beyondnetcode/ums"
+  }
+}

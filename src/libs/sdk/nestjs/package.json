@@ -1,0 +1,33 @@
+{
+  "name": "@evolith-ums/ums-sdk-nestjs-workspace",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Workspace root for the UMS NestJS SDK. Not published.",
+  "workspaces": [
+    "sdk-nestjs"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "vitest run",
+    "clean": "rm -rf */dist */node_modules node_modules"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vitest": "4.1.8",
+    "unplugin-swc": "1.5.9",
+    "@swc/core": "1.15.40",
+    "@types/node": "22.19.20",
+    "@nestjs/common": "11.1.28",
+    "@nestjs/core": "11.1.28",
+    "@nestjs/testing": "11.1.28",
+    "@nestjs/platform-express": "11.1.28",
+    "reflect-metadata": "0.2.2",
+    "rxjs": "7.8.2",
+    "supertest": "7.2.2",
+    "@types/supertest": "6.0.3",
+    "@evolith-ums/ums-sdk-contracts": "file:../typescript/sdk-contracts",
+    "@evolith-ums/ums-sdk-authorization": "file:../typescript/sdk-authorization",
+    "@evolith-ums/ums-sdk-testing": "file:../typescript/sdk-testing"
+  }
+}

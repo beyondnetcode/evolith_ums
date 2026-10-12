@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Evolith.Ums.Domain/Evolith.Ums.Domain.csproj" />
+    <ProjectReference Include="../Evolith.Ums.Globalization/Evolith.Ums.Globalization.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- AOP attribute contract (zero runtime overhead when no proxy is active) -->
+    <PackageReference Include="BeyondNetCode.Shell.Aop.Aspects" Version="1.0.0" />
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+    <!--
+      Solo la ABSTRACCIÓN de log, no una implementación: la capa de aplicación sigue sin conocer
+      a Serilog ni a MEL. Hace falta desde ADR-0156 §4.3, porque el descarte de un perfil cuyo rol
+      o suite no resuelve pasó de ser una fila que no se pinta a poder ser la diferencia entre
+      «tienes acceso» y «no tienes acceso»: callarlo dejaría al operador sin forma de explicarlo.
+      El carril de los manejadores sigue siendo `[LoggerAspect]` con `IUmsLogger`/`IMelLogger`,
+      que son servicios CON CLAVE y por tanto no inyectables por constructor.
+    -->
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Evolith.Ums.Application.Test" />
+  </ItemGroup>
+
+</Project>

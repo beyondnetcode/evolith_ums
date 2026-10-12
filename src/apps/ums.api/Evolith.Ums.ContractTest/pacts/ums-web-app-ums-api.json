@@ -1,0 +1,3986 @@
+{
+  "consumer": {
+    "name": "ums-web-app"
+  },
+  "interactions": [
+    {
+      "description": "a create app configuration request with valid global data",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": {
+            "code": "PACT_CREATE_CFG",
+            "description": "Pact created configuration.",
+            "isEncrypted": false,
+            "isInheritable": true,
+            "value": "pact-value"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.code": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.description": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.isEncrypted": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.isInheritable": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.value": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json.*"
+                }
+              ]
+            },
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/api/v1/app-configurations"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "appConfigurationId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.appConfigurationId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "[0-9a-fA-F-]{36}"
+                }
+              ]
+            }
+          }
+        },
+        "status": 201
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a create approval request with invalid data",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": {
+            "requestedRoleId": "00000000-0000-0000-0000-000000000000",
+            "requestedSystemId": "00000000-0000-0000-0000-000000000000",
+            "targetUserId": "00000000-0000-0000-0000-000000000000",
+            "workflowId": "00000000-0000-0000-0000-000000000000"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json.*"
+                }
+              ]
+            },
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/api/v1/approval-requests"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "status": 400,
+            "title": "Validation Error"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/problem+json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 400
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a create feature flag request with an unsupported flag type",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": {
+            "flagCode": "PACT_BAD_FLAG",
+            "flagTargets": "all",
+            "flagType": "NotAFlagType",
+            "systemSuiteId": "cccc3333-0000-0000-0000-000000000003"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.flagCode": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.flagTargets": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.systemSuiteId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json.*"
+                }
+              ]
+            },
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/api/v1/feature-flags"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "status": 400,
+            "title": "Validation Error"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/problem+json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 400
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a create feature flag request with valid data",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": {
+            "flagCode": "PACT_CREATE_FLAG",
+            "flagTargets": "all",
+            "flagType": "Boolean",
+            "systemSuiteId": "cccc3333-0000-0000-0000-000000000003"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.flagCode": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.flagTargets": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.flagType": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.systemSuiteId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json.*"
+                }
+              ]
+            },
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/api/v1/feature-flags"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "featureFlagId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.featureFlagId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "[0-9a-fA-F-]{36}"
+                }
+              ]
+            }
+          }
+        },
+        "status": 201
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a create role promotion request that violates segregation of duties",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": {
+            "currentRoleId": "0000000c-0000-0000-0000-00000000000c",
+            "targetRoleId": "0000000d-0000-0000-0000-00000000000d",
+            "targetUserId": "0000000a-0000-0000-0000-00000000000a",
+            "tenantId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "X-User-Id": [
+            "0000000a-0000-0000-0000-00000000000a"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.currentRoleId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.targetRoleId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.tenantId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json.*"
+                }
+              ]
+            },
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/api/v1/role-promotion-requests"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "status": 400,
+            "title": "Bad Request"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/problem+json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 400
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a create role promotion request with valid data",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": {
+            "currentRoleId": "0000000c-0000-0000-0000-00000000000c",
+            "targetRoleId": "0000000d-0000-0000-0000-00000000000d",
+            "targetUserId": "0000000b-0000-0000-0000-00000000000b",
+            "tenantId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "X-User-Id": [
+            "0000000a-0000-0000-0000-00000000000a"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.currentRoleId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.targetRoleId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.targetUserId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.tenantId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json.*"
+                }
+              ]
+            },
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/api/v1/role-promotion-requests"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "rolePromotionRequestId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.rolePromotionRequestId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "[0-9a-fA-F-]{36}"
+                }
+              ]
+            }
+          }
+        },
+        "status": 201
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a create tenant request with valid data",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": {
+            "code": "NEWCO",
+            "name": "New Company",
+            "type": "INTERNAL"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Idempotency-Key": [
+            "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+          ],
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.code": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "INTERNAL|SUPPLIER|CLIENT"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json.*"
+                }
+              ]
+            },
+            "Idempotency-Key": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "[0-9a-fA-F-]{36}"
+                }
+              ]
+            },
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/api/v1/tenants"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "tenantId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json.*"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.tenantId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json; charset=utf-8"
+                }
+              ]
+            }
+          }
+        },
+        "status": 201
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a deactivate request for a profile that does not exist",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "no profile with id 00000000-0000-0000-0000-000000000001 exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/api/v1/profiles/00000000-0000-0000-0000-000000000001/deactivate"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "status": 404,
+            "title": "Not Found"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/problem+json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 404
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a deactivate request for an active profile",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "a profile with id 3fa85f64-5717-4562-b3fc-2c963f66afa6 exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/api/v1/profiles/3fa85f64-5717-4562-b3fc-2c963f66afa6/deactivate"
+      },
+      "response": {
+        "status": 204
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a delete request for a user account that does not exist",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "no user account with id 00000000-0000-0000-0000-000000000001 exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "DELETE",
+        "path": "/api/v1/user-accounts/00000000-0000-0000-0000-000000000001"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "status": 404,
+            "title": "Not Found"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/problem+json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 404
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a delete request for an inactive user account",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "a user account with id 3fa85f64-5717-4562-b3fc-2c963f66afa6 is inactive"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "DELETE",
+        "path": "/api/v1/user-accounts/3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      },
+      "response": {
+        "status": 204
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a list request for role promotion requests",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "at least one role promotion request exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "0000000a-0000-0000-0000-00000000000a"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/role-promotion-requests"
+      },
+      "response": {
+        "body": {
+          "content": [
+            {
+              "currentRoleId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              "requesterId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              "status": "Draft",
+              "targetRoleId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              "targetUserId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              "tenantId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+            }
+          ],
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$[*].currentRoleId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$[*].id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$[*].requesterId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$[*].status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$[*].targetRoleId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$[*].targetUserId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$[*].tenantId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a login request that is missing required fields",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": {
+            "password": "",
+            "tenantCode": "",
+            "username": ""
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json.*"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/api/v1/auth/login"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "code": "AUTH_001",
+            "message": "Tenant code, username and password are required.",
+            "supportReferenceId": "TX-2026-000001"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.message": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.supportReferenceId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 400
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a login request with credentials that cannot be authenticated",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "no tenant with code UNKNOWN_TENANT exists"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "password": "ValidPassword123!",
+            "tenantCode": "UNKNOWN_TENANT",
+            "username": "user@example.com"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.password": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.username": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json.*"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/api/v1/auth/login"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "code": "AUTH_002",
+            "message": "No pudimos iniciar sesión. Verifique el código del tenant.",
+            "supportReferenceId": "TX-2026-000001"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.message": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.supportReferenceId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 400
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a paginated list request for app configurations",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "at least one app configuration exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "query": {
+            "page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            },
+            "pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/app-configurations",
+        "query": {
+          "page": [
+            "1"
+          ],
+          "pageSize": [
+            "10"
+          ]
+        }
+      },
+      "response": {
+        "body": {
+          "content": {
+            "items": [
+              {
+                "appConfigurationId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "code": "CONTRACT_TEST_CFG",
+                "description": "Contract test configuration.",
+                "scope": "Global",
+                "status": "Draft",
+                "value": "contract-test-value",
+                "version": "1.0.0"
+              }
+            ],
+            "page": 1,
+            "pageSize": 10,
+            "totalItems": 1
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.items": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.items[*].appConfigurationId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].code": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].description": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].scope": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].value": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].version": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.totalItems": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a paginated list request for approval requests",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "at least one approval request exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "query": {
+            "page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            },
+            "pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/approval-requests",
+        "query": {
+          "page": [
+            "1"
+          ],
+          "pageSize": [
+            "10"
+          ]
+        }
+      },
+      "response": {
+        "body": {
+          "content": {
+            "items": [
+              {
+                "approvalRequestId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "requestedRoleId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "requestedSystemId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "status": "Pending",
+                "targetUserId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "workflowId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+              }
+            ],
+            "page": 1,
+            "pageSize": 10,
+            "totalItems": 1
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.items": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.items[*].approvalRequestId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].requestedRoleId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].requestedSystemId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].targetUserId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].workflowId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.totalItems": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a paginated list request for audit records scoped by tenant",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "at least one audit record exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "query": {
+            "page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            },
+            "pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            },
+            "tenantId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/audit-records",
+        "query": {
+          "page": [
+            "1"
+          ],
+          "pageSize": [
+            "10"
+          ],
+          "tenantId": [
+            "11111111-1111-1111-1111-111111111111"
+          ]
+        }
+      },
+      "response": {
+        "body": {
+          "content": {
+            "items": [
+              {
+                "affectedEntityId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "affectedEntityType": "ContractTest",
+                "auditRecordId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "eventType": "ContractTestEvent",
+                "rootTenantId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "whoActed": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+              }
+            ],
+            "page": 1,
+            "pageSize": 10,
+            "totalItems": 1
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.items": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.items[*].affectedEntityId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].affectedEntityType": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].auditRecordId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].eventType": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].rootTenantId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].whoActed": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.totalItems": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a paginated list request for feature flags",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "at least one feature flag exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "query": {
+            "page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            },
+            "pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/feature-flags",
+        "query": {
+          "page": [
+            "1"
+          ],
+          "pageSize": [
+            "10"
+          ]
+        }
+      },
+      "response": {
+        "body": {
+          "content": {
+            "items": [
+              {
+                "featureFlagId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "flagCode": "CONTRACT_TEST_FLAG",
+                "flagTargets": "all",
+                "flagType": "Boolean",
+                "status": "Inactive",
+                "systemSuiteId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+              }
+            ],
+            "page": 1,
+            "pageSize": 10,
+            "totalItems": 1
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.items": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.items[*].featureFlagId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].flagCode": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].flagTargets": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].flagType": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].systemSuiteId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.totalItems": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a paginated list request for permission templates",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "at least one permission template exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "query": {
+            "page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            },
+            "pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/permission-templates",
+        "query": {
+          "page": [
+            "1"
+          ],
+          "pageSize": [
+            "10"
+          ]
+        }
+      },
+      "response": {
+        "body": {
+          "content": {
+            "items": [
+              {
+                "roleId": "a5367133-fe90-46c0-ab7e-fb2a961022be",
+                "roleName": "Administrator",
+                "status": "Published",
+                "systemSuiteId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "systemSuiteName": "User Management System",
+                "templateId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "tenantId": "11111111-1111-1111-1111-111111111111",
+                "version": "1.0.0"
+              }
+            ],
+            "page": 1,
+            "pageSize": 10,
+            "totalItems": 1
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json.*"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.items": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.items[*].roleId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].roleName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].systemSuiteId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].systemSuiteName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].templateId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].tenantId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].version": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.totalItems": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json; charset=utf-8"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a paginated list request for profiles",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "at least one profile exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "query": {
+            "page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            },
+            "pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/profiles",
+        "query": {
+          "page": [
+            "1"
+          ],
+          "pageSize": [
+            "10"
+          ]
+        }
+      },
+      "response": {
+        "body": {
+          "content": {
+            "items": [
+              {
+                "isActive": true,
+                "permissionCount": 0,
+                "permissions": [],
+                "profileId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "roleCode": "ADMIN",
+                "roleId": "a5367133-fe90-46c0-ab7e-fb2a961022be",
+                "roleName": "Administrator",
+                "scope": "OrgWide",
+                "systemSuiteCode": "UMS-CORE",
+                "systemSuiteId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "systemSuiteName": "User Management System",
+                "tenantCode": "ACME",
+                "tenantId": "11111111-1111-1111-1111-111111111111",
+                "tenantName": "Acme Corp",
+                "userEmail": "user@example.com",
+                "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+              }
+            ],
+            "page": 1,
+            "pageSize": 10,
+            "totalItems": 1
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json.*"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.items": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.items[*].isActive": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].permissionCount": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].profileId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].roleCode": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].roleId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].roleName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].scope": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].systemSuiteCode": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].systemSuiteId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].systemSuiteName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].tenantCode": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].tenantId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].tenantName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].userEmail": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].userId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.totalItems": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json; charset=utf-8"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a paginated list request for system suites",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "at least one system suite exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "query": {
+            "page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            },
+            "pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/system-suites",
+        "query": {
+          "page": [
+            "1"
+          ],
+          "pageSize": [
+            "10"
+          ]
+        }
+      },
+      "response": {
+        "body": {
+          "content": {
+            "items": [
+              {
+                "code": "UMS-CORE",
+                "name": "User Management System",
+                "status": "Active",
+                "systemSuiteId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+              }
+            ],
+            "page": 1,
+            "pageSize": 10,
+            "totalItems": 1
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json.*"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.items": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.items[*].code": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].systemSuiteId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.totalItems": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json; charset=utf-8"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a paginated list request for tenants",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "at least one tenant exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "query": {
+            "page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            },
+            "pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/tenants",
+        "query": {
+          "page": [
+            "1"
+          ],
+          "pageSize": [
+            "10"
+          ]
+        }
+      },
+      "response": {
+        "body": {
+          "content": {
+            "items": [
+              {
+                "code": "ACME",
+                "name": "Acme Corp",
+                "tenantId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+              }
+            ],
+            "page": 1,
+            "pageSize": 10,
+            "totalItems": 1
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json.*"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.items": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.items[*].code": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].tenantId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.totalItems": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json; charset=utf-8"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a paginated list request for user accounts",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "at least one user account exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "query": {
+            "page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            },
+            "pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/user-accounts",
+        "query": {
+          "page": [
+            "1"
+          ],
+          "pageSize": [
+            "10"
+          ]
+        }
+      },
+      "response": {
+        "body": {
+          "content": {
+            "items": [
+              {
+                "email": "user@example.com",
+                "status": "Active",
+                "userAccountId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+              }
+            ],
+            "page": 1,
+            "pageSize": 10,
+            "totalItems": 1
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json.*"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.items": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.items[*].email": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.items[*].userAccountId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.pageSize": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.totalItems": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json; charset=utf-8"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request for a feature flag that does not exist",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "no feature flag with id 00000000-0000-0000-0000-0000000000a3 exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/feature-flags/00000000-0000-0000-0000-0000000000a3"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "status": 404,
+            "title": "Not Found"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/problem+json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 404
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request for a role promotion request that does not exist",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "no role promotion request with id a4a4a4a4-0000-0000-0000-0000000000ff exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "0000000a-0000-0000-0000-00000000000a"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/role-promotion-requests/a4a4a4a4-0000-0000-0000-0000000000ff"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "status": 404,
+            "title": "Not Found"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/problem+json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 404
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request for a specific approval request that exists",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "an approval request with id a1a1a1a1-0000-0000-0000-000000000001 exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/approval-requests/a1a1a1a1-0000-0000-0000-000000000001"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "approvalRequestId": "a1a1a1a1-0000-0000-0000-000000000001",
+            "requestedRoleId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "requestedSystemId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "status": "Pending",
+            "targetUserId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "workflowId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.approvalRequestId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.requestedRoleId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.requestedSystemId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.targetUserId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.workflowId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request for a specific audit record that exists",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "an audit record with id a2a2a2a2-0000-0000-0000-000000000001 exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/audit-records/a2a2a2a2-0000-0000-0000-000000000001"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "affectedEntityId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "affectedEntityType": "ContractTest",
+            "auditRecordId": "a2a2a2a2-0000-0000-0000-000000000001",
+            "eventType": "ContractTestEvent",
+            "rootTenantId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "whoActed": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.affectedEntityId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.affectedEntityType": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.auditRecordId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.eventType": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.rootTenantId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.whoActed": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request for a specific feature flag that exists",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "a feature flag with id a3a3a3a3-0000-0000-0000-000000000001 exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/feature-flags/a3a3a3a3-0000-0000-0000-000000000001"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "featureFlagId": "a3a3a3a3-0000-0000-0000-000000000001",
+            "flagCode": "CONTRACT_TEST_FLAG",
+            "flagTargets": "all",
+            "flagType": "Boolean",
+            "status": "Inactive",
+            "systemSuiteId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.featureFlagId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.flagCode": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.flagTargets": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.flagType": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.systemSuiteId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request for a specific permission template that exists",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "a permission template with id 3fa85f64-5717-4562-b3fc-2c963f66afa6 exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/permission-templates/3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "items": [],
+            "roleId": "a5367133-fe90-46c0-ab7e-fb2a961022be",
+            "roleName": "Administrator",
+            "status": "Published",
+            "systemSuiteId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "systemSuiteName": "User Management System",
+            "templateId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "tenantId": "11111111-1111-1111-1111-111111111111",
+            "version": "1.0.0"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json.*"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.roleId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.roleName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.systemSuiteId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.systemSuiteName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.templateId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.tenantId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.version": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json; charset=utf-8"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request for a specific role promotion request that exists",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "a role promotion request with id a4a4a4a4-0000-0000-0000-000000000001 exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "0000000a-0000-0000-0000-00000000000a"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/role-promotion-requests/a4a4a4a4-0000-0000-0000-000000000001"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "currentRoleId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "id": "a4a4a4a4-0000-0000-0000-000000000001",
+            "requesterId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "status": "Draft",
+            "targetRoleId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "targetUserId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "tenantId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.currentRoleId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.requesterId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.targetRoleId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.targetUserId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.tenantId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request for a specific system suite that exists",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "a system suite with id 3fa85f64-5717-4562-b3fc-2c963f66afa6 exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/system-suites/3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "code": "UMS-CORE",
+            "name": "User Management System",
+            "status": "Active",
+            "systemSuiteId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json.*"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.code": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.systemSuiteId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json; charset=utf-8"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request for a specific tenant that exists",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "a tenant with id 3fa85f64-5717-4562-b3fc-2c963f66afa6 exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/tenants/3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "code": "ACME",
+            "name": "Acme Corp",
+            "status": "Active",
+            "tenantId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json.*"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.code": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.tenantId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json; charset=utf-8"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request for a tenant that does not exist",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "no tenant with id 00000000-0000-0000-0000-000000000000 exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/tenants/00000000-0000-0000-0000-000000000000"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "status": 404,
+            "title": "Not Found"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/problem+json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 404
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request for an approval request that does not exist",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "no approval request with id 00000000-0000-0000-0000-0000000000a1 exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/approval-requests/00000000-0000-0000-0000-0000000000a1"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "status": 404,
+            "title": "Not Found"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/problem+json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 404
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request for an audit record that does not exist",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "no audit record with id 00000000-0000-0000-0000-0000000000a2 exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "X-User-Id": [
+            "dev-user"
+          ]
+        },
+        "matchingRules": {
+          "header": {
+            "X-User-Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/api/v1/audit-records/00000000-0000-0000-0000-0000000000a2"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "status": 404,
+            "title": "Not Found"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/problem+json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 404
+      },
+      "type": "Synchronous/HTTP"
+    }
+  ],
+  "metadata": {
+    "pactRust": {
+      "ffi": "0.4.23",
+      "models": "1.2.5"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "ums-api"
+  }
+}
