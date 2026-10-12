@@ -4,6 +4,7 @@ using Evolith.Ums.Application.Common;
 using Evolith.Ums.Application.Configuration.IdpConfiguration.Commands;
 using Evolith.Ums.Application.Configuration.IdpConfiguration.DTOs;
 using Evolith.Ums.Application.Configuration.IdpConfiguration.Queries;
+using Evolith.Ums.Presentation.Endpoints.Common;
 
 public static class IdpConfigurationEndpoints
 {
@@ -12,31 +13,22 @@ public static class IdpConfigurationEndpoints
         var group = app.MapGroup("/idp-configurations").WithTags("IdpConfigurations");
 
         group.MapGet("/", async (
-            [FromQuery] int page,
-            [FromQuery] int pageSize,
-            [FromQuery] string? search,
-            [FromQuery] string? criteria,
-            [FromQuery] string? status,
-            [FromQuery] string? sortBy,
-            [FromQuery] string? sortOrder,
-            [FromQuery] Guid? tenantId,
-            [FromQuery] Guid? systemSuiteId,
-            [FromQuery] string? providerType,
+            [AsParameters] IdpConfigurationPagedQueryParameters query,
             IMediator mediator,
             HttpContext context,
             CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllIdpConfigurationsQuery(
-                page <= 0 ? 1 : page,
-                pageSize <= 0 ? 20 : pageSize,
-                search,
-                string.IsNullOrWhiteSpace(criteria) ? "providerType" : criteria,
-                string.IsNullOrWhiteSpace(status) ? "all" : status,
-                string.IsNullOrWhiteSpace(sortBy) ? "resolutionPriority" : sortBy,
-                string.IsNullOrWhiteSpace(sortOrder) ? "asc" : sortOrder,
-                tenantId,
-                systemSuiteId,
-                providerType), ct);
+                query.Page <= 0 ? 1 : query.Page,
+                query.PageSize <= 0 ? 20 : query.PageSize,
+                query.Search,
+                string.IsNullOrWhiteSpace(query.Criteria) ? "providerType" : query.Criteria,
+                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
+                string.IsNullOrWhiteSpace(query.SortBy) ? "resolutionPriority" : query.SortBy,
+                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder,
+                query.TenantId,
+                query.SystemSuiteId,
+                query.ProviderType), ct);
             return result.ToOk(context);
         })
         .WithName("GetAllIdpConfigurations")

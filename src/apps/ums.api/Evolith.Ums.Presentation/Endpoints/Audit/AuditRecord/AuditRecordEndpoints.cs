@@ -4,6 +4,7 @@ using Evolith.Ums.Application.Audit.AuditRecord.Commands;
 using Evolith.Ums.Application.Audit.AuditRecord.DTOs;
 using Evolith.Ums.Application.Audit.AuditRecord.Queries;
 using Evolith.Ums.Application.Common;
+using Evolith.Ums.Presentation.Endpoints.Common;
 
 public static class AuditRecordEndpoints
 {
@@ -16,23 +17,15 @@ public static class AuditRecordEndpoints
             .RequireAuthorization();
 
         group.MapGet("/", async (
-            [FromQuery] int page,
-            [FromQuery] int pageSize,
-            [FromQuery] string? eventType,
-            [FromQuery] Guid? actorId,
-            [FromQuery] Guid? entityId,
-            [FromQuery] string? entityType,
-            [FromQuery] Guid? tenantId,
-            [FromQuery] DateTime? from,
-            [FromQuery] DateTime? to,
+            [AsParameters] AuditRecordPagedQueryParameters query,
             IMediator mediator,
             HttpContext context,
             CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllAuditRecordsQuery(
-                page <= 0 ? 1 : page,
-                pageSize <= 0 ? 20 : pageSize,
-                eventType, actorId, entityId, entityType, tenantId, from, to), ct);
+                query.Page <= 0 ? 1 : query.Page,
+                query.PageSize <= 0 ? 20 : query.PageSize,
+                query.EventType, query.ActorId, query.EntityId, query.EntityType, query.TenantId, query.From, query.To), ct);
             return result.ToOk(context);
         })
         .WithName("GetAllAuditRecords")

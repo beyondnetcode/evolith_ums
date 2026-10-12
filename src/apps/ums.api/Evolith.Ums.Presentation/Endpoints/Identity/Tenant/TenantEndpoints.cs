@@ -7,6 +7,7 @@ using Evolith.Ums.Application.Identity.Tenant.Queries;
 using Evolith.Ums.Application.Identity.Tenant.SignupRequests.Commands;
 using Evolith.Ums.Application.Identity.Tenant.SignupRequests.DTOs;
 using Evolith.Ums.Application.Identity.Tenant.SignupRequests.Queries;
+using Evolith.Ums.Presentation.Endpoints.Common;
 
 public sealed record SetManagementOwnerRequest(bool Value);
 
@@ -23,29 +24,23 @@ public static class TenantEndpoints
         // ── Queries ──────────────────────────────────────────────────────────
 
         group.MapGet("/", async (
-            [FromQuery] int page,
-            [FromQuery] int pageSize,
-            [FromQuery] string? search,
-            [FromQuery] string? criteria,
-            [FromQuery] string? status,
-            [FromQuery] string? sortBy,
-            [FromQuery] string? sortOrder,
+            [AsParameters] EndpointPagedQueryParameters query,
             IMediator mediator,
             HttpContext context,
             CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllTenantsQuery(
-                page <= 0 ? 1 : page,
-                pageSize <= 0 ? 20 : pageSize,
-                search,
+                query.Page <= 0 ? 1 : query.Page,
+                query.PageSize <= 0 ? 20 : query.PageSize,
+                query.Search,
                 // criteria = campo de búsqueda; se pasa tal cual (null si no se envía). El handler/repo
                 // cae a sortBy por compatibilidad. Antes se forzaba a "name", lo que impedía buscar por
                 // código salvo enviando criteria=code explícito (G-014 residual: GetTenants_AfterCreate
                 // usaba sortBy=code sin criteria y dejaba de encontrar el tenant).
-                string.IsNullOrWhiteSpace(criteria) ? null : criteria,
-                string.IsNullOrWhiteSpace(status) ? "all" : status,
-                string.IsNullOrWhiteSpace(sortBy) ? "name" : sortBy,
-                string.IsNullOrWhiteSpace(sortOrder) ? "asc" : sortOrder), ct);
+                string.IsNullOrWhiteSpace(query.Criteria) ? null : query.Criteria,
+                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
+                string.IsNullOrWhiteSpace(query.SortBy) ? "name" : query.SortBy,
+                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder), ct);
             return result.ToOk(context);
         })
         .WithName("GetAllTenants")

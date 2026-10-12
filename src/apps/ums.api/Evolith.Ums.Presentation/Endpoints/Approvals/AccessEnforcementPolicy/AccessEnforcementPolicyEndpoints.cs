@@ -4,6 +4,7 @@ using Evolith.Ums.Application.Approvals.AccessEnforcementPolicy.Commands;
 using Evolith.Ums.Application.Approvals.AccessEnforcementPolicy.DTOs;
 using Evolith.Ums.Application.Approvals.AccessEnforcementPolicy.Queries;
 using Evolith.Ums.Application.Common;
+using Evolith.Ums.Presentation.Endpoints.Common;
 
 public static class AccessEnforcementPolicyEndpoints
 {
@@ -12,17 +13,15 @@ public static class AccessEnforcementPolicyEndpoints
         var group = app.MapGroup("/access-enforcement-policies").WithTags("AccessEnforcementPolicies");
 
         group.MapGet("/", async (
-            [FromQuery] int page, [FromQuery] int pageSize, [FromQuery] string? search,
-            [FromQuery] string? criteria, [FromQuery] string? status, [FromQuery] string? sortBy,
-            [FromQuery] string? sortOrder, [FromQuery] Guid? tenantId,
+            [AsParameters] TenantPagedQueryParameters query,
             IMediator mediator, HttpContext context, CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllAccessEnforcementPoliciesQuery(
-                page <= 0 ? 1 : page, pageSize <= 0 ? 20 : pageSize, search,
-                string.IsNullOrWhiteSpace(criteria) ? "enforcementAction" : criteria,
-                string.IsNullOrWhiteSpace(status) ? "all" : status,
-                string.IsNullOrWhiteSpace(sortBy) ? "enforcementAction" : sortBy,
-                string.IsNullOrWhiteSpace(sortOrder) ? "asc" : sortOrder, tenantId), ct);
+                query.Page <= 0 ? 1 : query.Page, query.PageSize <= 0 ? 20 : query.PageSize, query.Search,
+                string.IsNullOrWhiteSpace(query.Criteria) ? "enforcementAction" : query.Criteria,
+                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
+                string.IsNullOrWhiteSpace(query.SortBy) ? "enforcementAction" : query.SortBy,
+                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder, query.TenantId), ct);
             return result.ToOk(context);
         }).WithName("GetAllAccessEnforcementPolicies").Produces<PagedResult<AccessEnforcementPolicyDto>>(StatusCodes.Status200OK);
 

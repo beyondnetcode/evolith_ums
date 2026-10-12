@@ -10,6 +10,7 @@ using Evolith.Ums.Application.Authorization.Profile.Exporters;
 using Evolith.Ums.Application.Authorization.Profile.Queries;
 using Evolith.Ums.Application.Common;
 using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Presentation.Endpoints.Common;
 
 public static class ProfileEndpoints
 {
@@ -19,29 +20,21 @@ public static class ProfileEndpoints
             .WithTags("Profiles");
 
         group.MapGet("/", async (
-            [FromQuery] int page,
-            [FromQuery] int pageSize,
-            [FromQuery] string? search,
-            [FromQuery] string? criteria,
-            [FromQuery] string? status,
-            [FromQuery] string? sortBy,
-            [FromQuery] string? sortOrder,
-            [FromQuery] Guid? tenantId,
-            [FromQuery] Guid? userId,
+            [AsParameters] TenantUserPagedQueryParameters query,
             IMediator mediator,
             HttpContext context,
             CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllProfilesQuery(
-                page <= 0 ? 1 : page,
-                pageSize <= 0 ? 20 : pageSize,
-                search,
-                string.IsNullOrWhiteSpace(criteria) ? "userId" : criteria,
-                string.IsNullOrWhiteSpace(status) ? "all" : status,
-                string.IsNullOrWhiteSpace(sortBy) ? "userId" : sortBy,
-                string.IsNullOrWhiteSpace(sortOrder) ? "asc" : sortOrder,
-                tenantId,
-                userId), ct);
+                query.Page <= 0 ? 1 : query.Page,
+                query.PageSize <= 0 ? 20 : query.PageSize,
+                query.Search,
+                string.IsNullOrWhiteSpace(query.Criteria) ? "userId" : query.Criteria,
+                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
+                string.IsNullOrWhiteSpace(query.SortBy) ? "userId" : query.SortBy,
+                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder,
+                query.TenantId,
+                query.UserId), ct);
             return result.ToOk(context);
         })
         .WithName("GetAllProfiles")
@@ -144,8 +137,7 @@ public static class ProfileEndpoints
 
         // ── Auth Graph Preview (same pipeline as POST /client/authenticate) ──────
         group.MapGet("/{profileId:guid}/auth-graph/preview", async (
-            Guid          profileId,
-            [FromQuery]   string? format,
+            [AsParameters] ProfileAuthGraphPreviewParameters request,
             IMediator     mediator,
             IUserContext  userContext,
             IAuthGraphFormatProvider formatProvider,
@@ -159,7 +151,7 @@ public static class ProfileEndpoints
             var clientIp = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
             var command = new PreviewProfileAuthGraphCommand(
-                ProfileId:   profileId,
+                ProfileId:   request.ProfileId,
                 AdminUserId: userContext.UserId ?? string.Empty,
                 ClientIp:    clientIp);
 
@@ -179,7 +171,7 @@ public static class ProfileEndpoints
             var graph   = preview.Graph;
 
             // Allow format override — same logic as ClientAuthEndpoints
-            var requestedFormat = format?.ToUpperInvariant();
+            var requestedFormat = request.Format?.ToUpperInvariant();
             var resolvedFormat  = preview.GraphFormat;
             var serialized      = preview.SerializedGraph;
 

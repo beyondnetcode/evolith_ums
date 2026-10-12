@@ -4,6 +4,7 @@ using Evolith.Ums.Application.Authorization.Template.Commands;
 using Evolith.Ums.Application.Authorization.Template.DTOs;
 using Evolith.Ums.Application.Authorization.Template.Queries;
 using Evolith.Ums.Application.Common;
+using Evolith.Ums.Presentation.Endpoints.Common;
 
 public static class PermissionTemplateEndpoints
 {
@@ -13,31 +14,22 @@ public static class PermissionTemplateEndpoints
             .WithTags("PermissionTemplates");
 
         group.MapGet("/", async (
-            [FromQuery] int page,
-            [FromQuery] int pageSize,
-            [FromQuery] string? search,
-            [FromQuery] string? criteria,
-            [FromQuery] string? status,
-            [FromQuery] string? sortBy,
-            [FromQuery] string? sortOrder,
-            [FromQuery] Guid? tenantId,
-            [FromQuery] Guid? systemSuiteId,
-            [FromQuery] Guid? roleId,
+            [AsParameters] PermissionTemplatePagedQueryParameters query,
             IMediator mediator,
             HttpContext context,
             CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllPermissionTemplatesQuery(
-                page <= 0 ? 1 : page,
-                pageSize <= 0 ? 20 : pageSize,
-                search,
-                string.IsNullOrWhiteSpace(criteria) ? "version" : criteria,
-                string.IsNullOrWhiteSpace(status) ? "all" : status,
-                string.IsNullOrWhiteSpace(sortBy) ? "version" : sortBy,
-                string.IsNullOrWhiteSpace(sortOrder) ? "asc" : sortOrder,
-                tenantId,
-                systemSuiteId,
-                roleId), ct);
+                query.Page <= 0 ? 1 : query.Page,
+                query.PageSize <= 0 ? 20 : query.PageSize,
+                query.Search,
+                string.IsNullOrWhiteSpace(query.Criteria) ? "version" : query.Criteria,
+                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
+                string.IsNullOrWhiteSpace(query.SortBy) ? "version" : query.SortBy,
+                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder,
+                query.TenantId,
+                query.SystemSuiteId,
+                query.RoleId), ct);
             return result.ToOk(context);
         })
         .WithName("GetAllPermissionTemplates")

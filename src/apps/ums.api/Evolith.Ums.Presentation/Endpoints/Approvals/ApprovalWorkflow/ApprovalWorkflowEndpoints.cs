@@ -4,6 +4,7 @@ using Evolith.Ums.Application.Approvals.ApprovalWorkflow.Commands;
 using Evolith.Ums.Application.Approvals.ApprovalWorkflow.DTOs;
 using Evolith.Ums.Application.Approvals.ApprovalWorkflow.Queries;
 using Evolith.Ums.Application.Common;
+using Evolith.Ums.Presentation.Endpoints.Common;
 
 public static class ApprovalWorkflowEndpoints
 {
@@ -12,15 +13,14 @@ public static class ApprovalWorkflowEndpoints
         var group = app.MapGroup("/approval-workflows").WithTags("ApprovalWorkflows");
 
         group.MapGet("/", async (
-            [FromQuery] int page, [FromQuery] int pageSize, [FromQuery] string? search,
-            [FromQuery] string? criteria, [FromQuery] string? sortBy, [FromQuery] string? sortOrder,
-            [FromQuery] Guid? tenantId, IMediator mediator, HttpContext context, CancellationToken ct) =>
+            [AsParameters] TenantPagedQueryParameters query,
+            IMediator mediator, HttpContext context, CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllApprovalWorkflowsQuery(
-                page <= 0 ? 1 : page, pageSize <= 0 ? 20 : pageSize, search,
-                string.IsNullOrWhiteSpace(criteria) ? "name" : criteria,
-                string.IsNullOrWhiteSpace(sortBy) ? "name" : sortBy,
-                string.IsNullOrWhiteSpace(sortOrder) ? "asc" : sortOrder, tenantId), ct);
+                query.Page <= 0 ? 1 : query.Page, query.PageSize <= 0 ? 20 : query.PageSize, query.Search,
+                string.IsNullOrWhiteSpace(query.Criteria) ? "name" : query.Criteria,
+                string.IsNullOrWhiteSpace(query.SortBy) ? "name" : query.SortBy,
+                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder, query.TenantId), ct);
             return result.ToOk(context);
         }).WithName("GetAllApprovalWorkflows").Produces<PagedResult<ApprovalWorkflowDto>>(StatusCodes.Status200OK);
 

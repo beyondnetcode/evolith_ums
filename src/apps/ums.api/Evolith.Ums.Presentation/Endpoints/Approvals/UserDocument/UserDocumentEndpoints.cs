@@ -4,6 +4,7 @@ using Evolith.Ums.Application.Approvals.UserDocument.Commands;
 using Evolith.Ums.Application.Approvals.UserDocument.DTOs;
 using Evolith.Ums.Application.Approvals.UserDocument.Queries;
 using Evolith.Ums.Application.Common;
+using Evolith.Ums.Presentation.Endpoints.Common;
 
 public static class UserDocumentEndpoints
 {
@@ -12,17 +13,15 @@ public static class UserDocumentEndpoints
         var group = app.MapGroup("/user-documents").WithTags("UserDocuments");
 
         group.MapGet("/", async (
-            [FromQuery] int page, [FromQuery] int pageSize, [FromQuery] string? search,
-            [FromQuery] string? criteria, [FromQuery] string? status, [FromQuery] string? sortBy,
-            [FromQuery] string? sortOrder, [FromQuery] Guid? userId, [FromQuery] Guid? tenantId,
+            [AsParameters] TenantUserPagedQueryParameters query,
             IMediator mediator, HttpContext context, CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllUserDocumentsQuery(
-                page <= 0 ? 1 : page, pageSize <= 0 ? 20 : pageSize, search,
-                string.IsNullOrWhiteSpace(criteria) ? "status" : criteria,
-                string.IsNullOrWhiteSpace(status) ? "all" : status,
-                string.IsNullOrWhiteSpace(sortBy) ? "status" : sortBy,
-                string.IsNullOrWhiteSpace(sortOrder) ? "asc" : sortOrder, userId, tenantId), ct);
+                query.Page <= 0 ? 1 : query.Page, query.PageSize <= 0 ? 20 : query.PageSize, query.Search,
+                string.IsNullOrWhiteSpace(query.Criteria) ? "status" : query.Criteria,
+                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
+                string.IsNullOrWhiteSpace(query.SortBy) ? "status" : query.SortBy,
+                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder, query.UserId, query.TenantId), ct);
             return result.ToOk(context);
         }).WithName("GetAllUserDocuments").Produces<PagedResult<UserDocumentDto>>(StatusCodes.Status200OK);
 

@@ -6,6 +6,7 @@ using Evolith.Ums.Application.Common;
 using Evolith.Ums.Application.Identity.UserAccount.Commands;
 using Evolith.Ums.Application.Identity.UserAccount.DTOs;
 using Evolith.Ums.Application.Identity.UserAccount.Queries;
+using Evolith.Ums.Presentation.Endpoints.Common;
 
 public static class UserAccountEndpoints
 {
@@ -15,27 +16,20 @@ public static class UserAccountEndpoints
             .WithTags("UserAccounts");
 
         group.MapGet("/", async (
-            [FromQuery] int page,
-            [FromQuery] int pageSize,
-            [FromQuery] string? search,
-            [FromQuery] string? criteria,
-            [FromQuery] string? status,
-            [FromQuery] string? sortBy,
-            [FromQuery] string? sortOrder,
-            [FromQuery] Guid? tenantId,
+            [AsParameters] TenantPagedQueryParameters query,
             IMediator mediator,
             HttpContext context,
             CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllUserAccountsQuery(
-                page <= 0 ? 1 : page,
-                pageSize <= 0 ? 20 : pageSize,
-                search,
-                string.IsNullOrWhiteSpace(criteria) ? "email" : criteria,
-                string.IsNullOrWhiteSpace(status) ? "all" : status,
-                string.IsNullOrWhiteSpace(sortBy) ? "email" : sortBy,
-                string.IsNullOrWhiteSpace(sortOrder) ? "asc" : sortOrder,
-                tenantId), ct);
+                query.Page <= 0 ? 1 : query.Page,
+                query.PageSize <= 0 ? 20 : query.PageSize,
+                query.Search,
+                string.IsNullOrWhiteSpace(query.Criteria) ? "email" : query.Criteria,
+                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
+                string.IsNullOrWhiteSpace(query.SortBy) ? "email" : query.SortBy,
+                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder,
+                query.TenantId), ct);
             return result.ToOk(context);
         })
         .WithName("GetAllUserAccounts")

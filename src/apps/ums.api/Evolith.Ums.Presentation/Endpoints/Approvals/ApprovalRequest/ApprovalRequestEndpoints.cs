@@ -4,6 +4,7 @@ using Evolith.Ums.Application.Approvals.ApprovalRequest.Commands;
 using Evolith.Ums.Application.Approvals.ApprovalRequest.DTOs;
 using Evolith.Ums.Application.Approvals.ApprovalRequest.Queries;
 using Evolith.Ums.Application.Common;
+using Evolith.Ums.Presentation.Endpoints.Common;
 
 public static class ApprovalRequestEndpoints
 {
@@ -12,17 +13,15 @@ public static class ApprovalRequestEndpoints
         var group = app.MapGroup("/approval-requests").WithTags("ApprovalRequests");
 
         group.MapGet("/", async (
-            [FromQuery] int page, [FromQuery] int pageSize, [FromQuery] string? search,
-            [FromQuery] string? criteria, [FromQuery] string? status, [FromQuery] string? sortBy,
-            [FromQuery] string? sortOrder, [FromQuery] Guid? tenantId, [FromQuery] Guid? userId,
+            [AsParameters] TenantUserPagedQueryParameters query,
             IMediator mediator, HttpContext context, CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllApprovalRequestsQuery(
-                page <= 0 ? 1 : page, pageSize <= 0 ? 20 : pageSize, search,
-                string.IsNullOrWhiteSpace(criteria) ? "status" : criteria,
-                string.IsNullOrWhiteSpace(status) ? "all" : status,
-                string.IsNullOrWhiteSpace(sortBy) ? "status" : sortBy,
-                string.IsNullOrWhiteSpace(sortOrder) ? "asc" : sortOrder, tenantId, userId), ct);
+                query.Page <= 0 ? 1 : query.Page, query.PageSize <= 0 ? 20 : query.PageSize, query.Search,
+                string.IsNullOrWhiteSpace(query.Criteria) ? "status" : query.Criteria,
+                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
+                string.IsNullOrWhiteSpace(query.SortBy) ? "status" : query.SortBy,
+                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder, query.TenantId, query.UserId), ct);
             return result.ToOk(context);
         }).WithName("GetAllApprovalRequests").Produces<PagedResult<ApprovalRequestDto>>(StatusCodes.Status200OK);
 

@@ -5,6 +5,7 @@ using Evolith.Ums.Application.Configuration.AppConfiguration.DTOs;
 using Evolith.Ums.Application.Configuration.AppConfiguration.Queries;
 using Evolith.Ums.Infrastructure.Persistence;
 using Evolith.Ums.Presentation.Extensions;
+using Evolith.Ums.Presentation.Endpoints.Common;
 using Microsoft.EntityFrameworkCore;
 
 public static class AppConfigurationQueryEndpoints
@@ -17,23 +18,20 @@ public static class AppConfigurationQueryEndpoints
         // context (Module → Suite → Tenant → Global, BR-1). Encrypted values are redacted for
         // non-admin callers.
         group.MapGet("/resolve", async (
-            [FromQuery] string  code,
-            [FromQuery] Guid?   tenantId,
-            [FromQuery] Guid?   suiteId,
-            [FromQuery] Guid?   moduleId,
+            [AsParameters] AppConfigurationResolveQueryParameters query,
             IMediator           mediator,
             ITenantContext      tenantContext,
             HttpContext         context,
             CancellationToken   ct) =>
         {
-            if (string.IsNullOrWhiteSpace(code))
+            if (string.IsNullOrWhiteSpace(query.Code))
                 return Results.BadRequest(new { error = "code is required." });
 
-            if (!tenantContext.IsInternalAdmin && tenantId.HasValue && tenantId != tenantContext.OrganizationId)
+            if (!tenantContext.IsInternalAdmin && query.TenantId.HasValue && query.TenantId != tenantContext.OrganizationId)
                 return Results.Json(new { error = "You may only resolve configurations for your own tenant." }, statusCode: 403);
 
             var result = await mediator.Send(
-                new ResolveAppConfigurationQuery(code, tenantId, suiteId, moduleId), ct);
+                new ResolveAppConfigurationQuery(query.Code, query.TenantId, query.SuiteId, query.ModuleId), ct);
 
             return result.ToOk(context);
         })

@@ -4,6 +4,7 @@ using Evolith.Ums.Application.Common;
 using Evolith.Ums.Application.Configuration.FeatureFlag.Commands;
 using Evolith.Ums.Application.Configuration.FeatureFlag.DTOs;
 using Evolith.Ums.Application.Configuration.FeatureFlag.Queries;
+using Evolith.Ums.Presentation.Endpoints.Common;
 
 public static class FeatureFlagEndpoints
 {
@@ -12,29 +13,21 @@ public static class FeatureFlagEndpoints
         var group = app.MapGroup("/feature-flags").WithTags("FeatureFlags");
 
         group.MapGet("/", async (
-            [FromQuery] int page,
-            [FromQuery] int pageSize,
-            [FromQuery] string? search,
-            [FromQuery] string? criteria,
-            [FromQuery] string? status,
-            [FromQuery] string? sortBy,
-            [FromQuery] string? sortOrder,
-            [FromQuery] string? flagType,
-            [FromQuery] string? linkedResourceType,
+            [AsParameters] FeatureFlagPagedQueryParameters query,
             IMediator mediator,
             HttpContext context,
             CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetAllFeatureFlagsQuery(
-                page <= 0 ? 1 : page,
-                pageSize <= 0 ? 20 : pageSize,
-                search,
-                string.IsNullOrWhiteSpace(criteria) ? "flagCode" : criteria,
-                string.IsNullOrWhiteSpace(status) ? "all" : status,
-                string.IsNullOrWhiteSpace(sortBy) ? "flagCode" : sortBy,
-                string.IsNullOrWhiteSpace(sortOrder) ? "asc" : sortOrder,
-                flagType,
-                linkedResourceType), ct);
+                query.Page <= 0 ? 1 : query.Page,
+                query.PageSize <= 0 ? 20 : query.PageSize,
+                query.Search,
+                string.IsNullOrWhiteSpace(query.Criteria) ? "flagCode" : query.Criteria,
+                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
+                string.IsNullOrWhiteSpace(query.SortBy) ? "flagCode" : query.SortBy,
+                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder,
+                query.FlagType,
+                query.LinkedResourceType), ct);
             return result.ToOk(context);
         })
         .WithName("GetAllFeatureFlags")

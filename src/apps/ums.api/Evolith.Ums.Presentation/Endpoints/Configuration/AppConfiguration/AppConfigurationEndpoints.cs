@@ -6,6 +6,7 @@ using Evolith.Ums.Application.Configuration.AppConfiguration.Commands;
 using Evolith.Ums.Application.Configuration.AppConfiguration.DTOs;
 using Evolith.Ums.Application.Configuration.AppConfiguration.Queries;
 using Evolith.Ums.Domain.Configuration;
+using Evolith.Ums.Presentation.Endpoints.Common;
 using Evolith.Ums.Presentation.Extensions;
 
 public static class AppConfigurationEndpoints
@@ -15,40 +16,30 @@ public static class AppConfigurationEndpoints
         var group = app.MapGroup("/app-configurations").WithTags("AppConfigurations");
 
         group.MapGet("/", async (
-            [FromQuery] int page,
-            [FromQuery] int pageSize,
-            [FromQuery] string? search,
-            [FromQuery] string? criteria,
-            [FromQuery] string? status,
-            [FromQuery] string? sortBy,
-            [FromQuery] string? sortOrder,
-            [FromQuery] string? scope,
-            [FromQuery] Guid? tenantId,
-            [FromQuery] Guid? systemSuiteId,
-            [FromQuery] Guid? moduleId,
+            [AsParameters] AppConfigurationPagedQueryParameters query,
             IMediator mediator,
             ITenantContext tenantContext,
             HttpContext context,
             CancellationToken ct) =>
         {
             // Authorization: Internal admins can see all; tenant admins can only see their tenant's configs
-            if (!tenantContext.IsInternalAdmin && scope == "Global")
+            if (!tenantContext.IsInternalAdmin && query.Scope == "Global")
             {
                 return Results.Json(new { error = "Global configuration is only accessible to internal administrators." }, statusCode: 403);
             }
 
             var result = await mediator.Send(new GetAllAppConfigurationsQuery(
-                page <= 0 ? 1 : page,
-                pageSize <= 0 ? 20 : pageSize,
-                search,
-                string.IsNullOrWhiteSpace(criteria) ? "code" : criteria,
-                string.IsNullOrWhiteSpace(status) ? "all" : status,
-                string.IsNullOrWhiteSpace(sortBy) ? "code" : sortBy,
-                string.IsNullOrWhiteSpace(sortOrder) ? "asc" : sortOrder,
-                scope,
-                tenantId,
-                systemSuiteId,
-                moduleId), ct);
+                query.Page <= 0 ? 1 : query.Page,
+                query.PageSize <= 0 ? 20 : query.PageSize,
+                query.Search,
+                string.IsNullOrWhiteSpace(query.Criteria) ? "code" : query.Criteria,
+                string.IsNullOrWhiteSpace(query.Status) ? "all" : query.Status,
+                string.IsNullOrWhiteSpace(query.SortBy) ? "code" : query.SortBy,
+                string.IsNullOrWhiteSpace(query.SortOrder) ? "asc" : query.SortOrder,
+                query.Scope,
+                query.TenantId,
+                query.SystemSuiteId,
+                query.ModuleId), ct);
             return result.ToOk(context);
         })
         .WithName("GetAllAppConfigurations")
