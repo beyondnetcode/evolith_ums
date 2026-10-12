@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Infrastructure.Configuration;
 using Evolith.Ums.Infrastructure.Persistence.Configuration.Entities;
 using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Configuration;
 

@@ -1,11 +1,11 @@
 namespace Evolith.Ums.Presentation.Middleware;
 
 using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Domain.Authorization.Graph;
 using Evolith.Ums.Domain.Identity;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 
 public sealed class DevAuthMiddleware
 {

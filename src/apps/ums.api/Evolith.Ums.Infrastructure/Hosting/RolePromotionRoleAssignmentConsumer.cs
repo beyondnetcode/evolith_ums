@@ -1,7 +1,7 @@
-using MassTransit;
-using Microsoft.Extensions.Logging;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Events;
+using MassTransit;
+using Microsoft.Extensions.Logging;
 
 namespace Evolith.Ums.Infrastructure.Hosting;
 

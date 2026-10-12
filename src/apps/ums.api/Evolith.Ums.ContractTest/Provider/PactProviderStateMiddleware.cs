@@ -1,108 +1,135 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
-using Evolith.Ums.Domain.Enums;
-using Evolith.Ums.Domain.Identity;
-using Evolith.Ums.Domain.Identity.Tenant;
-using Evolith.Ums.Domain.Identity.UserAccount;
-using Evolith.Ums.Domain.Kernel.ValueObjects;
-using Evolith.Ums.Domain.Authorization;
-using Evolith.Ums.Domain.Authorization.SystemSuite;
-using Evolith.Ums.Domain.Authorization.Template;
-using Evolith.Ums.Domain.Authorization.Profile;
+using BeyondNetCode.Shell.Ddd;
 using Evolith.Ums.Domain.Approvals;
 using Evolith.Ums.Domain.Audit.AuditRecord;
+using Evolith.Ums.Domain.Authorization;
+using Evolith.Ums.Domain.Authorization.Profile;
+using Evolith.Ums.Domain.Authorization.SystemSuite;
+using Evolith.Ums.Domain.Authorization.Template;
 using Evolith.Ums.Domain.Configuration;
+using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Identity.Tenant;
+using Evolith.Ums.Domain.Identity.UserAccount;
 using Evolith.Ums.Domain.IGA;
-using Evolith.Ums.Infrastructure.Persistence;
-using BeyondNetCode.Shell.Ddd;
+using Evolith.Ums.Domain.Kernel.ValueObjects;
+using AppConfigurationAggregate = Evolith.Ums.Domain.Configuration.AppConfiguration.AppConfiguration;
 using ApprovalRequestAggregate = Evolith.Ums.Domain.Approvals.ApprovalRequest.ApprovalRequest;
 using AuditRecordAggregate = Evolith.Ums.Domain.Audit.AuditRecord.AuditRecord;
 using FeatureFlagAggregate = Evolith.Ums.Domain.Configuration.FeatureFlag.FeatureFlag;
-using AppConfigurationAggregate = Evolith.Ums.Domain.Configuration.AppConfiguration.AppConfiguration;
 using RolePromotionRequestAggregate = Evolith.Ums.Domain.IGA.RolePromotionRequest.RolePromotionRequest;
+using Evolith.Ums.Domain.Identity;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using System.Text.Json;
 
-namespace Evolith.Ums.Presentation.Endpoints;
+namespace Evolith.Ums.ContractTest.Provider;
 
-/// <summary>
-/// OPS-02: Pact provider state endpoint.
-/// </summary>
-public static class PactProviderStateEndpoints
+internal sealed class PactProviderStateMiddleware(RequestDelegate next)
 {
-    public static IEndpointRouteBuilder MapPactProviderStateEndpoints(this IEndpointRouteBuilder app)
+    private const string Path = "/_pact/provider-states";
+
+    public async Task InvokeAsync(HttpContext context)
     {
-        app.MapPost("/_pact/provider-states", async (
-            ProviderStateRequest request,
-            ITenantRepository      tenants,
-            IUserAccountRepository userAccounts,
-            IPermissionTemplateRepository permissionTemplates,
-            IProfileRepository profiles,
-            ISystemSuiteRepository systemSuites,
-            IApprovalRequestRepository approvalRequests,
-            IAuditRecordRepository auditRecords,
-            IFeatureFlagRepository featureFlags,
-            IAppConfigurationRepository appConfigurations,
-            IRolePromotionRequestRepository rolePromotionRequests) =>
+        if (!HttpMethods.IsPost(context.Request.Method)
+            || !context.Request.Path.Equals(Path, StringComparison.OrdinalIgnoreCase))
         {
-            await (request.State switch
-            {
-                var s when s.StartsWith("a tenant with id ")       => EnsureTenantExistsAsync(s, tenants),
-                var s when s.StartsWith("no tenant with id ")      => Task.CompletedTask,
-                "at least one tenant exists"                        => EnsureDefaultTenantAsync(tenants),
+            await next(context);
+            return;
+        }
 
-                var s when s.StartsWith("a user account with id ") && s.EndsWith(" is active") => EnsureUserAccountExistsAsync(s, userAccounts, tenants, true),
-                var s when s.StartsWith("a user account with id ") && s.EndsWith(" is inactive") => EnsureUserAccountExistsAsync(s, userAccounts, tenants, false),
-                var s when s.StartsWith("a user account with id ") => EnsureUserAccountExistsAsync(s, userAccounts, tenants, true),
-                var s when s.StartsWith("no user account with id ")=> Task.CompletedTask,
-                "at least one user account exists"                  => EnsureDefaultUserAccountAsync(userAccounts, tenants),
-                "a user account exists with valid credentials"      => EnsureDefaultUserAccountWithPasswordAsync(userAccounts, tenants),
-                "a user account does not exist or credentials do not match" => Task.CompletedTask,
+        ProviderStateRequest? request;
+        try
+        {
+            request = await context.Request.ReadFromJsonAsync<ProviderStateRequest>(context.RequestAborted);
+        }
+        catch (JsonException)
+        {
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            return;
+        }
 
-                var s when s.StartsWith("a permission template with id ") => EnsurePermissionTemplateExistsAsync(s, permissionTemplates, tenants, systemSuites),
-                "at least one permission template exists"           => EnsureDefaultPermissionTemplateAsync(permissionTemplates, tenants, systemSuites),
+        if (request is null)
+        {
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            return;
+        }
 
-                var s when s.StartsWith("a profile with id ")      => EnsureProfileExistsAsync(s, profiles, tenants, userAccounts),
-                "at least one profile exists"                       => EnsureDefaultProfileAsync(profiles, tenants, userAccounts),
+        if (string.IsNullOrWhiteSpace(request.State))
+        {
+            context.Response.StatusCode = StatusCodes.Status200OK;
+            return;
+        }
 
-                var s when s.StartsWith("a system suite with id ") => EnsureSystemSuiteExistsAsync(s, systemSuites, tenants),
-                "at least one system suite exists"                  => EnsureDefaultSystemSuiteAsync(systemSuites, tenants),
+        await EnsureProviderStateAsync(request, context.RequestServices);
+        context.Response.StatusCode = StatusCodes.Status200OK;
+    }
 
-                // G-082: Approvals — ApprovalRequest
-                var s when s.StartsWith("an approval request with id ") => EnsureApprovalRequestExistsAsync(s, approvalRequests),
-                var s when s.StartsWith("no approval request with id ") => Task.CompletedTask,
-                "at least one approval request exists"                  => SeedApprovalRequestAsync(Guid.Empty, approvalRequests),
+    private static async Task EnsureProviderStateAsync(ProviderStateRequest request, IServiceProvider services)
+    {
+        var tenants = services.GetRequiredService<ITenantRepository>();
+        var userAccounts = services.GetRequiredService<IUserAccountRepository>();
+        var permissionTemplates = services.GetRequiredService<IPermissionTemplateRepository>();
+        var profiles = services.GetRequiredService<IProfileRepository>();
+        var systemSuites = services.GetRequiredService<ISystemSuiteRepository>();
+        var approvalRequests = services.GetRequiredService<IApprovalRequestRepository>();
+        var auditRecords = services.GetRequiredService<IAuditRecordRepository>();
+        var featureFlags = services.GetRequiredService<IFeatureFlagRepository>();
+        var appConfigurations = services.GetRequiredService<IAppConfigurationRepository>();
+        var rolePromotionRequests = services.GetRequiredService<IRolePromotionRequestRepository>();
 
-                // G-082: Audit — AuditRecord
-                var s when s.StartsWith("an audit record with id ") => EnsureAuditRecordExistsAsync(s, auditRecords),
-                var s when s.StartsWith("no audit record with id ")  => Task.CompletedTask,
-                "at least one audit record exists"                   => SeedAuditRecordAsync(Guid.Empty, auditRecords),
+        await (request.State switch
+        {
+            var s when s.StartsWith("a tenant with id ") => EnsureTenantExistsAsync(s, tenants),
+            var s when s.StartsWith("no tenant with id ") => Task.CompletedTask,
+            "at least one tenant exists" => EnsureDefaultTenantAsync(tenants),
 
-                // G-082: Configuration — FeatureFlag
-                var s when s.StartsWith("a feature flag with id ") => EnsureFeatureFlagExistsAsync(s, featureFlags),
-                var s when s.StartsWith("no feature flag with id ") => Task.CompletedTask,
-                "at least one feature flag exists"                  => SeedFeatureFlagAsync(Guid.Empty, featureFlags),
+            var s when s.StartsWith("a user account with id ") && s.EndsWith(" is active") => EnsureUserAccountExistsAsync(s, userAccounts, tenants, true),
+            var s when s.StartsWith("a user account with id ") && s.EndsWith(" is inactive") => EnsureUserAccountExistsAsync(s, userAccounts, tenants, false),
+            var s when s.StartsWith("a user account with id ") => EnsureUserAccountExistsAsync(s, userAccounts, tenants, true),
+            var s when s.StartsWith("no user account with id ") => Task.CompletedTask,
+            "at least one user account exists" => EnsureDefaultUserAccountAsync(userAccounts, tenants),
+            "a user account exists with valid credentials" => EnsureDefaultUserAccountWithPasswordAsync(userAccounts, tenants),
+            "a user account does not exist or credentials do not match" => Task.CompletedTask,
 
-                // G-082: Configuration — AppConfiguration
-                var s when s.StartsWith("no app configuration with id ") => Task.CompletedTask,
-                "at least one app configuration exists"                 => SeedAppConfigurationAsync(appConfigurations),
+            var s when s.StartsWith("a permission template with id ") => EnsurePermissionTemplateExistsAsync(s, permissionTemplates, tenants, systemSuites),
+            "at least one permission template exists" => EnsureDefaultPermissionTemplateAsync(permissionTemplates, tenants, systemSuites),
 
-                // G-082: IGA — RolePromotionRequest
-                var s when s.StartsWith("a role promotion request with id ") => EnsureRolePromotionRequestExistsAsync(s, rolePromotionRequests),
-                var s when s.StartsWith("no role promotion request with id ") => Task.CompletedTask,
-                "at least one role promotion request exists"                 => SeedRolePromotionRequestAsync(Guid.Empty, rolePromotionRequests),
+            var s when s.StartsWith("a profile with id ") => EnsureProfileExistsAsync(s, profiles, tenants, userAccounts),
+            "at least one profile exists" => EnsureDefaultProfileAsync(profiles, tenants, userAccounts),
 
-                _                                                   => Task.CompletedTask,
-            });
+            var s when s.StartsWith("a system suite with id ") => EnsureSystemSuiteExistsAsync(s, systemSuites, tenants),
+            "at least one system suite exists" => EnsureDefaultSystemSuiteAsync(systemSuites, tenants),
 
-            return Results.Ok();
-        }).WithTags("Pact").ExcludeFromDescription().AllowAnonymous();
+            // G-082: Approvals — ApprovalRequest
+            var s when s.StartsWith("an approval request with id ") => EnsureApprovalRequestExistsAsync(s, approvalRequests),
+            var s when s.StartsWith("no approval request with id ") => Task.CompletedTask,
+            "at least one approval request exists" => SeedApprovalRequestAsync(Guid.Empty, approvalRequests),
 
-        return app;
+            // G-082: Audit — AuditRecord
+            var s when s.StartsWith("an audit record with id ") => EnsureAuditRecordExistsAsync(s, auditRecords),
+            var s when s.StartsWith("no audit record with id ") => Task.CompletedTask,
+            "at least one audit record exists" => SeedAuditRecordAsync(Guid.Empty, auditRecords),
+
+            // G-082: Configuration — FeatureFlag
+            var s when s.StartsWith("a feature flag with id ") => EnsureFeatureFlagExistsAsync(s, featureFlags),
+            var s when s.StartsWith("no feature flag with id ") => Task.CompletedTask,
+            "at least one feature flag exists" => SeedFeatureFlagAsync(Guid.Empty, featureFlags),
+
+            // G-082: Configuration — AppConfiguration
+            var s when s.StartsWith("no app configuration with id ") => Task.CompletedTask,
+            "at least one app configuration exists" => SeedAppConfigurationAsync(appConfigurations),
+
+            // G-082: IGA — RolePromotionRequest
+            var s when s.StartsWith("a role promotion request with id ") => EnsureRolePromotionRequestExistsAsync(s, rolePromotionRequests),
+            var s when s.StartsWith("no role promotion request with id ") => Task.CompletedTask,
+            "at least one role promotion request exists" => SeedRolePromotionRequestAsync(Guid.Empty, rolePromotionRequests),
+
+            _ => Task.CompletedTask,
+        });
     }
 
     private static readonly Guid DefaultTenantGuid = Guid.Parse("11111111-1111-1111-1111-111111111111");
-    private static readonly Guid DefaultUserGuid   = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6");
-    private static readonly ActorId SeedActor      = ActorId.Create("00000000-0000-0000-0000-000000000111");
+    private static readonly Guid DefaultUserGuid = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6");
+    private static readonly ActorId SeedActor = ActorId.Create("00000000-0000-0000-0000-000000000111");
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
         "Security Hotspot", "S3011:Reflection should not be used to increase accessibility of classes, methods, or fields",
@@ -156,8 +183,8 @@ public static class PactProviderStateEndpoints
             SeedActor,
             IdpStrategy.InternalBcrypt,
             companyReference: null,
-            parentTenantId:   null,
-            tenantId:         TenantId.Load(id));
+            parentTenantId: null,
+            tenantId: TenantId.Load(id));
 
         if (result.IsFailure) return;
 
@@ -173,7 +200,7 @@ public static class PactProviderStateEndpoints
     {
         await EnsureDefaultUserAccountAsync(userAccounts, tenants);
         var user = await userAccounts.GetByIdAsync(DefaultUserGuid);
-        if (user != null)
+        if (user is not null)
         {
             // Bcrypt hash for "ValidPassword123!"
             user.AddPassword(PasswordHash.Create("$2a$11$00000000000000000000001Z9KzDqM8G.Y3kG.0Hw8z.gLdD/W5qG"), SeedActor);
@@ -206,10 +233,10 @@ public static class PactProviderStateEndpoints
             TenantId.Load(tenantId),
             Email.Create(email),
             UserCategory.Internal,
-            identityReference:     null,
+            identityReference: null,
             identityReferenceType: null,
             SeedActor,
-            branchId:      null,
+            branchId: null,
             userAccountId: UserAccountId.Load(id));
 
         if (result.IsFailure) return;
@@ -501,4 +528,4 @@ public static class PactProviderStateEndpoints
 }
 
 /// <summary>Body shape posted by PactNet verifier to set up provider state.</summary>
-public sealed record ProviderStateRequest(string State, Dictionary<string, string>? Params = null);
+internal sealed record ProviderStateRequest(string State, Dictionary<string, string>? Params = null);

@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Evolith.Ums.Domain.Authorization.Graph;
+using Evolith.Ums.Infrastructure.Authorization.Graph;
 using FluentAssertions;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using Evolith.Ums.Domain.Authorization.Graph;
-using Evolith.Ums.Infrastructure.Authorization.Graph;
 using Xunit;
 
 namespace Evolith.Ums.Application.Test.Infrastructure.Authorization;

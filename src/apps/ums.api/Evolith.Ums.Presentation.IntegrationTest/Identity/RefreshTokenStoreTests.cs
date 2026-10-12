@@ -1,7 +1,5 @@
 namespace Evolith.Ums.Presentation.IntegrationTest.Identity;
 
-using Microsoft.EntityFrameworkCore;
-using Moq;
 using Evolith.Ums.Application.Authorization.Graph;
 using Evolith.Ums.Application.Authorization.Graph.Serializers;
 using Evolith.Ums.Application.Identity.Auth;
@@ -10,6 +8,8 @@ using Evolith.Ums.Domain.Authorization.Graph;
 using Evolith.Ums.Domain.Identity.Auth;
 using Evolith.Ums.Domain.Kernel;
 using Evolith.Ums.Infrastructure.Persistence.Identity.Entities;
+using Microsoft.EntityFrameworkCore;
+using Moq;
 using TenantAggregate      = Evolith.Ums.Domain.Identity.Tenant.Tenant;
 using UserAccountAggregate = Evolith.Ums.Domain.Identity.UserAccount.UserAccount;
 

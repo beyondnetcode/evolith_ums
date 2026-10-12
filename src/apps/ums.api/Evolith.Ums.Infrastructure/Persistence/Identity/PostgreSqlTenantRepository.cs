@@ -1,5 +1,4 @@
 using System.Data;
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Domain.Enums;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Domain.Identity.Tenant.Branch;
@@ -7,6 +6,7 @@ using Evolith.Ums.Domain.Kernel;
 using Evolith.Ums.Infrastructure.Persistence;
 using Evolith.Ums.Infrastructure.Persistence.Identity.Entities;
 using Evolith.Ums.Infrastructure.Persistence.Reflection;
+using Microsoft.EntityFrameworkCore;
 
 namespace Evolith.Ums.Infrastructure.Persistence.Identity;
 

@@ -1,11 +1,11 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
-using FluentAssertions;
 using Evolith.Ums.Domain.Authorization.Graph;
 using Evolith.Ums.Domain.Identity.Auth;
 using Evolith.Ums.Infrastructure.Persistence.Seeders;
 using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
+using FluentAssertions;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Security;
 

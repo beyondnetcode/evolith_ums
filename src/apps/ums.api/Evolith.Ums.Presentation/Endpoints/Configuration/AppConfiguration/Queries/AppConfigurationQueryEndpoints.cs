@@ -1,11 +1,11 @@
 namespace Evolith.Ums.Presentation.Endpoints.Configuration.AppConfiguration.Queries;
 
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.Configuration.AppConfiguration.DTOs;
 using Evolith.Ums.Application.Configuration.AppConfiguration.Queries;
 using Evolith.Ums.Infrastructure.Persistence;
 using Evolith.Ums.Presentation.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 public static class AppConfigurationQueryEndpoints
 {

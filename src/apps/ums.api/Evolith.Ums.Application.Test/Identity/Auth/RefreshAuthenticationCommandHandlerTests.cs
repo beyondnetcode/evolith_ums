@@ -1,7 +1,5 @@
 namespace Evolith.Ums.Application.Test.Identity.Auth;
 
-using Moq;
-using Xunit;
 using Evolith.Ums.Application.Authorization.Graph;
 using Evolith.Ums.Application.Authorization.Graph.Serializers;
 using Evolith.Ums.Application.Common.Interfaces;
@@ -10,6 +8,8 @@ using Evolith.Ums.Application.Identity.Auth.Commands;
 using Evolith.Ums.Domain.Authorization.Graph;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Domain.Identity.Auth;
+using Moq;
+using Xunit;
 using TenantAggregate      = Evolith.Ums.Domain.Identity.Tenant.Tenant;
 using UserAccountAggregate = Evolith.Ums.Domain.Identity.UserAccount.UserAccount;
 

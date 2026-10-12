@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Application.Authorization.SystemSuite.Commands;
 
-using FluentValidation;
 using Evolith.Ums.Domain.Authorization;
+using FluentValidation;
 
 // ── Vincular funcionalidad (N:M) a un nodo hoja (Opción) ──
 

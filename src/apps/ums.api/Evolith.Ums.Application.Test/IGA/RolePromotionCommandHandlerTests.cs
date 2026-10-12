@@ -3,8 +3,6 @@ namespace Evolith.Ums.Application.Test.IGA;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Moq;
-using Xunit;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.IGA.RolePromotion.Commands;
 using Evolith.Ums.Application.IGA.Services;
@@ -13,6 +11,8 @@ using Evolith.Ums.Domain.Events;
 using Evolith.Ums.Domain.IGA;
 using Evolith.Ums.Domain.Kernel;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
+using Moq;
+using Xunit;
 using RoleMaturityStatusAggregate = Evolith.Ums.Domain.IGA.RoleMaturityStatus.RoleMaturityStatus;
 using RolePromotionRequestAggregate = Evolith.Ums.Domain.IGA.RolePromotionRequest.RolePromotionRequest;
 

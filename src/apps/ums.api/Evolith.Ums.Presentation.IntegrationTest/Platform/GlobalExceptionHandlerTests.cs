@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging.Abstractions;
 using Evolith.Ums.Globalization.Access;
 using Evolith.Ums.Presentation.Middleware;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Platform;
 

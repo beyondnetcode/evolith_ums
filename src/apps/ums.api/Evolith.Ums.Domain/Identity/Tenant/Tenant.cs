@@ -1,8 +1,8 @@
 namespace Evolith.Ums.Domain.Identity.Tenant;
 using Evolith.Ums.Domain.Identity.Tenant.Branch;
+using Evolith.Ums.Domain.Identity.Tenant.Events;
 using Evolith.Ums.Domain.Identity.Tenant.IdentityProvider;
 using Evolith.Ums.Domain.Identity.Tenant.TenantParameter;
-using Evolith.Ums.Domain.Identity.Tenant.Events;
 using BranchEntity = Evolith.Ums.Domain.Identity.Tenant.Branch.Branch;
 using IdentityProviderEntity = Evolith.Ums.Domain.Identity.Tenant.IdentityProvider.IdentityProvider;
 using TenantParameterEntity = Evolith.Ums.Domain.Identity.Tenant.TenantParameter.TenantParameter;

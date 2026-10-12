@@ -1,11 +1,11 @@
 namespace Evolith.Ums.Application;
 
-using FluentValidation;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Application.Common.Behaviors;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.IGA.Services;
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {

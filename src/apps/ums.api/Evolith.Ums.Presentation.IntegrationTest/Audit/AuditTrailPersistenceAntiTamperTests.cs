@@ -1,10 +1,10 @@
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Infrastructure.Persistence.Audit;
 using Evolith.Ums.Infrastructure.Persistence.Audit.Entities;
 using Evolith.Ums.Infrastructure.Persistence.Configuration.Entities;
 using Evolith.Ums.Infrastructure.Persistence.Interceptors;
 using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using AuditRecordAggregate = Evolith.Ums.Domain.Audit.AuditRecord.AuditRecord;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Audit;

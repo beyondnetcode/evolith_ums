@@ -1,18 +1,18 @@
 namespace Evolith.Ums.Application.Test.Approvals.NotificationRule;
 
-using Evolith.Ums.Application.Common.Interfaces;
-using Evolith.Ums.Application.Approvals.NotificationRule.Commands;
-using Evolith.Ums.Domain.Approvals.NotificationRule;
-using Evolith.Ums.Domain.Kernel;
-using Evolith.Ums.Domain.Enums;
-using Evolith.Ums.Domain.Approvals;
-using Evolith.Ums.Domain;
-using Evolith.Ums.Application.Approvals.NotificationRule.Services;
-using Moq;
-using Xunit;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Evolith.Ums.Application.Approvals.NotificationRule.Commands;
+using Evolith.Ums.Application.Approvals.NotificationRule.Services;
+using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Domain;
+using Evolith.Ums.Domain.Approvals;
+using Evolith.Ums.Domain.Approvals.NotificationRule;
+using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Kernel;
+using Moq;
+using Xunit;
 
 public class NotificationRuleCommandHandlerTests
 {

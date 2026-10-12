@@ -1,9 +1,9 @@
 ﻿namespace Evolith.Ums.Application.Test.Tenants.ActivateTenant;
 
+using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.Identity.Tenant.Commands;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Domain.Identity.Tenant;
-using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Domain.Kernel;
 
 public class ActivateTenantCommandHandlerTests

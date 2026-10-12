@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Application.Authorization.Template.Commands;
 
+using BeyondNetCode.Shell.Ddd;
 using Evolith.Ums.Application.Authorization.Template.DTOs;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Enums;
-using BeyondNetCode.Shell.Ddd;
 
 public sealed class AddTemplateItemCommandHandler : ICommandHandler<AddTemplateItemCommand, AddTemplateItemResponse>
 {

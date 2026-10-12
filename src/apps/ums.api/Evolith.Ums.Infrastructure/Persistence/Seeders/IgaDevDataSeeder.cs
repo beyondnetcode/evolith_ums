@@ -1,10 +1,10 @@
 namespace Evolith.Ums.Infrastructure.Persistence.Seeders;
 
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Domain.Enums;
 using Evolith.Ums.Domain.IGA;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
 using Evolith.Ums.Infrastructure.Persistence;
+using Microsoft.Extensions.DependencyInjection;
 using RoleMaturityStatusAggregate = Evolith.Ums.Domain.IGA.RoleMaturityStatus.RoleMaturityStatus;
 
 /// <summary>

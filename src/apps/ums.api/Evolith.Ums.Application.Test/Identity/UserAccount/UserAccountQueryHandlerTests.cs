@@ -1,18 +1,18 @@
 namespace Evolith.Ums.Application.Test.Identity.UserAccount;
 
-using Evolith.Ums.Application.Common.Interfaces;
-using Evolith.Ums.Application.Identity.UserAccount.Queries;
-using Evolith.Ums.Application.Identity.UserAccount.DTOs;
-using Evolith.Ums.Domain.Identity;
-using Evolith.Ums.Domain.Identity.UserAccount;
-using Evolith.Ums.Domain.Kernel;
-using Evolith.Ums.Domain.Enums;
-using Moq;
-using Xunit;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Application.Identity.UserAccount.DTOs;
+using Evolith.Ums.Application.Identity.UserAccount.Queries;
+using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Identity;
+using Evolith.Ums.Domain.Identity.UserAccount;
+using Evolith.Ums.Domain.Kernel;
+using Moq;
+using Xunit;
 
 public class UserAccountQueryHandlerTests
 {

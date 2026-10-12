@@ -1,10 +1,10 @@
-using Evolith.Ums.Application.Identity.UserAccount.DTOs;
 using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Application.Identity.UserAccount.DTOs;
 
 namespace Evolith.Ums.Application.Identity.UserAccount.Commands;
 
-using Evolith.Ums.Domain.Identity.UserAccount;
 using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Identity.UserAccount;
 
 public sealed class CreateUserAccountCommandHandler : ICommandHandler<CreateUserAccountCommand, CreateUserAccountResponse>
 {

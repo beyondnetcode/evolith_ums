@@ -2,7 +2,6 @@
 namespace Evolith.Ums.Infrastructure.Persistence.Seeders;
 
 using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Authorization.Profile;
 using Evolith.Ums.Domain.Authorization.Role;
@@ -10,16 +9,17 @@ using Evolith.Ums.Domain.Authorization.SystemSuite;
 using Evolith.Ums.Domain.Authorization.SystemSuite.DomainResource;
 using Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode;
 using Evolith.Ums.Domain.Authorization.Template;
+using Evolith.Ums.Domain.Enums;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
 using Evolith.Ums.Infrastructure.Persistence.Authorization.Entities;
 using Evolith.Ums.Infrastructure.Persistence.Reflection;
-using ProfileAggregate = Evolith.Ums.Domain.Authorization.Profile.Profile;
-using SystemSuiteAggregate = Evolith.Ums.Domain.Authorization.SystemSuite.SystemSuite;
-using PermissionTemplateAggregate = Evolith.Ums.Domain.Authorization.Template.PermissionTemplate;
-using RoleAggregate = Evolith.Ums.Domain.Authorization.Role.Role;
-using ModuleEntity = Evolith.Ums.Domain.Authorization.SystemSuite.Module.Module;
+using Microsoft.Extensions.DependencyInjection;
 using MenuNodeEntity = Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode.MenuNode;
-using Evolith.Ums.Domain.Enums;
+using ModuleEntity = Evolith.Ums.Domain.Authorization.SystemSuite.Module.Module;
+using PermissionTemplateAggregate = Evolith.Ums.Domain.Authorization.Template.PermissionTemplate;
+using ProfileAggregate = Evolith.Ums.Domain.Authorization.Profile.Profile;
+using RoleAggregate = Evolith.Ums.Domain.Authorization.Role.Role;
+using SystemSuiteAggregate = Evolith.Ums.Domain.Authorization.SystemSuite.SystemSuite;
 
 public static class AuthorizationDevDataSeeder
 {

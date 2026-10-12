@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.ReadModels.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Evolith.Ums.ReadModels;

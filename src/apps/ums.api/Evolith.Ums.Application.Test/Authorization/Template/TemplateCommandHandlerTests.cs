@@ -1,17 +1,17 @@
 namespace Evolith.Ums.Application.Test.Authorization.Template;
 
-using Evolith.Ums.Application.Common.Interfaces;
-using Evolith.Ums.Application.Authorization.Template.Commands;
-using Evolith.Ums.Application.Authorization.Template.DTOs;
-using Evolith.Ums.Domain.Authorization.Template;
-using Evolith.Ums.Domain.Kernel;
-using Evolith.Ums.Domain.Authorization;
-using Evolith.Ums.Domain.Enums;
-using Moq;
-using Xunit;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Evolith.Ums.Application.Authorization.Template.Commands;
+using Evolith.Ums.Application.Authorization.Template.DTOs;
+using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Domain.Authorization;
+using Evolith.Ums.Domain.Authorization.Template;
+using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Kernel;
+using Moq;
+using Xunit;
 
 public class TemplateCommandHandlerTests
 {

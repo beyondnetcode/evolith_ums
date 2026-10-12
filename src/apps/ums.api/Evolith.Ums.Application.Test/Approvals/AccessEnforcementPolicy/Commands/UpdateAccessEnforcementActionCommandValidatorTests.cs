@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Application.Test.Approvals.AccessEnforcementPolicy.Commands;
 
-using FluentValidation.TestHelper;
 using Evolith.Ums.Application.Approvals.AccessEnforcementPolicy.Commands;
+using FluentValidation.TestHelper;
 using Xunit;
 
 public sealed class UpdateAccessEnforcementActionCommandValidatorTests

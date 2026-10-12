@@ -1,19 +1,19 @@
 namespace Evolith.Ums.Application.Test.Authorization.Profile;
 
-using Evolith.Ums.Application.Common.Interfaces;
-using Evolith.Ums.Application.Authorization.Profile.Commands;
-using Evolith.Ums.Domain.Authorization.Profile;
-using Evolith.Ums.Domain.Kernel;
-using Evolith.Ums.Domain.Authorization;
-using Evolith.Ums.Domain.Enums;
-using Evolith.Ums.Domain.Identity;
-using Moq;
-using Xunit;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Linq;
+using Evolith.Ums.Application.Authorization.Profile.Commands;
+using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Domain.Authorization;
+using Evolith.Ums.Domain.Authorization.Profile;
+using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Identity;
+using Evolith.Ums.Domain.Kernel;
+using Moq;
+using Xunit;
 
 public class ProfileCommandHandlerTests
 {

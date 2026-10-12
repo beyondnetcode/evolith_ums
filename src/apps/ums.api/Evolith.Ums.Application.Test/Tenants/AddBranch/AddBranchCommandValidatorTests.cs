@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Application.Test.Tenants.AddBranch;
 
-using FluentValidation.TestHelper;
 using Evolith.Ums.Application.Identity.Tenant.Branch.Commands;
+using FluentValidation.TestHelper;
 
 public class AddBranchCommandValidatorTests
 {

@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Application.Approvals.AccessEnforcementPolicy.Commands;
+using BeyondNetCode.Shell.Ddd;
 using Evolith.Ums.Domain.Approvals;
 using Evolith.Ums.Domain.Enums;
-using BeyondNetCode.Shell.Ddd;
 public sealed class UpdateAccessEnforcementActionCommandHandler : ICommandHandler<UpdateAccessEnforcementActionCommand>
 {
     private readonly IAccessEnforcementPolicyRepository _repository;

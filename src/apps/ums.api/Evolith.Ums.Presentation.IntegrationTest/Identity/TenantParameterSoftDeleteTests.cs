@@ -1,8 +1,8 @@
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Domain.Identity.Tenant.TenantParameter;
 using Evolith.Ums.Domain.Kernel;
 using Evolith.Ums.Infrastructure.Persistence.Identity.TenantParameter;
 using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using TenantParameterAggregate = Evolith.Ums.Domain.Identity.Tenant.TenantParameter.TenantParameter;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Identity;

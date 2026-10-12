@@ -1,17 +1,17 @@
 namespace Evolith.Ums.Application.Test.Audit.AuditRecord;
 
-using Evolith.Ums.Application.Common.Interfaces;
-using Evolith.Ums.Application.Audit.AuditRecord.Commands;
-using Evolith.Ums.Application.Audit.AuditRecord.DTOs;
-using Evolith.Ums.Domain.Audit.AuditRecord;
-using Evolith.Ums.Domain.Enums;
-using Evolith.Ums.Domain.Kernel;
-using BeyondNetCode.Shell.Ddd.Interfaces;
-using Moq;
-using Xunit;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using BeyondNetCode.Shell.Ddd.Interfaces;
+using Evolith.Ums.Application.Audit.AuditRecord.Commands;
+using Evolith.Ums.Application.Audit.AuditRecord.DTOs;
+using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Domain.Audit.AuditRecord;
+using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Kernel;
+using Moq;
+using Xunit;
 
 public class AuditRecordCommandHandlerTests
 {

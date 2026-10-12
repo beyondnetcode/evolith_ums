@@ -1,11 +1,11 @@
 #pragma warning disable S1144
 using System;
+using BeyondNetCode.Shell.Ddd.Interfaces;
+using Evolith.Ums.Domain.Identity;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Logging.Abstractions;
-using BeyondNetCode.Shell.Ddd.Interfaces;
-using Evolith.Ums.Domain.Identity;
 
 namespace Evolith.Ums.Infrastructure.Persistence;
 

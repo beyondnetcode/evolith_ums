@@ -60,4 +60,19 @@ public sealed class ProviderStateEndpointGuardTests
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
+
+    [Fact]
+    [Trait("pact", "guard")]
+    public async Task ProviderStates_WithEmptyState_IsAcceptedAsNoOp()
+    {
+        using var factory = new ContractTestWebApplicationFactory();
+        using var client = factory.CreateClient();
+
+        using var response = await client.PostAsJsonAsync(
+            "/_pact/provider-states",
+            new { state = string.Empty },
+            TestContext.Current.CancellationToken);
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
 }

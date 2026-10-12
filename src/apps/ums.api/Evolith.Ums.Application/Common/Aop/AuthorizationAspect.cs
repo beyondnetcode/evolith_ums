@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
+using BeyondNetCode.Shell.Aop;
 using Evolith.Ums.Application.Common.Interfaces;
 using Microsoft.Extensions.Configuration;
-using BeyondNetCode.Shell.Aop;
 
 namespace Evolith.Ums.Application.Common.Aop;
 

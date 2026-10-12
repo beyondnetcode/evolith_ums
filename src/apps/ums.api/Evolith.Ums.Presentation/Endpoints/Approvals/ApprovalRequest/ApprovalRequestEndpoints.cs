@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Presentation.Endpoints.Approvals.ApprovalRequest;
 
-using Evolith.Ums.Application.Common;
 using Evolith.Ums.Application.Approvals.ApprovalRequest.Commands;
 using Evolith.Ums.Application.Approvals.ApprovalRequest.DTOs;
 using Evolith.Ums.Application.Approvals.ApprovalRequest.Queries;
+using Evolith.Ums.Application.Common;
 
 public static class ApprovalRequestEndpoints
 {

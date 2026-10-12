@@ -1,8 +1,8 @@
 namespace Evolith.Ums.Application.Authorization.SystemSuite.Commands;
 
-using FluentValidation;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode;
+using FluentValidation;
 
 /// <summary>Fija (reemplaza) los metadatos de gobernanza SDLC de un nodo (ADR-0090). Todos opcionales.</summary>
 public sealed record SetNodeMetadataCommand(

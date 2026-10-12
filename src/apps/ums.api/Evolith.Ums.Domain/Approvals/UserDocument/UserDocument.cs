@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Domain.Approvals.UserDocument;
 
-using Evolith.Ums.Domain.Approvals.UserDocument.Events;
 using Evolith.Ums.Domain.Approvals.UserDocument.AccessNotification;
+using Evolith.Ums.Domain.Approvals.UserDocument.Events;
 using AccessNotificationEntity = Evolith.Ums.Domain.Approvals.UserDocument.AccessNotification.AccessNotification;
 
 public sealed class UserDocument : AggregateRoot<UserDocument, UserDocumentProps>

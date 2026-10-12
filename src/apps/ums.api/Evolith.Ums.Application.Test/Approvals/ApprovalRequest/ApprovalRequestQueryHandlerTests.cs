@@ -1,18 +1,18 @@
 namespace Evolith.Ums.Application.Test.Approvals.ApprovalRequest;
 
-using Evolith.Ums.Application.Approvals.ApprovalRequest.Queries;
-using Evolith.Ums.Application.Approvals.ApprovalRequest.DTOs;
-using Evolith.Ums.Domain.Approvals.ApprovalRequest;
-using Evolith.Ums.Domain.Approvals;
-using Evolith.Ums.Domain.Kernel.ValueObjects;
-using Evolith.Ums.Domain.Enums;
-using Evolith.Ums.Domain.Kernel;
-using Moq;
-using Xunit;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Evolith.Ums.Application.Approvals.ApprovalRequest.DTOs;
+using Evolith.Ums.Application.Approvals.ApprovalRequest.Queries;
+using Evolith.Ums.Domain.Approvals;
+using Evolith.Ums.Domain.Approvals.ApprovalRequest;
+using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Kernel;
+using Evolith.Ums.Domain.Kernel.ValueObjects;
+using Moq;
+using Xunit;
 
 public class ApprovalRequestQueryHandlerTests
 {

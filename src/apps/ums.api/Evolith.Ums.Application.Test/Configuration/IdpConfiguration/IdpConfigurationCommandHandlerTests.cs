@@ -1,16 +1,16 @@
 namespace Evolith.Ums.Application.Test.Configuration.IdpConfiguration;
 
-using Evolith.Ums.Application.Common.Interfaces;
-using Evolith.Ums.Application.Configuration.IdpConfiguration.Commands;
-using Evolith.Ums.Domain.Configuration.IdpConfiguration;
-using Evolith.Ums.Domain.Kernel;
-using Evolith.Ums.Domain.Enums;
-using Evolith.Ums.Domain.Configuration;
-using Moq;
-using Xunit;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Application.Configuration.IdpConfiguration.Commands;
+using Evolith.Ums.Domain.Configuration;
+using Evolith.Ums.Domain.Configuration.IdpConfiguration;
+using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Kernel;
+using Moq;
+using Xunit;
 
 public class IdpConfigurationCommandHandlerTests
 {

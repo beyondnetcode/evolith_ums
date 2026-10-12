@@ -1,10 +1,10 @@
 namespace Evolith.Ums.Application.Test.Authorization.Graph;
 
-using Xunit;
-using FluentAssertions;
 using Evolith.Ums.Domain.Authorization.SystemSuite.AppSetting;
 using Evolith.Ums.Domain.Configuration;
 using Evolith.Ums.Domain.Kernel;
+using FluentAssertions;
+using Xunit;
 using SystemSuiteAggregate = Evolith.Ums.Domain.Authorization.SystemSuite.SystemSuite;
 
 /// <summary>

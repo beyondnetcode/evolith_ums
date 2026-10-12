@@ -2,8 +2,8 @@
 ﻿namespace Evolith.Ums.Domain.Test.Identity.UserAccount;
 
 using Evolith.Ums.Domain.Identity.UserAccount;
-using Evolith.Ums.Domain.Identity.UserAccount.PasswordCredential;
 using Evolith.Ums.Domain.Identity.UserAccount.MfaEnrollment;
+using Evolith.Ums.Domain.Identity.UserAccount.PasswordCredential;
 using Xunit;
 
 public class UserAccountTests

@@ -1,7 +1,5 @@
 namespace Evolith.Ums.Application.Test.Identity.Auth;
 
-using Moq;
-using Xunit;
 using Evolith.Ums.Application.Configuration.Services;
 using Evolith.Ums.Application.Identity.Auth;
 using Evolith.Ums.Domain.Configuration;
@@ -9,6 +7,8 @@ using Evolith.Ums.Domain.Configuration.AppConfiguration;
 using Evolith.Ums.Domain.Configuration.IdpConfiguration;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Domain.Identity.Auth;
+using Moq;
+using Xunit;
 using AppConfigurationAggregate = Evolith.Ums.Domain.Configuration.AppConfiguration.AppConfiguration;
 using IdpConfigurationAggregate = Evolith.Ums.Domain.Configuration.IdpConfiguration.IdpConfiguration;
 using TenantAggregate = Evolith.Ums.Domain.Identity.Tenant.Tenant;

@@ -1,23 +1,23 @@
 using Evolith.Ums.Application.Configuration.Services;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Authorization.Graph;
+using Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode;
 using Evolith.Ums.Domain.Authorization.Template;
 using Evolith.Ums.Domain.Configuration;
 using Evolith.Ums.Domain.Configuration.AppConfiguration;
 using Evolith.Ums.Domain.Configuration.FeatureFlag;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Domain.Identity.Auth;
-using Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode;
 using Microsoft.Extensions.Logging;
-using SystemSuiteSummary    = Evolith.Ums.Domain.Authorization.SystemSuite.SystemSuiteSummary;
-using SystemSuiteAggregate  = Evolith.Ums.Domain.Authorization.SystemSuite.SystemSuite;
+using BranchEntity           = Evolith.Ums.Domain.Identity.Tenant.Branch.Branch;
+using FeatureFlagAggregate   = Evolith.Ums.Domain.Configuration.FeatureFlag.FeatureFlag;
+using MenuNodeEntity         = Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode.MenuNode;
 using ProfileAggregate       = Evolith.Ums.Domain.Authorization.Profile.Profile;
 using RoleAggregate          = Evolith.Ums.Domain.Authorization.Role.Role;
-using BranchEntity           = Evolith.Ums.Domain.Identity.Tenant.Branch.Branch;
-using MenuNodeEntity         = Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode.MenuNode;
-using UserAccountAggregate   = Evolith.Ums.Domain.Identity.UserAccount.UserAccount;
+using SystemSuiteAggregate  = Evolith.Ums.Domain.Authorization.SystemSuite.SystemSuite;
+using SystemSuiteSummary    = Evolith.Ums.Domain.Authorization.SystemSuite.SystemSuiteSummary;
 using TenantAggregate        = Evolith.Ums.Domain.Identity.Tenant.Tenant;
-using FeatureFlagAggregate   = Evolith.Ums.Domain.Configuration.FeatureFlag.FeatureFlag;
+using UserAccountAggregate   = Evolith.Ums.Domain.Identity.UserAccount.UserAccount;
 
 namespace Evolith.Ums.Application.Authorization.Graph;
 

@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Presentation.Endpoints.Approvals.NotificationRule;
 
-using Evolith.Ums.Application.Common;
 using Evolith.Ums.Application.Approvals.NotificationRule.Commands;
 using Evolith.Ums.Application.Approvals.NotificationRule.DTOs;
 using Evolith.Ums.Application.Approvals.NotificationRule.Queries;
+using Evolith.Ums.Application.Common;
 
 public static class NotificationRuleEndpoints
 {

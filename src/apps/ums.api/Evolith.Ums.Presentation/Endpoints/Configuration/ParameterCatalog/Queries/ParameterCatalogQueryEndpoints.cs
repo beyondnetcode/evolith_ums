@@ -1,13 +1,13 @@
 namespace Evolith.Ums.Presentation.Endpoints.Configuration.ParameterCatalog.Queries;
 
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Application.Common;
 using Evolith.Ums.Application.Configuration.ParameterCatalog.DTOs;
 using Evolith.Ums.Domain.Enums;
 using Evolith.Ums.Infrastructure.Persistence;
 using Evolith.Ums.Infrastructure.Persistence.Configuration.Entities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 public static class ParameterCatalogQueryEndpoints
 {

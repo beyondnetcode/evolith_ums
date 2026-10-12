@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Infrastructure.Configuration;
 
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Application.Configuration.Services;
 using Evolith.Ums.Domain.Configuration;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
+using Microsoft.Extensions.DependencyInjection;
 using AppConfigurationAggregate = Evolith.Ums.Domain.Configuration.AppConfiguration.AppConfiguration;
 
 /// <summary>

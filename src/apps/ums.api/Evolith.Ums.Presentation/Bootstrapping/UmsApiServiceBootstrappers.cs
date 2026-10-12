@@ -1,11 +1,8 @@
+using System.Diagnostics;
 using Asp.Versioning;
 using Asp.Versioning.Builder;
-using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
+using BeyondNetCode.Shell.Bootstrapper.Impl;
+using BeyondNetCode.Shell.Bootstrapper.Interface;
 using Evolith.Ums.Application;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Globalization;
@@ -14,8 +11,8 @@ using Evolith.Ums.Infrastructure;
 using Evolith.Ums.Infrastructure.Persistence;
 using Evolith.Ums.Infrastructure.Persistence.Options;
 using Evolith.Ums.Infrastructure.Persistence.Seeders;
+using Evolith.Ums.Presentation.Bootstrapping.Bootstrappers;
 using Evolith.Ums.Presentation.Endpoints;
-using Evolith.Ums.Presentation.Services;
 using Evolith.Ums.Presentation.Endpoints.Approvals.AccessEnforcementPolicy;
 using Evolith.Ums.Presentation.Endpoints.Approvals.AccessEnforcementPolicy.Queries;
 using Evolith.Ums.Presentation.Endpoints.Approvals.ApprovalRequest;
@@ -30,15 +27,14 @@ using Evolith.Ums.Presentation.Endpoints.Approvals.UserDocument;
 using Evolith.Ums.Presentation.Endpoints.Approvals.UserDocument.Queries;
 using Evolith.Ums.Presentation.Endpoints.Audit.AuditRecord;
 using Evolith.Ums.Presentation.Endpoints.Audit.AuditRecord.Queries;
+using Evolith.Ums.Presentation.Endpoints.Authorization.AssignmentRule;
 using Evolith.Ums.Presentation.Endpoints.Authorization.Profile;
 using Evolith.Ums.Presentation.Endpoints.Authorization.Profile.Queries;
+using Evolith.Ums.Presentation.Endpoints.Authorization.Role;
 using Evolith.Ums.Presentation.Endpoints.Authorization.SystemSuite;
-using Evolith.Ums.Presentation.Extensions;
 using Evolith.Ums.Presentation.Endpoints.Authorization.SystemSuite.Queries;
 using Evolith.Ums.Presentation.Endpoints.Authorization.Template;
 using Evolith.Ums.Presentation.Endpoints.Authorization.Template.Queries;
-using Evolith.Ums.Presentation.Endpoints.Authorization.AssignmentRule;
-using Evolith.Ums.Presentation.Endpoints.Authorization.Role;
 using Evolith.Ums.Presentation.Endpoints.Configuration.AppConfiguration;
 using Evolith.Ums.Presentation.Endpoints.Configuration.AppConfiguration.Queries;
 using Evolith.Ums.Presentation.Endpoints.Configuration.FeatureFlag;
@@ -48,20 +44,24 @@ using Evolith.Ums.Presentation.Endpoints.Configuration.IdpConfiguration.Queries;
 using Evolith.Ums.Presentation.Endpoints.Configuration.Parameter;
 using Evolith.Ums.Presentation.Endpoints.Configuration.ParameterCatalog.Queries;
 using Evolith.Ums.Presentation.Endpoints.Identity.Auth;
+using Evolith.Ums.Presentation.Endpoints.Identity.Onboarding;
 using Evolith.Ums.Presentation.Endpoints.Identity.Tenant;
 using Evolith.Ums.Presentation.Endpoints.Identity.Tenant.Queries;
 using Evolith.Ums.Presentation.Endpoints.Identity.UserAccount;
 using Evolith.Ums.Presentation.Endpoints.Identity.UserAccount.Queries;
 using Evolith.Ums.Presentation.Endpoints.Identity.UserManagementDelegation;
 using Evolith.Ums.Presentation.Endpoints.Identity.UserManagementDelegation.Queries;
-using Evolith.Ums.Presentation.Endpoints.Identity.Onboarding;
+using Evolith.Ums.Presentation.Endpoints.Iga.RoleMaturityStatus.Queries;
 using Evolith.Ums.Presentation.Endpoints.Iga.RolePromotionRequest;
 using Evolith.Ums.Presentation.Endpoints.Iga.RolePromotionRequest.Queries;
-using Evolith.Ums.Presentation.Endpoints.Iga.RoleMaturityStatus.Queries;
+using Evolith.Ums.Presentation.Extensions;
 using Evolith.Ums.Presentation.Middleware;
-using Evolith.Ums.Presentation.Bootstrapping.Bootstrappers;
-using BeyondNetCode.Shell.Bootstrapper.Impl;
-using BeyondNetCode.Shell.Bootstrapper.Interface;
+using Evolith.Ums.Presentation.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using Serilog;
 
 namespace Evolith.Ums.Presentation.Bootstrapping;
@@ -406,18 +406,6 @@ public static class UmsApiApplicationBuilderExtensions
         // fuera de /api y sin version: `.well-known` es una ruta reservada por RFC 8615
         // y los validadores de .NET y de Node la buscan ahi, no donde nos convenga.
         app.MapJwksEndpoints();
-
-        // G-101: el endpoint de estados de proveedor de Pact (`POST /_pact/provider-states`)
-        // siembra datos de dominio arbitrarios (inquilinos, cuentas, aprobaciones, feature
-        // flags…) de forma anónima. Sólo puede existir en desarrollo/contract-test, jamás en
-        // producción. La factoría de contract-test arranca en «Development»
-        // (ContractTestWebApplicationFactory), por lo que esta guarda —consistente con el
-        // patrón «solo dev» de Swagger y DevAuth— mantiene verde al proveedor de Pact sin
-        // exponer la superficie en entornos productivos.
-        if (app.Environment.IsDevelopment())
-        {
-            app.MapPactProviderStateEndpoints();
-        }
 
         versionedGroup.MapUmsCommandEndpoints();
         versionedGroup.MapUmsQueryEndpoints();

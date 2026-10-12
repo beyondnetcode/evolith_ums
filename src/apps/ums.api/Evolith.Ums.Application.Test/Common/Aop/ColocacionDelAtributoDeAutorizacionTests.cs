@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using FluentAssertions;
 using Evolith.Ums.Application.Common.Aop;
 using Evolith.Ums.Application.Configuration.IdpConfiguration.Commands;
 using Evolith.Ums.Application.Identity.Tenant.Queries;
+using FluentAssertions;
 using Xunit;
 
 namespace Evolith.Ums.Application.Test.Common.Aop;

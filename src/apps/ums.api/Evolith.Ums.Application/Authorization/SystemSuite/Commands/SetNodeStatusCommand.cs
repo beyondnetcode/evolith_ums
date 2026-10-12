@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Application.Authorization.SystemSuite.Commands;
 
-using FluentValidation;
 using Evolith.Ums.Domain.Authorization;
+using FluentValidation;
 
 public sealed record SetNodeStatusCommand(Guid SystemSuiteId, Guid ModuleId, Guid NodeId, bool Active) : ICommand;
 

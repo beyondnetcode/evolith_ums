@@ -1,5 +1,5 @@
-using Evolith.Ums.Application.Identity.UserAccount.DTOs;
 using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Application.Identity.UserAccount.DTOs;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Kernel;
 

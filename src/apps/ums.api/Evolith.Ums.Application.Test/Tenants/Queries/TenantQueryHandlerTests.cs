@@ -1,10 +1,10 @@
 namespace Evolith.Ums.Application.Test.Tenants.Queries;
 
-using Evolith.Ums.Application.Identity.Tenant.Queries;
+using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.Identity.Tenant.DTOs;
+using Evolith.Ums.Application.Identity.Tenant.Queries;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Domain.Identity.Tenant;
-using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Domain.Kernel;
 
 public class TenantQueryHandlerTests

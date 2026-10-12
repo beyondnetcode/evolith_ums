@@ -1,19 +1,19 @@
 namespace Evolith.Ums.Infrastructure.Persistence.Seeders;
 
 using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Domain.Enums;
 using Evolith.Ums.Domain.Identity.Tenant;
+using Evolith.Ums.Domain.Identity.TenantSignupRequest;
 using Evolith.Ums.Domain.Identity.UserAccount;
 using Evolith.Ums.Domain.Identity.UserManagementDelegation;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
-using Evolith.Ums.Domain.Identity.TenantSignupRequest;
 using Evolith.Ums.Infrastructure.Persistence.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using TenantAggregate = Evolith.Ums.Domain.Identity.Tenant.Tenant;
+using TenantSignupRequestAggregate = Evolith.Ums.Domain.Identity.TenantSignupRequest.TenantSignupRequest;
 using UserAccountAggregate = Evolith.Ums.Domain.Identity.UserAccount.UserAccount;
 using UserManagementDelegationAggregate = Evolith.Ums.Domain.Identity.UserManagementDelegation.UserManagementDelegation;
-using TenantSignupRequestAggregate = Evolith.Ums.Domain.Identity.TenantSignupRequest.TenantSignupRequest;
 
 public static class IdentityDevDataSeeder
 {

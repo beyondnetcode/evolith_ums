@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using BeyondNetCode.Shell.Ddd.Interfaces;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Domain.Audit.AuditRecord;
 using Evolith.Ums.Infrastructure.Persistence.Audit.Entities;
 using Evolith.Ums.Infrastructure.Persistence.Reflection;
-using BeyondNetCode.Shell.Ddd.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Evolith.Ums.Infrastructure.Persistence.Audit;
 

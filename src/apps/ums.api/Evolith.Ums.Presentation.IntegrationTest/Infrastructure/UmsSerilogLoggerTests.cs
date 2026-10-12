@@ -1,8 +1,8 @@
 using System.Diagnostics;
-using Microsoft.Extensions.Logging;
+using BeyondNetCode.Shell.Aop;
 using Evolith.Ums.Infrastructure.Aop;
 using Evolith.Ums.Infrastructure.Observability;
-using BeyondNetCode.Shell.Aop;
+using Microsoft.Extensions.Logging;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 

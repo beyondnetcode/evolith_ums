@@ -1,6 +1,6 @@
 using System.Data.Common;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Evolith.Ums.Application.Common.Interfaces;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Evolith.Ums.Infrastructure.Persistence.Interceptors;
 

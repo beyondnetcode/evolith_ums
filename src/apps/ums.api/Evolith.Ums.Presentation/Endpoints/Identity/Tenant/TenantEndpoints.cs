@@ -3,10 +3,10 @@ namespace Evolith.Ums.Presentation.Endpoints.Identity.Tenant;
 using Evolith.Ums.Application.Common;
 using Evolith.Ums.Application.Identity.Tenant.Commands;
 using Evolith.Ums.Application.Identity.Tenant.DTOs;
+using Evolith.Ums.Application.Identity.Tenant.Queries;
 using Evolith.Ums.Application.Identity.Tenant.SignupRequests.Commands;
 using Evolith.Ums.Application.Identity.Tenant.SignupRequests.DTOs;
 using Evolith.Ums.Application.Identity.Tenant.SignupRequests.Queries;
-using Evolith.Ums.Application.Identity.Tenant.Queries;
 
 public sealed record SetManagementOwnerRequest(bool Value);
 

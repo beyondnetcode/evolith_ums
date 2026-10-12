@@ -2,11 +2,11 @@
 namespace Evolith.Ums.Infrastructure.Persistence;
 
 using System.Collections.Concurrent;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Domain.Kernel;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using UserAccountAggregate = Evolith.Ums.Domain.Identity.UserAccount.UserAccount;
 
 public sealed class InMemoryUserAccountRepository : IUserAccountRepository, IUnitOfWork

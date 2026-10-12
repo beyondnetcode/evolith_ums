@@ -1,11 +1,11 @@
 namespace Evolith.Ums.Application.Common.Behaviors;
 
 using System.Collections.Concurrent;
-using MediatR;
-using Microsoft.Extensions.Logging;
 using Evolith.Ums.Application.Abstractions.Messaging;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Domain.Kernel;
+using MediatR;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Invalida el grafo retenido tras cualquier comando que haya tenido éxito.

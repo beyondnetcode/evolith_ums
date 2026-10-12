@@ -1,8 +1,8 @@
 namespace Evolith.Ums.Infrastructure.Observability;
 
 using System.Diagnostics;
-using Microsoft.Extensions.Logging;
 using Evolith.Ums.Application.Common.Interfaces;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Transacción funcional con alcance de petición (ADR-0096; decisión UMS en ADR-UMS-085).

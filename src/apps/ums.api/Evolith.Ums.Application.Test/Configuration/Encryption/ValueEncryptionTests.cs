@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Application.Test.Configuration.Encryption;
 
-using Microsoft.Extensions.Configuration;
 using Evolith.Ums.Infrastructure.Configuration;
+using Microsoft.Extensions.Configuration;
 using Xunit;
 
 /// <summary>

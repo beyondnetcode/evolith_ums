@@ -1,5 +1,5 @@
-using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 using Evolith.Ums.Infrastructure.Persistence.Seeders;
+using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Approvals;
 

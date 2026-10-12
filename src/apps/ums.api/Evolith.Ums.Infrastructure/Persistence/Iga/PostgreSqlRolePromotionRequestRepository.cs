@@ -1,10 +1,10 @@
-using Microsoft.EntityFrameworkCore;
 using BeyondNetCode.Shell.Ddd;
 using Evolith.Ums.Domain.IGA;
 using Evolith.Ums.Domain.IGA.RolePromotionRequest;
 using Evolith.Ums.Domain.Kernel;
 using Evolith.Ums.Infrastructure.Persistence.Iga.Entities;
 using Evolith.Ums.Infrastructure.Persistence.Reflection;
+using Microsoft.EntityFrameworkCore;
 
 namespace Evolith.Ums.Infrastructure.Persistence.Iga;
 

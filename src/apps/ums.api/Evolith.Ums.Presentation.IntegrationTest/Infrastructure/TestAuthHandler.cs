@@ -1,12 +1,12 @@
 using System.Security.Claims;
 using System.Text.Encodings.Web;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Domain.Authorization.Graph;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Presentation.Middleware;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 

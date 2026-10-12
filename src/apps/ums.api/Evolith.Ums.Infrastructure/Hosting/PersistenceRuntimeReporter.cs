@@ -1,7 +1,7 @@
+using Evolith.Ums.Infrastructure.Persistence.Options;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Evolith.Ums.Infrastructure.Persistence.Options;
 
 namespace Evolith.Ums.Infrastructure.Hosting;
 

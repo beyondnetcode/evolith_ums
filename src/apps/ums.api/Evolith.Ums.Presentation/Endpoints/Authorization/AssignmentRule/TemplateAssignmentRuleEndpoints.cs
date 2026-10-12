@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Presentation.Endpoints.Authorization.AssignmentRule;
 
-using Evolith.Ums.Application.Common;
 using Evolith.Ums.Application.Authorization.AssignmentRule.Commands;
 using Evolith.Ums.Application.Authorization.AssignmentRule.DTOs;
 using Evolith.Ums.Application.Authorization.AssignmentRule.Queries;
+using Evolith.Ums.Application.Common;
 
 public static class TemplateAssignmentRuleEndpoints
 {

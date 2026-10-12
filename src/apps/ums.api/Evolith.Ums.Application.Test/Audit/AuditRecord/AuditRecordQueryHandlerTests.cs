@@ -1,16 +1,16 @@
 namespace Evolith.Ums.Application.Test.Audit.AuditRecord;
 
-using Evolith.Ums.Application.Audit.AuditRecord.Queries;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Evolith.Ums.Application.Audit.AuditRecord.DTOs;
+using Evolith.Ums.Application.Audit.AuditRecord.Queries;
 using Evolith.Ums.Domain.Audit.AuditRecord;
 using Evolith.Ums.Domain.Enums;
 using Evolith.Ums.Domain.Kernel;
 using Moq;
 using Xunit;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 public class AuditRecordQueryHandlerTests
 {

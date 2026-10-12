@@ -1,10 +1,10 @@
 #pragma warning disable S1144
 namespace Evolith.Ums.Presentation.Extensions;
 
+using Evolith.Ums.Domain.Kernel;
+using Evolith.Ums.Globalization.Access;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Evolith.Ums.Globalization.Access;
-using Evolith.Ums.Domain.Kernel;
 
 internal static class ResultExtensions
 {

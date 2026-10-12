@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Security.Claims;
+using Evolith.Ums.Infrastructure.Services;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Moq;
-using Evolith.Ums.Infrastructure.Services;
 using Xunit;
 
 namespace Evolith.Ums.Application.Test.Infrastructure.Services;

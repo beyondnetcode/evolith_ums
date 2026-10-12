@@ -1,5 +1,5 @@
-using PactNet.Verifier;
 using Evolith.Ums.ContractTest.Infrastructure;
+using PactNet.Verifier;
 
 namespace Evolith.Ums.ContractTest.Provider;
 

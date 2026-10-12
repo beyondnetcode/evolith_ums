@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using BeyondNetCode.Shell.Ddd.ValueObjects.Audit;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Domain.Identity.TenantSignupRequest;
 using Evolith.Ums.Domain.Kernel;
@@ -7,7 +7,7 @@ using Evolith.Ums.Domain.Kernel.ValueObjects;
 using Evolith.Ums.Infrastructure.Persistence;
 using Evolith.Ums.Infrastructure.Persistence.Identity.Entities;
 using Evolith.Ums.Infrastructure.Persistence.Reflection;
-using BeyondNetCode.Shell.Ddd.ValueObjects.Audit;
+using Microsoft.EntityFrameworkCore;
 using TenantSignupRequestAggregate = Evolith.Ums.Domain.Identity.TenantSignupRequest.TenantSignupRequest;
 
 namespace Evolith.Ums.Infrastructure.Persistence.Identity;

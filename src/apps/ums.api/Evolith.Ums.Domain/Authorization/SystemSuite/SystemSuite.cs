@@ -1,15 +1,15 @@
 namespace Evolith.Ums.Domain.Authorization.SystemSuite;
 
-using Evolith.Ums.Domain.Authorization.SystemSuite.AppSetting;
-using Evolith.Ums.Domain.Authorization.SystemSuite.Module;
-using Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode;
 using Evolith.Ums.Domain.Authorization.SystemSuite.Action;
-using Evolith.Ums.Domain.Authorization.SystemSuite.Events;
+using Evolith.Ums.Domain.Authorization.SystemSuite.AppSetting;
 using Evolith.Ums.Domain.Authorization.SystemSuite.DomainResource;
-using ModuleEntity = Evolith.Ums.Domain.Authorization.SystemSuite.Module.Module;
-using AppSettingEntity = Evolith.Ums.Domain.Authorization.SystemSuite.AppSetting.AppSetting;
+using Evolith.Ums.Domain.Authorization.SystemSuite.Events;
+using Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode;
+using Evolith.Ums.Domain.Authorization.SystemSuite.Module;
 using ActionEntity = Evolith.Ums.Domain.Authorization.SystemSuite.Action.Action;
+using AppSettingEntity = Evolith.Ums.Domain.Authorization.SystemSuite.AppSetting.AppSetting;
 using DomainResourceEntity = Evolith.Ums.Domain.Authorization.SystemSuite.DomainResource.DomainResource;
+using ModuleEntity = Evolith.Ums.Domain.Authorization.SystemSuite.Module.Module;
 
 public sealed class SystemSuite : AggregateRoot<SystemSuite, SystemSuiteProps>
 {

@@ -2,10 +2,9 @@ using Evolith.Ums.Application.Configuration.IdpConfiguration.DTOs;
 
 namespace Evolith.Ums.Application.Configuration.IdpConfiguration.Commands;
 
+using Evolith.Ums.Application.Common.Aop;
 using Evolith.Ums.Domain.Configuration;
 using Evolith.Ums.Domain.Enums;
-
-using Evolith.Ums.Application.Common.Aop;
 
 public sealed class CreateIdpConfigurationCommandHandler : ICommandHandler<CreateIdpConfigurationCommand, CreateIdpConfigurationResponse>
 {

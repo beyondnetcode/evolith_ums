@@ -1,14 +1,16 @@
 namespace Evolith.Ums.Application.Test.Approvals.ApprovalRequest;
 
-using Evolith.Ums.Application.Common.Interfaces;
-using Evolith.Ums.Application.Common.Notifications;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Evolith.Ums.Application.Approvals.ApprovalRequest.Commands;
 using Evolith.Ums.Application.Approvals.ApprovalRequest.DTOs;
 using Evolith.Ums.Application.Approvals.ApprovalRequest.Services;
-using Evolith.Ums.Domain.Authorization;
-using RoleAggregate = Evolith.Ums.Domain.Authorization.Role.Role;
-using Evolith.Ums.Domain.Approvals.ApprovalRequest;
+using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Application.Common.Notifications;
 using Evolith.Ums.Domain.Approvals;
+using Evolith.Ums.Domain.Approvals.ApprovalRequest;
+using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Authorization.Profile;
 using Evolith.Ums.Domain.Enums;
 using Evolith.Ums.Domain.Identity;
@@ -16,13 +18,11 @@ using Evolith.Ums.Domain.Identity.UserAccount;
 using Evolith.Ums.Domain.Identity.UserManagementDelegation;
 using Evolith.Ums.Domain.Kernel;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
-using ApprovalWorkflowAggregate = Evolith.Ums.Domain.Approvals.ApprovalWorkflow.ApprovalWorkflow;
-using UserDocumentAggregate = Evolith.Ums.Domain.Approvals.UserDocument.UserDocument;
 using Moq;
 using Xunit;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using ApprovalWorkflowAggregate = Evolith.Ums.Domain.Approvals.ApprovalWorkflow.ApprovalWorkflow;
+using RoleAggregate = Evolith.Ums.Domain.Authorization.Role.Role;
+using UserDocumentAggregate = Evolith.Ums.Domain.Approvals.UserDocument.UserDocument;
 
 public class ApprovalRequestCommandHandlerTests
 {

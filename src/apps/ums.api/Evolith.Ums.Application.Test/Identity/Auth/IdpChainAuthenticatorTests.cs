@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Moq;
-using Xunit;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.Configuration.Services;
 using Evolith.Ums.Application.Identity.Auth;
 using Evolith.Ums.Domain.Configuration;
 using Evolith.Ums.Domain.Identity.Auth;
 using Evolith.Ums.Domain.Identity.Tenant.IdentityProvider;
+using Moq;
+using Xunit;
 using IdpConfigurationAggregate = Evolith.Ums.Domain.Configuration.IdpConfiguration.IdpConfiguration;
 using TenantAggregate = Evolith.Ums.Domain.Identity.Tenant.Tenant;
 

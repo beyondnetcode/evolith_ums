@@ -2,8 +2,8 @@ namespace Evolith.Ums.Infrastructure.Configuration;
 
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.Extensions.Configuration;
 using Evolith.Ums.Application.Configuration.Services;
+using Microsoft.Extensions.Configuration;
 
 /// <summary>
 /// AES-256-CBC implementation of <see cref="IValueEncryptionService"/>.

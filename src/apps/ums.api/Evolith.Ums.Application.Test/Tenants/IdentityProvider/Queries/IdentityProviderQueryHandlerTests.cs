@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Application.Test.Tenants.IdentityProvider.Queries;
 
+using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.Identity.Tenant.IdentityProvider.Queries;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Domain.Identity.Tenant;
-using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Domain.Kernel;
 
 public class IdentityProviderQueryHandlerTests

@@ -3,9 +3,9 @@ namespace Evolith.Ums.Presentation.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.IdentityModel.Tokens;
 using Evolith.Ums.Application.Configuration.Services;
 using Evolith.Ums.Domain.Configuration.AppConfiguration;
+using Microsoft.IdentityModel.Tokens;
 
 public interface IJwtTokenService
 {

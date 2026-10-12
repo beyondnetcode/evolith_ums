@@ -1,10 +1,10 @@
 namespace Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 
-using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Infrastructure.Persistence;
 using Evolith.Ums.Infrastructure.Persistence.Identity;
 using Evolith.Ums.Infrastructure.Persistence.Identity.Entities;
+using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 public sealed class PostgreSqlUserAccountRepositoryTests

@@ -1,6 +1,6 @@
+using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.Identity.UserAccount.DTOs;
 using Evolith.Ums.Domain.Identity;
-using Evolith.Ums.Application.Common.Interfaces;
 using static Evolith.Ums.Application.Common.QueryRequestNormalizer;
 
 namespace Evolith.Ums.Application.Identity.UserAccount.Queries;

@@ -1,7 +1,12 @@
-global using Evolith.Ums.Domain.Kernel;
-global using Evolith.Ums.Domain.Kernel.ValueObjects;
+global using BeyondNetCode.Shell.Ddd;
+global using Evolith.Ums.Application.Common.Interfaces;
+global using Evolith.Ums.Domain.Approvals;
+global using Evolith.Ums.Domain.Authorization;
+global using Evolith.Ums.Domain.Configuration;
 global using Evolith.Ums.Domain.Enums;
 global using Evolith.Ums.Domain.Events;
-global using BeyondNetCode.Shell.Ddd;
+global using Evolith.Ums.Domain.Identity;
+global using Evolith.Ums.Domain.Kernel;
+global using Evolith.Ums.Domain.Kernel.ValueObjects;
 global using Moq;
 global using Xunit;

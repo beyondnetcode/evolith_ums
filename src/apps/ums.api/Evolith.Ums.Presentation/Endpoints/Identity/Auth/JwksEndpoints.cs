@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Presentation.Endpoints.Identity.Auth;
 
+using Evolith.Ums.Presentation.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Evolith.Ums.Presentation.Services;
 
 /// <summary>
 /// El material público con el que cualquiera verifica un portador de UMS.

@@ -1,15 +1,15 @@
 namespace Evolith.Ums.Presentation.Endpoints.Authorization.Profile;
 
-using Evolith.Ums.Application.Common;
+using BeyondNetCode.Shell.Factory.Interfaces;
+using BeyondNetCode.Shell.Factory.Interfaces;
 using Evolith.Ums.Application.Authorization.Graph;
 using Evolith.Ums.Application.Authorization.Graph.Serializers;
-using Evolith.Ums.Application.Common.Interfaces;
-using BeyondNetCode.Shell.Factory.Interfaces;
 using Evolith.Ums.Application.Authorization.Profile.Commands;
 using Evolith.Ums.Application.Authorization.Profile.DTOs;
 using Evolith.Ums.Application.Authorization.Profile.Exporters;
 using Evolith.Ums.Application.Authorization.Profile.Queries;
-using BeyondNetCode.Shell.Factory.Interfaces;
+using Evolith.Ums.Application.Common;
+using Evolith.Ums.Application.Common.Interfaces;
 
 public static class ProfileEndpoints
 {

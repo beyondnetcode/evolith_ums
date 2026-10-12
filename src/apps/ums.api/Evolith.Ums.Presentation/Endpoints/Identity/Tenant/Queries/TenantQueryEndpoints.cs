@@ -1,10 +1,10 @@
 namespace Evolith.Ums.Presentation.Endpoints.Identity.Tenant.Queries;
 
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Application.Identity.Tenant.DTOs;
 using Evolith.Ums.Application.Identity.Tenant.Queries; // GetTenantByIdQuery
 using Evolith.Ums.Infrastructure.Persistence;
 using Evolith.Ums.Presentation.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 public static class TenantQueryEndpoints
 {

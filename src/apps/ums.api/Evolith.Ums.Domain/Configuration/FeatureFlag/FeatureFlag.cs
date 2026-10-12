@@ -3,8 +3,8 @@ namespace Evolith.Ums.Domain.Configuration.FeatureFlag;
 using Evolith.Ums.Domain.Configuration.FeatureFlag.Criteria;
 using Evolith.Ums.Domain.Configuration.FeatureFlag.Events;
 using Evolith.Ums.Domain.Configuration.FeatureFlag.FlagEvaluationLog;
-using FlagEvaluationLogEntity = Evolith.Ums.Domain.Configuration.FeatureFlag.FlagEvaluationLog.FlagEvaluationLog;
 using FeatureFlagCriteriaEntity = Evolith.Ums.Domain.Configuration.FeatureFlag.Criteria.FeatureFlagCriteria;
+using FlagEvaluationLogEntity = Evolith.Ums.Domain.Configuration.FeatureFlag.FlagEvaluationLog.FlagEvaluationLog;
 
 public sealed class FeatureFlag : AggregateRoot<FeatureFlag, FeatureFlagProps>
 {

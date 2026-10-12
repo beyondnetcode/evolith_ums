@@ -1,6 +1,6 @@
+using Evolith.Ums.Infrastructure.Persistence.Approvals.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Evolith.Ums.Infrastructure.Persistence.Approvals.Entities;
 
 namespace Evolith.Ums.Infrastructure.Persistence.Approvals.Configurations;
 

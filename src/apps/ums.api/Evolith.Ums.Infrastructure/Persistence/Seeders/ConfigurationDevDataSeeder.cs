@@ -2,7 +2,6 @@ namespace Evolith.Ums.Infrastructure.Persistence.Seeders;
 
 using System.Reflection;
 using BeyondNetCode.Shell.Ddd;
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Configuration;
 using Evolith.Ums.Domain.Configuration.AppConfiguration;
@@ -11,6 +10,7 @@ using Evolith.Ums.Domain.Configuration.IdpConfiguration;
 using Evolith.Ums.Domain.Identity.Repositories.TenantParameter;
 using Evolith.Ums.Domain.Identity.Tenant.TenantParameter;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
+using Microsoft.Extensions.DependencyInjection;
 using AppConfigurationAggregate = Evolith.Ums.Domain.Configuration.AppConfiguration.AppConfiguration;
 using FeatureFlagAggregate = Evolith.Ums.Domain.Configuration.FeatureFlag.FeatureFlag;
 using IdpConfigurationAggregate = Evolith.Ums.Domain.Configuration.IdpConfiguration.IdpConfiguration;

@@ -1,11 +1,11 @@
 namespace Evolith.Ums.Application.Test.Authorization.Template;
 
-using Evolith.Ums.Application.Authorization.Template.Commands;
-using Evolith.Ums.Domain.Enums;
-using BeyondNetCode.Shell.Ddd;
-using Xunit;
 using System;
 using System.Linq;
+using BeyondNetCode.Shell.Ddd;
+using Evolith.Ums.Application.Authorization.Template.Commands;
+using Evolith.Ums.Domain.Enums;
+using Xunit;
 
 /// <summary>
 /// G-192 — el validador del alta de ítems de plantilla NO puede tener su propia idea de qué

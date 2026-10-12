@@ -1,13 +1,13 @@
+using Evolith.Ums.Globalization;
+using Evolith.Ums.Presentation.Bootstrapping;
 using MediatR;
-using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using Evolith.Ums.Globalization;
-using Evolith.Ums.Presentation.Bootstrapping;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 

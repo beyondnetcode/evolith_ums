@@ -1,9 +1,9 @@
 using System.Security.Cryptography;
+using Evolith.Ums.Presentation.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging.Abstractions;
-using Evolith.Ums.Presentation.Services;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Security;
 

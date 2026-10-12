@@ -1,6 +1,6 @@
 using System.Text.Json;
-using FluentAssertions;
 using Evolith.Ums.Application.Common.Aop;
+using FluentAssertions;
 using Xunit;
 
 namespace Evolith.Ums.Application.Test.Common.Aop;

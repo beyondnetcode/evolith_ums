@@ -1,5 +1,5 @@
-using Evolith.Ums.Application.Identity.Tenant.SignupRequests.DTOs;
 using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Application.Identity.Tenant.SignupRequests.DTOs;
 using Evolith.Ums.Domain.Identity.TenantSignupRequest;
 
 namespace Evolith.Ums.Application.Identity.Tenant.SignupRequests.Queries;

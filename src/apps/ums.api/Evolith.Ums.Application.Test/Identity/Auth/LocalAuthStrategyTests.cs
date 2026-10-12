@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Application.Test.Identity.Auth;
 
-using Moq;
-using Xunit;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.Identity.Auth;
+using Moq;
+using Xunit;
 
 /// <summary>
 /// Tests for LocalAuthStrategyService — BCrypt credential validation.

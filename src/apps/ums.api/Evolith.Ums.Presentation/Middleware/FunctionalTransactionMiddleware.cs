@@ -1,8 +1,8 @@
 namespace Evolith.Ums.Presentation.Middleware;
 
-using Microsoft.AspNetCore.Http;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Infrastructure.Observability;
+using Microsoft.AspNetCore.Http;
 
 /// <summary>
 /// Abre y <b>cierra siempre</b> la transacción funcional de cada petición (ADR-0096 §2.3;

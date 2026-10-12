@@ -1,6 +1,6 @@
-using Microsoft.Extensions.Logging.Abstractions;
 using Evolith.Ums.Domain.Events;
 using Evolith.Ums.Infrastructure.Hosting;
+using Microsoft.Extensions.Logging.Abstractions;
 using ProfileAggregate = Evolith.Ums.Domain.Authorization.Profile.Profile;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Iga;

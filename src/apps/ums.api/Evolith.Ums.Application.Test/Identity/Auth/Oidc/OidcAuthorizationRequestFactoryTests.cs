@@ -2,8 +2,8 @@ namespace Evolith.Ums.Application.Test.Identity.Auth.Oidc;
 
 using System.Security.Cryptography;
 using System.Text;
-using Xunit;
 using Evolith.Ums.Infrastructure.Identity.Auth.Oidc;
+using Xunit;
 
 /// <summary>
 /// Unit tests de la construcción de la URL de autorización (Authorization Code + PKCE

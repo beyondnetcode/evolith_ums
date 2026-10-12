@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Presentation.Extensions;
 
-using Microsoft.AspNetCore.Http;
 using Evolith.Ums.Domain.Kernel;
+using Microsoft.AspNetCore.Http;
 
 internal static class DomainErrorStatusMapper
 {

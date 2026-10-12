@@ -1,6 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Persistence;
 

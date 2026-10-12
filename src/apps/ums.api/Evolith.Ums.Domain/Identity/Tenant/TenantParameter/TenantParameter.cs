@@ -2,8 +2,8 @@ namespace Evolith.Ums.Domain.Identity.Tenant.TenantParameter;
 
 using BeyondNetCode.Shell.Ddd;
 using BeyondNetCode.Shell.Ddd.Rules.Impl;
-using Evolith.Ums.Domain.Kernel.ValueObjects;
 using Evolith.Ums.Domain.Identity.Tenant.TenantParameter.Events;
+using Evolith.Ums.Domain.Kernel.ValueObjects;
 using CodeEntity = Evolith.Ums.Domain.Kernel.ValueObjects.Code;
 using DescriptionEntity = Evolith.Ums.Domain.Kernel.ValueObjects.Description;
 

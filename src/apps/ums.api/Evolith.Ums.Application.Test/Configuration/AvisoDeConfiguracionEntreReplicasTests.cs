@@ -1,8 +1,8 @@
+using Evolith.Ums.Infrastructure.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using StackExchange.Redis;
-using Evolith.Ums.Infrastructure.Configuration;
 using Xunit;
 
 namespace Evolith.Ums.Application.Test.Configuration;

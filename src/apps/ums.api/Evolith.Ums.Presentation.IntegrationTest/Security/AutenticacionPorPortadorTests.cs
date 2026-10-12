@@ -1,10 +1,10 @@
 using System.Diagnostics.Metrics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
 using Evolith.Ums.Application.Authorization.Graph;
 using Evolith.Ums.Infrastructure.Persistence.Seeders;
 using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Security;
 

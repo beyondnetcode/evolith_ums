@@ -1,6 +1,6 @@
-using Microsoft.Extensions.Logging;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.Common.Notifications;
+using Microsoft.Extensions.Logging;
 
 namespace Evolith.Ums.Infrastructure.Services.Notifications;
 

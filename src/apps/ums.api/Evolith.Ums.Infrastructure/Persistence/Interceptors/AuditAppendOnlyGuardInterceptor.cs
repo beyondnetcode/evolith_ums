@@ -1,9 +1,9 @@
 using System;
 using System.Globalization;
 using System.Linq;
+using Evolith.Ums.Infrastructure.Persistence.Audit.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Evolith.Ums.Infrastructure.Persistence.Audit.Entities;
 
 namespace Evolith.Ums.Infrastructure.Persistence.Interceptors;
 

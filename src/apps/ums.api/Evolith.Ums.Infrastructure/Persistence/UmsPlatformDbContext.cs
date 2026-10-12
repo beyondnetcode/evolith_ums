@@ -1,7 +1,5 @@
-using Microsoft.EntityFrameworkCore;
-using MassTransit;
-using MediatR;
-using Microsoft.Extensions.Logging;
+using Evolith.Ums.Infrastructure.Persistence.Approvals.Configurations;
+using Evolith.Ums.Infrastructure.Persistence.Approvals.Entities;
 using Evolith.Ums.Infrastructure.Persistence.Audit.Configurations;
 using Evolith.Ums.Infrastructure.Persistence.Audit.Entities;
 using Evolith.Ums.Infrastructure.Persistence.Authorization.Configurations;
@@ -10,12 +8,12 @@ using Evolith.Ums.Infrastructure.Persistence.Configuration.Configurations;
 using Evolith.Ums.Infrastructure.Persistence.Configuration.Entities;
 using Evolith.Ums.Infrastructure.Persistence.Identity.Configurations;
 using Evolith.Ums.Infrastructure.Persistence.Identity.Entities;
-
-using Evolith.Ums.Infrastructure.Persistence.Approvals.Configurations;
-using Evolith.Ums.Infrastructure.Persistence.Approvals.Entities;
-
 using Evolith.Ums.Infrastructure.Persistence.Iga.Configurations;
 using Evolith.Ums.Infrastructure.Persistence.Iga.Entities;
+using MassTransit;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Evolith.Ums.Infrastructure.Persistence;
 

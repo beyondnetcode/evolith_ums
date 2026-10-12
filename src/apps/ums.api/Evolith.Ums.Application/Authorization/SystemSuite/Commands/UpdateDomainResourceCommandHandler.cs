@@ -1,10 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Evolith.Ums.Application.Common;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Authorization.SystemSuite;
 using Evolith.Ums.Domain.Kernel;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
-using Evolith.Ums.Application.Common;
 
 namespace Evolith.Ums.Application.Authorization.SystemSuite.Commands;
 

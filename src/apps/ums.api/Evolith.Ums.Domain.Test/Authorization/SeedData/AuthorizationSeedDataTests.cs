@@ -3,11 +3,11 @@ namespace Evolith.Ums.Domain.Test.Authorization.SeedData;
 using Evolith.Ums.Domain.Authorization.SystemSuite;
 using Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode;
 using Evolith.Ums.Domain.Authorization.Template;
-using Evolith.Ums.Domain.Kernel.ValueObjects;
 using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Kernel.ValueObjects;
 using Xunit;
-using ModuleEntity = Evolith.Ums.Domain.Authorization.SystemSuite.Module.Module;
 using MenuNodeEntity = Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode.MenuNode;
+using ModuleEntity = Evolith.Ums.Domain.Authorization.SystemSuite.Module.Module;
 
 public class AuthorizationSeedDataTests
 {

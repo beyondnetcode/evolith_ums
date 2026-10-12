@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Domain.Test.Approvals;
 
 using Evolith.Ums.Domain.Approvals;
+using Xunit;
 using ApprovalWorkflowAggregate = Evolith.Ums.Domain.Approvals.ApprovalWorkflow.ApprovalWorkflow;
 using UserDocumentAggregate = Evolith.Ums.Domain.Approvals.UserDocument.UserDocument;
-using Xunit;
 
 public class RequiredDocumentChecklistTests
 {

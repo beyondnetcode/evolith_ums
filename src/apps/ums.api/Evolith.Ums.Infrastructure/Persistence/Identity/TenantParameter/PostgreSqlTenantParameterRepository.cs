@@ -1,10 +1,10 @@
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Domain.Identity.Repositories.TenantParameter;
 using Evolith.Ums.Domain.Identity.Tenant.TenantParameter;
 using Evolith.Ums.Domain.Kernel;
 using Evolith.Ums.Infrastructure.Persistence;
 using Evolith.Ums.Infrastructure.Persistence.Identity.Entities;
 using Evolith.Ums.Infrastructure.Persistence.Reflection;
+using Microsoft.EntityFrameworkCore;
 
 namespace Evolith.Ums.Infrastructure.Persistence.Identity.TenantParameter;
 

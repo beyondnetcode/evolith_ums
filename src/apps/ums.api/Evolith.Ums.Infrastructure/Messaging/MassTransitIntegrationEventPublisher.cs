@@ -1,6 +1,6 @@
-using MassTransit;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Domain.Events;
+using MassTransit;
 
 namespace Evolith.Ums.Infrastructure.Messaging;
 

@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Domain.Authorization.Template;
 
-using Evolith.Ums.Domain.Events;
 using Evolith.Ums.Domain.Authorization.Template.PermissionTemplateItem;
+using Evolith.Ums.Domain.Events;
 using PermissionTemplateItemEntity = Evolith.Ums.Domain.Authorization.Template.PermissionTemplateItem.PermissionTemplateItem;
 
 public sealed class PermissionTemplate : AggregateRoot<PermissionTemplate, PermissionTemplateProps>

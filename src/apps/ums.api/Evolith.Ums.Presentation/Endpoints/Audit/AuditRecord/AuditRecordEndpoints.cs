@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Presentation.Endpoints.Audit.AuditRecord;
 
-using Evolith.Ums.Application.Common;
 using Evolith.Ums.Application.Audit.AuditRecord.Commands;
 using Evolith.Ums.Application.Audit.AuditRecord.DTOs;
 using Evolith.Ums.Application.Audit.AuditRecord.Queries;
+using Evolith.Ums.Application.Common;
 
 public static class AuditRecordEndpoints
 {

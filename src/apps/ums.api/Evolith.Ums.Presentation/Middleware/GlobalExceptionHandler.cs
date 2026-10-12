@@ -1,11 +1,11 @@
 namespace Evolith.Ums.Presentation.Middleware;
 
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using Evolith.Ums.Globalization.Access;
 using Evolith.Ums.Infrastructure.Persistence;
 using Evolith.Ums.Presentation.Extensions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Global exception handler middleware.

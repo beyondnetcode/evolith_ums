@@ -1,9 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using Evolith.Ums.Domain.Events;
-using Evolith.Ums.ReadModels.Models;
 using Evolith.Ums.ReadModels;
+using Evolith.Ums.ReadModels.Models;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 namespace Evolith.Ums.ReadModels.Projections;
 

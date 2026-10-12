@@ -1,18 +1,18 @@
 namespace Evolith.Ums.Application.Test.Identity.UserAccount;
 
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.Common.Notifications;
 using Evolith.Ums.Application.Identity.UserAccount.Commands;
 using Evolith.Ums.Domain.Authorization;
+using Evolith.Ums.Domain.Enums;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Domain.Identity.UserAccount;
 using Evolith.Ums.Domain.Kernel;
-using Evolith.Ums.Domain.Enums;
 using Moq;
 using Xunit;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 public class UserAccountCommandHandlerTests
 {

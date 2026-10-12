@@ -2,12 +2,11 @@
 namespace Evolith.Ums.Infrastructure.Persistence;
 
 using System.Collections.Concurrent;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Domain.Identity.UserManagementDelegation;
 using Evolith.Ums.Domain.Kernel;
-
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using UserManagementDelegationAggregate = Evolith.Ums.Domain.Identity.UserManagementDelegation.UserManagementDelegation;
 
 public sealed class InMemoryUserManagementDelegationRepository : IUserManagementDelegationRepository, IUnitOfWork

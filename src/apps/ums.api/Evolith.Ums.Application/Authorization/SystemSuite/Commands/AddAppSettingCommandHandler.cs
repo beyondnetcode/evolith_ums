@@ -1,8 +1,8 @@
 namespace Evolith.Ums.Application.Authorization.SystemSuite.Commands;
 
+using BeyondNetCode.Shell.Ddd;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Enums;
-using BeyondNetCode.Shell.Ddd;
 
 public sealed class AddAppSettingCommandHandler : ICommandHandler<AddAppSettingCommand>
 {

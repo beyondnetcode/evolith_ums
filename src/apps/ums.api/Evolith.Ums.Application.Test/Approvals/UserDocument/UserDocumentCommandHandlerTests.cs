@@ -1,9 +1,12 @@
 namespace Evolith.Ums.Application.Test.Approvals.UserDocument;
 
-using Evolith.Ums.Application.Common.Interfaces;
-using Evolith.Ums.Application.Common.Notifications;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Evolith.Ums.Application.Approvals.UserDocument.Commands;
 using Evolith.Ums.Application.Approvals.UserDocument.DTOs;
+using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Application.Common.Notifications;
 using Evolith.Ums.Domain.Approvals;
 using Evolith.Ums.Domain.Approvals.UserDocument;
 using Evolith.Ums.Domain.Enums;
@@ -13,9 +16,6 @@ using Evolith.Ums.Domain.Kernel;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
 using Moq;
 using Xunit;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 public class UserDocumentCommandHandlerTests
 {

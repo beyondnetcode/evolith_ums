@@ -1,3 +1,21 @@
+using System;
+using Evolith.Ums.Domain.Approvals;
+using Evolith.Ums.Domain.Approvals.ApprovalWorkflow;
+using Evolith.Ums.Domain.Approvals.NotificationRule;
+using Evolith.Ums.Domain.Audit.AuditRecord;
+using Evolith.Ums.Domain.Configuration;
+using Evolith.Ums.Domain.Configuration.AppConfiguration;
+using Evolith.Ums.Domain.Configuration.FeatureFlag;
+using Evolith.Ums.Domain.Configuration.IdpConfiguration;
+using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Kernel.ValueObjects;
+using Evolith.Ums.Infrastructure.MasterData;
+using Evolith.Ums.Infrastructure.Persistence;
+using Evolith.Ums.Infrastructure.Persistence.Approvals.Entities;
+using Evolith.Ums.Infrastructure.Persistence.Configuration.Entities;
+using Evolith.Ums.Infrastructure.Persistence.Options;
+using Evolith.Ums.Presentation;
+using Evolith.Ums.ReadModels;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
@@ -7,24 +25,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Evolith.Ums.Infrastructure.MasterData;
-using Evolith.Ums.Infrastructure.Persistence;
-using Evolith.Ums.Infrastructure.Persistence.Options;
-using Evolith.Ums.ReadModels;
-using Evolith.Ums.Presentation;
-using Evolith.Ums.Domain.Configuration;
-using Evolith.Ums.Domain.Approvals;
-using Evolith.Ums.Domain.Audit.AuditRecord;
-using Evolith.Ums.Domain.Approvals.NotificationRule;
-using Evolith.Ums.Domain.Enums;
-using Evolith.Ums.Infrastructure.Persistence.Configuration.Entities;
-using Evolith.Ums.Infrastructure.Persistence.Approvals.Entities;
-using Evolith.Ums.Domain.Kernel.ValueObjects;
-using Evolith.Ums.Domain.Configuration.AppConfiguration;
-using Evolith.Ums.Domain.Configuration.FeatureFlag;
-using Evolith.Ums.Domain.Configuration.IdpConfiguration;
-using Evolith.Ums.Domain.Approvals.ApprovalWorkflow;
-using System;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Infrastructure
 {

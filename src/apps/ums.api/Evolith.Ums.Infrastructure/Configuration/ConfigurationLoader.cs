@@ -1,8 +1,8 @@
 namespace Evolith.Ums.Infrastructure.Configuration;
 
+using Evolith.Ums.Application.Configuration.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Evolith.Ums.Application.Configuration.Services;
 
 public sealed class ConfigurationLoaderHostedService : IHostedService
 {

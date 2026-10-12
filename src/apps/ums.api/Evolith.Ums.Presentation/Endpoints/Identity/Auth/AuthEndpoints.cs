@@ -2,9 +2,17 @@ namespace Evolith.Ums.Presentation.Endpoints.Identity.Auth;
 
 #pragma warning disable S125
 
-using Evolith.Ums.Application.Identity.Auth.Commands;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Evolith.Ums.Application.Authorization.Graph.Serializers;
+using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Application.Configuration.Services;
+using Evolith.Ums.Application.Identity.Auth.Commands;
+using Evolith.Ums.Domain.Authorization;
+using Evolith.Ums.Domain.Authorization.Graph;
+using Evolith.Ums.Domain.Identity;
+using Evolith.Ums.Domain.Kernel.ValueObjects;
+using Evolith.Ums.Presentation.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -12,15 +20,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Evolith.Ums.Application.Common.Interfaces;
-using Evolith.Ums.Application.Configuration.Services;
 using MsConfigProvider = Microsoft.Extensions.Configuration.IConfigurationProvider;
-using Evolith.Ums.Domain.Authorization;
-using Evolith.Ums.Domain.Authorization.Graph;
-using Evolith.Ums.Application.Authorization.Graph.Serializers;
-using Evolith.Ums.Domain.Identity;
-using Evolith.Ums.Domain.Kernel.ValueObjects;
-using Evolith.Ums.Presentation.Services;
 
 public static class AuthEndpoints
 {

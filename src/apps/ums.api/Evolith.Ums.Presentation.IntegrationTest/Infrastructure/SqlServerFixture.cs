@@ -1,8 +1,8 @@
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Infrastructure.MasterData;
 using Evolith.Ums.Infrastructure.Persistence;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 

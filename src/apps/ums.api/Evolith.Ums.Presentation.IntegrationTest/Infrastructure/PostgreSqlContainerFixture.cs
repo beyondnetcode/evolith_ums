@@ -1,6 +1,6 @@
+using Evolith.Ums.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Testcontainers.PostgreSql;
-using Evolith.Ums.Infrastructure.Persistence;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 

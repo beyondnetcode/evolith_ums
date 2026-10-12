@@ -1,15 +1,15 @@
 namespace Evolith.Ums.Application.Test.Authorization.SystemSuite;
 
-using Evolith.Ums.Application.Common.Interfaces;
-using Evolith.Ums.Application.Authorization.SystemSuite.Commands;
-using Evolith.Ums.Domain.Authorization.SystemSuite;
-using Evolith.Ums.Domain.Kernel;
-using Evolith.Ums.Domain.Authorization;
-using Moq;
-using Xunit;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Evolith.Ums.Application.Authorization.SystemSuite.Commands;
+using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Domain.Authorization;
+using Evolith.Ums.Domain.Authorization.SystemSuite;
+using Evolith.Ums.Domain.Kernel;
+using Moq;
+using Xunit;
 
 public class SystemSuiteCommandHandlerTests
 {

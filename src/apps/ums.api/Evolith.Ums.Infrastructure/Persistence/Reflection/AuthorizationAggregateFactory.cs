@@ -1,34 +1,34 @@
 using System.Collections.Concurrent;
 using System.Reflection;
+using BeyondNetCode.Shell.Ddd;
+using BeyondNetCode.Shell.Ddd.ValueObjects.Audit;
+using Evolith.Ums.Domain.Authorization.AssignmentRule;
 using Evolith.Ums.Domain.Authorization.Profile;
 using Evolith.Ums.Domain.Authorization.Profile.ProfilePermission;
-using Evolith.Ums.Domain.Authorization.SystemSuite.AppSetting;
-using Evolith.Ums.Domain.Authorization.SystemSuite.Module;
-using Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode;
-using Evolith.Ums.Domain.Authorization.SystemSuite.Action;
-using Evolith.Ums.Domain.Authorization.SystemSuite.DomainResource;
-using Evolith.Ums.Domain.Authorization.Template;
 using Evolith.Ums.Domain.Authorization.Role;
-using Evolith.Ums.Domain.Authorization.AssignmentRule;
+using Evolith.Ums.Domain.Authorization.SystemSuite.Action;
+using Evolith.Ums.Domain.Authorization.SystemSuite.AppSetting;
+using Evolith.Ums.Domain.Authorization.SystemSuite.DomainResource;
+using Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode;
+using Evolith.Ums.Domain.Authorization.SystemSuite.Module;
+using Evolith.Ums.Domain.Authorization.Template;
 using Evolith.Ums.Domain.Authorization.Template.PermissionTemplateItem;
 using Evolith.Ums.Domain.Enums;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
 using Evolith.Ums.Infrastructure.Persistence.Authorization.Entities;
-using BeyondNetCode.Shell.Ddd;
-using BeyondNetCode.Shell.Ddd.ValueObjects.Audit;
 
 namespace Evolith.Ums.Infrastructure.Persistence.Reflection;
 
-using ProfileAggregate = Evolith.Ums.Domain.Authorization.Profile.Profile;
+using ActionEntity = Evolith.Ums.Domain.Authorization.SystemSuite.Action.Action;
+using AssignmentRuleAggregate = Evolith.Ums.Domain.Authorization.AssignmentRule.TemplateAssignmentRule;
+using DomainResourceEntity = Evolith.Ums.Domain.Authorization.SystemSuite.DomainResource.DomainResource;
+using MenuNodeEntity = Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode.MenuNode;
+using ModuleEntity = Evolith.Ums.Domain.Authorization.SystemSuite.Module.Module;
 using PermissionTemplateAggregate = Evolith.Ums.Domain.Authorization.Template.PermissionTemplate;
+using PermissionTemplateItemEntity = Evolith.Ums.Domain.Authorization.Template.PermissionTemplateItem.PermissionTemplateItem;
+using ProfileAggregate = Evolith.Ums.Domain.Authorization.Profile.Profile;
 using RoleAggregate = Evolith.Ums.Domain.Authorization.Role.Role;
 using SystemSuiteAggregate = Evolith.Ums.Domain.Authorization.SystemSuite.SystemSuite;
-using AssignmentRuleAggregate = Evolith.Ums.Domain.Authorization.AssignmentRule.TemplateAssignmentRule;
-using ModuleEntity = Evolith.Ums.Domain.Authorization.SystemSuite.Module.Module;
-using MenuNodeEntity = Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode.MenuNode;
-using ActionEntity = Evolith.Ums.Domain.Authorization.SystemSuite.Action.Action;
-using DomainResourceEntity = Evolith.Ums.Domain.Authorization.SystemSuite.DomainResource.DomainResource;
-using PermissionTemplateItemEntity = Evolith.Ums.Domain.Authorization.Template.PermissionTemplateItem.PermissionTemplateItem;
 
 internal static class AuthorizationAggregateFactory
 {

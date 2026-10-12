@@ -1,11 +1,11 @@
 namespace Evolith.Ums.Application.Test.Configuration.FeatureFlag;
 
-using Moq;
 using Evolith.Ums.Application.Configuration.FeatureFlag.Queries;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Configuration;
 using Evolith.Ums.Domain.Configuration.FeatureFlag;
 using Evolith.Ums.Domain.Kernel;
+using Moq;
 using Xunit;
 using SystemSuiteAggregate = Evolith.Ums.Domain.Authorization.SystemSuite.SystemSuite;
 

@@ -1,9 +1,9 @@
+using BeyondNetCode.Shell.Factory.Interfaces;
 using Evolith.Ums.Application.Configuration.IdpConfiguration.DTOs;
 using Evolith.Ums.Application.Configuration.IdpConfiguration.Services;
 using Evolith.Ums.Domain.Configuration;
 using Evolith.Ums.Domain.Configuration.IdpConfiguration;
 using Evolith.Ums.Domain.Enums;
-using BeyondNetCode.Shell.Factory.Interfaces;
 
 namespace Evolith.Ums.Infrastructure.Configuration.IdpResolution;
 

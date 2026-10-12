@@ -1,10 +1,10 @@
 using System;
 using System.Reflection;
+using BeyondNetCode.Shell.Ddd;
 using Evolith.Ums.Domain.Audit.AuditRecord;
 using Evolith.Ums.Domain.Enums;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
 using Evolith.Ums.Infrastructure.Persistence.Audit.Entities;
-using BeyondNetCode.Shell.Ddd;
 
 namespace Evolith.Ums.Infrastructure.Persistence.Reflection;
 

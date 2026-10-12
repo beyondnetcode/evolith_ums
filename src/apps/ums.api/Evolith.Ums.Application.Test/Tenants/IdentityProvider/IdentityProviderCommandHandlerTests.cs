@@ -1,17 +1,17 @@
 namespace Evolith.Ums.Application.Test.Tenants.IdentityProvider;
 
-using Evolith.Ums.Application.Common.Interfaces;
-using Evolith.Ums.Application.Identity.Tenant.IdentityProvider.Commands;
-using Evolith.Ums.Domain.Identity.Tenant;
-using Evolith.Ums.Domain.Kernel;
-using Evolith.Ums.Domain.Enums;
-using Evolith.Ums.Domain.Identity;
-using Moq;
-using Xunit;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Application.Identity.Tenant.IdentityProvider.Commands;
+using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Identity;
+using Evolith.Ums.Domain.Identity.Tenant;
+using Evolith.Ums.Domain.Kernel;
+using Moq;
+using Xunit;
 
 public class IdentityProviderCommandHandlerTests
 {

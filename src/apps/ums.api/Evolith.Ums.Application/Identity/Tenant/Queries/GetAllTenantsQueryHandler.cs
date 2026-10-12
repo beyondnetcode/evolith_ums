@@ -1,9 +1,8 @@
+using Evolith.Ums.Application.Common.Aop;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.Identity.Tenant.DTOs;
 using Evolith.Ums.Domain.Identity;
 using static Evolith.Ums.Application.Common.QueryRequestNormalizer;
-
-using Evolith.Ums.Application.Common.Aop;
 
 namespace Evolith.Ums.Application.Identity.Tenant.Queries;
 

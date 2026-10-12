@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text.Json;
+using BeyondNetCode.Shell.Ddd.ValueObjects.Audit;
 using Evolith.Ums.Domain.Enums;
 using Evolith.Ums.Domain.Identity.Tenant;
 using Evolith.Ums.Domain.Identity.Tenant.Branch;
@@ -11,7 +12,6 @@ using Evolith.Ums.Domain.Identity.UserAccount.PasswordCredential;
 using Evolith.Ums.Domain.Identity.UserManagementDelegation;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
 using Evolith.Ums.Infrastructure.Persistence.Identity.Entities;
-using BeyondNetCode.Shell.Ddd.ValueObjects.Audit;
 
 namespace Evolith.Ums.Infrastructure.Persistence.Reflection;
 

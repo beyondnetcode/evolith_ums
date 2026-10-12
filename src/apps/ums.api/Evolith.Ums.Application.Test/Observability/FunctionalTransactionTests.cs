@@ -1,8 +1,8 @@
 namespace Evolith.Ums.Application.Test.Observability;
 
-using Microsoft.Extensions.Logging.Abstractions;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Infrastructure.Observability;
+using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
 
 /// <summary>

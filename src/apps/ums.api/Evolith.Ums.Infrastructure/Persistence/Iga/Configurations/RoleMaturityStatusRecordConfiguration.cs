@@ -1,6 +1,6 @@
+using Evolith.Ums.Infrastructure.Persistence.Iga.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Evolith.Ums.Infrastructure.Persistence.Iga.Entities;
 
 namespace Evolith.Ums.Infrastructure.Persistence.Iga.Configurations;
 

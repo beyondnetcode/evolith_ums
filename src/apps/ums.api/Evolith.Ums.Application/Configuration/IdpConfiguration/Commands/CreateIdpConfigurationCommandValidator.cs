@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Application.Configuration.IdpConfiguration.Commands;
 
-using FluentValidation;
 using Evolith.Ums.Domain.Enums;
+using FluentValidation;
 
 public sealed class CreateIdpConfigurationCommandValidator : AbstractValidator<CreateIdpConfigurationCommand>
 {

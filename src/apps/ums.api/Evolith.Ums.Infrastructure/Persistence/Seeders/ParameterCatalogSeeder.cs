@@ -1,11 +1,11 @@
 namespace Evolith.Ums.Infrastructure.Persistence.Seeders;
 
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Domain.Configuration.AppConfiguration;
 using Evolith.Ums.Domain.Identity.Tenant.TenantParameter;
 using Evolith.Ums.Infrastructure.Persistence;
 using Evolith.Ums.Infrastructure.Persistence.Configuration.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 public static class ParameterCatalogSeeder
 {

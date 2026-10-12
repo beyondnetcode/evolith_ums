@@ -1,17 +1,17 @@
 namespace Evolith.Ums.Application.Test.Approvals.AccessEnforcementPolicy;
 
-using Evolith.Ums.Application.Approvals.AccessEnforcementPolicy.Queries;
-using Evolith.Ums.Application.Approvals.AccessEnforcementPolicy.DTOs;
-using Evolith.Ums.Domain.Approvals.AccessEnforcementPolicy;
-using Evolith.Ums.Domain.Approvals;
-using Evolith.Ums.Domain.Enums;
-using Evolith.Ums.Domain.Kernel;
-using Moq;
-using Xunit;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Evolith.Ums.Application.Approvals.AccessEnforcementPolicy.DTOs;
+using Evolith.Ums.Application.Approvals.AccessEnforcementPolicy.Queries;
+using Evolith.Ums.Domain.Approvals;
+using Evolith.Ums.Domain.Approvals.AccessEnforcementPolicy;
+using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Kernel;
+using Moq;
+using Xunit;
 
 public class AccessEnforcementPolicyQueryHandlerTests
 {

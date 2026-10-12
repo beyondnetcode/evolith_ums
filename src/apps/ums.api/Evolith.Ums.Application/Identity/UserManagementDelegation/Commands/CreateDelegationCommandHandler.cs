@@ -1,7 +1,7 @@
-using Evolith.Ums.Application.Identity.UserManagementDelegation.DTOs;
 using Evolith.Ums.Application.Common.Interfaces;
-using Evolith.Ums.Domain.Identity.UserManagementDelegation;
+using Evolith.Ums.Application.Identity.UserManagementDelegation.DTOs;
 using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Identity.UserManagementDelegation;
 
 namespace Evolith.Ums.Application.Identity.UserManagementDelegation.Commands;
 

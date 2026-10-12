@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Application.Test.Identity.Auth.Oidc;
 
-using Xunit;
 using Evolith.Ums.Infrastructure.Identity.Auth.Oidc;
+using Xunit;
 
 /// <summary>
 /// Unit tests del parseo de la configuración OIDC desde el <c>ConfigPayload</c> del

@@ -1,5 +1,5 @@
-using Evolith.Ums.Application.Approvals.NotificationRule.Services;
 using BeyondNetCode.Shell.Factory.Interfaces;
+using Evolith.Ums.Application.Approvals.NotificationRule.Services;
 
 namespace Evolith.Ums.Infrastructure.Approvals.NotificationRule;
 

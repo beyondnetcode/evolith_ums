@@ -1,18 +1,18 @@
 namespace Evolith.Ums.Application.Test.Authorization.Profile;
 
-using Evolith.Ums.Application.Common.Interfaces;
-using Evolith.Ums.Application.Authorization.Profile.Queries;
-using Evolith.Ums.Application.Authorization.Profile.DTOs;
-using Evolith.Ums.Domain.Authorization.Profile;
-using Evolith.Ums.Domain.Kernel;
-using Evolith.Ums.Domain.Authorization;
-using Evolith.Ums.Domain.Identity;
-using Moq;
-using Xunit;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Evolith.Ums.Application.Authorization.Profile.DTOs;
+using Evolith.Ums.Application.Authorization.Profile.Queries;
+using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Domain.Authorization;
+using Evolith.Ums.Domain.Authorization.Profile;
+using Evolith.Ums.Domain.Identity;
+using Evolith.Ums.Domain.Kernel;
+using Moq;
+using Xunit;
 
 public class ProfileQueryHandlerTests
 {

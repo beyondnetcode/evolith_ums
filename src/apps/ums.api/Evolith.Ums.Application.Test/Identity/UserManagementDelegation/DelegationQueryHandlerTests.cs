@@ -1,5 +1,9 @@
 namespace Evolith.Ums.Application.Test.Identity.UserManagementDelegation;
 
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.Identity.UserManagementDelegation.Queries;
 using Evolith.Ums.Domain.Identity;
@@ -7,10 +11,6 @@ using Evolith.Ums.Domain.Identity.UserManagementDelegation;
 using Evolith.Ums.Domain.Kernel;
 using Moq;
 using Xunit;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 public class DelegationQueryHandlerTests
 {

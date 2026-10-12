@@ -1,14 +1,14 @@
 namespace Evolith.Ums.Domain.Authorization;
+using Evolith.Ums.Domain.Authorization.AssignmentRule;
 using Evolith.Ums.Domain.Authorization.Profile;
+using Evolith.Ums.Domain.Authorization.Role;
 using Evolith.Ums.Domain.Authorization.SystemSuite;
 using Evolith.Ums.Domain.Authorization.Template;
-using Evolith.Ums.Domain.Authorization.Role;
-using Evolith.Ums.Domain.Authorization.AssignmentRule;
-using ProfileAggregate = Evolith.Ums.Domain.Authorization.Profile.Profile;
-using SystemSuiteAggregate = Evolith.Ums.Domain.Authorization.SystemSuite.SystemSuite;
-using PermissionTemplateAggregate = Evolith.Ums.Domain.Authorization.Template.PermissionTemplate;
-using RoleAggregate = Evolith.Ums.Domain.Authorization.Role.Role;
 using AssignmentRuleAggregate = Evolith.Ums.Domain.Authorization.AssignmentRule.TemplateAssignmentRule;
+using PermissionTemplateAggregate = Evolith.Ums.Domain.Authorization.Template.PermissionTemplate;
+using ProfileAggregate = Evolith.Ums.Domain.Authorization.Profile.Profile;
+using RoleAggregate = Evolith.Ums.Domain.Authorization.Role.Role;
+using SystemSuiteAggregate = Evolith.Ums.Domain.Authorization.SystemSuite.SystemSuite;
 
 public interface IProfileRepository : IAggregateRepository<ProfileAggregate>
 {

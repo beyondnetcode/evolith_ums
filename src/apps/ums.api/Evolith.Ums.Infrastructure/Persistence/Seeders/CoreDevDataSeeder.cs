@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Infrastructure.Persistence.Seeders;
 
+using Evolith.Ums.Domain.Identity;
+using Evolith.Ums.Infrastructure.Persistence.Options;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Evolith.Ums.Infrastructure.Persistence.Options;
-using Evolith.Ums.Domain.Identity;
 
 public static class CoreDevDataSeeder
 {

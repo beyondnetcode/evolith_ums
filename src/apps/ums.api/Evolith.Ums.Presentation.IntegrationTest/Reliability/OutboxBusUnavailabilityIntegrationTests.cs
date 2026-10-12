@@ -1,3 +1,8 @@
+using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Domain.Events;
+using Evolith.Ums.Infrastructure.Persistence;
+using Evolith.Ums.Infrastructure.Persistence.Configuration.Entities;
+using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 using MassTransit;
 using MassTransit.EntityFrameworkCoreIntegration;
 using MediatR;
@@ -5,11 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Evolith.Ums.Application.Common.Interfaces;
-using Evolith.Ums.Domain.Events;
-using Evolith.Ums.Infrastructure.Persistence;
-using Evolith.Ums.Infrastructure.Persistence.Configuration.Entities;
-using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Reliability;
 

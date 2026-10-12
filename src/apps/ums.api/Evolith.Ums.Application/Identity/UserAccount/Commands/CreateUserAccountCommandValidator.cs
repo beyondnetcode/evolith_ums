@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Application.Identity.UserAccount.Commands;
 
-using FluentValidation;
 using Evolith.Ums.Domain.Enums;
+using FluentValidation;
 
 public sealed class CreateUserAccountCommandValidator : AbstractValidator<CreateUserAccountCommand>
 {

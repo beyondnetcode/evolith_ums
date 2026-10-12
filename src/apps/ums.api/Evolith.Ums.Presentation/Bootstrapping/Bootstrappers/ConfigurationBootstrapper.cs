@@ -1,8 +1,8 @@
 namespace Evolith.Ums.Presentation.Bootstrapping.Bootstrappers;
 
 using BeyondNetCode.Shell.Bootstrapper.Interface;
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Infrastructure.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 public sealed class ConfigurationBootstrapper : IBootstrapper<IServiceCollection>
 {

@@ -1,12 +1,12 @@
 namespace Evolith.Ums.Infrastructure.Persistence.Configuration;
 
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Domain.Configuration;
 using Evolith.Ums.Domain.Configuration.Parameter;
 using Evolith.Ums.Domain.Kernel;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
 using Evolith.Ums.Infrastructure.Persistence.Configuration.Entities;
 using Evolith.Ums.Infrastructure.Persistence.Reflection;
+using Microsoft.EntityFrameworkCore;
 
 public sealed class PostgreSqlParameterDefinitionRepository(UmsPlatformDbContext db)
     : IParameterDefinitionRepository

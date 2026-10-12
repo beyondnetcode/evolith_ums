@@ -1,17 +1,17 @@
 namespace Evolith.Ums.Application.Test.Approvals.UserDocument;
 
-using Evolith.Ums.Application.Approvals.UserDocument.Queries;
-using Evolith.Ums.Application.Approvals.UserDocument.DTOs;
-using Evolith.Ums.Domain.Approvals.UserDocument;
-using Evolith.Ums.Domain.Approvals;
-using Evolith.Ums.Domain.Enums;
-using Evolith.Ums.Domain.Kernel;
-using Moq;
-using Xunit;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Evolith.Ums.Application.Approvals.UserDocument.DTOs;
+using Evolith.Ums.Application.Approvals.UserDocument.Queries;
+using Evolith.Ums.Domain.Approvals;
+using Evolith.Ums.Domain.Approvals.UserDocument;
+using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Kernel;
+using Moq;
+using Xunit;
 
 public class UserDocumentQueryHandlerTests
 {

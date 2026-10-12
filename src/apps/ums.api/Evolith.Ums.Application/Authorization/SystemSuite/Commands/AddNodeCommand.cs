@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Application.Authorization.SystemSuite.Commands;
 
-using FluentValidation;
 using Evolith.Ums.Application.Authorization.SystemSuite.DTOs;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode;
+using FluentValidation;
 
 /// <summary>Alta de un nodo del árbol recursivo (ADR-0090). ParentNodeId nulo ⇒ nodo raíz del módulo.</summary>
 public sealed record AddNodeCommand(

@@ -3,10 +3,10 @@ namespace Evolith.Ums.Infrastructure.Observability;
 using System.Collections.Concurrent;
 using System.Data;
 using System.Globalization;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 /// <summary>
 /// Acuña el localizador legible <c>TX-AAAA-NNNNNN</c> con una <b>secuencia PostgreSQL por

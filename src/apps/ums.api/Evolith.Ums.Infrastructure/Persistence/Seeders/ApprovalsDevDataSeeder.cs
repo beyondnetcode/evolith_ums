@@ -1,7 +1,6 @@
 namespace Evolith.Ums.Infrastructure.Persistence.Seeders;
 
 using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
 using BeyondNetCode.Shell.Ddd;
 using Evolith.Ums.Domain.Approvals;
 using Evolith.Ums.Domain.Approvals.AccessEnforcementPolicy;
@@ -11,12 +10,13 @@ using Evolith.Ums.Domain.Approvals.DocumentType;
 using Evolith.Ums.Domain.Approvals.NotificationRule;
 using Evolith.Ums.Domain.Approvals.UserDocument;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
-using ApprovalWorkflowAggregate = Evolith.Ums.Domain.Approvals.ApprovalWorkflow.ApprovalWorkflow;
-using ApprovalRequestAggregate = Evolith.Ums.Domain.Approvals.ApprovalRequest.ApprovalRequest;
-using DocumentTypeAggregate = Evolith.Ums.Domain.Approvals.DocumentType.DocumentType;
-using UserDocumentAggregate = Evolith.Ums.Domain.Approvals.UserDocument.UserDocument;
+using Microsoft.Extensions.DependencyInjection;
 using AccessEnforcementPolicyAggregate = Evolith.Ums.Domain.Approvals.AccessEnforcementPolicy.AccessEnforcementPolicy;
+using ApprovalRequestAggregate = Evolith.Ums.Domain.Approvals.ApprovalRequest.ApprovalRequest;
+using ApprovalWorkflowAggregate = Evolith.Ums.Domain.Approvals.ApprovalWorkflow.ApprovalWorkflow;
+using DocumentTypeAggregate = Evolith.Ums.Domain.Approvals.DocumentType.DocumentType;
 using NotificationRuleAggregate = Evolith.Ums.Domain.Approvals.NotificationRule.NotificationRule;
+using UserDocumentAggregate = Evolith.Ums.Domain.Approvals.UserDocument.UserDocument;
 
 public static class ApprovalsDevDataSeeder
 {

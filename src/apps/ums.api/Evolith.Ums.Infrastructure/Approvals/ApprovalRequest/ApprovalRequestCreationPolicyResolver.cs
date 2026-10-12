@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Infrastructure.Approvals.ApprovalRequest;
 
-using Evolith.Ums.Application.Approvals.ApprovalRequest.Services;
 using BeyondNetCode.Shell.Factory.Interfaces;
-using ApprovalWorkflowAggregate = Evolith.Ums.Domain.Approvals.ApprovalWorkflow.ApprovalWorkflow;
+using Evolith.Ums.Application.Approvals.ApprovalRequest.Services;
 using ApprovalRequestAggregate = Evolith.Ums.Domain.Approvals.ApprovalRequest.ApprovalRequest;
+using ApprovalWorkflowAggregate = Evolith.Ums.Domain.Approvals.ApprovalWorkflow.ApprovalWorkflow;
 
 internal sealed class ApprovalRequestCreationPolicyResolver : IApprovalRequestCreationPolicyResolver
 {

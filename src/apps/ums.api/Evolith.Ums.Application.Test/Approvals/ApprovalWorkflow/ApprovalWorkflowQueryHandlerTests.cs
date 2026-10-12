@@ -1,17 +1,17 @@
 namespace Evolith.Ums.Application.Test.Approvals.ApprovalWorkflow;
 
-using Evolith.Ums.Application.Approvals.ApprovalWorkflow.Queries;
-using Evolith.Ums.Application.Approvals.ApprovalWorkflow.DTOs;
-using Evolith.Ums.Domain.Approvals.ApprovalWorkflow;
-using Evolith.Ums.Domain.Approvals;
-using Evolith.Ums.Domain.Enums;
-using Evolith.Ums.Domain.Kernel;
-using Moq;
-using Xunit;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Evolith.Ums.Application.Approvals.ApprovalWorkflow.DTOs;
+using Evolith.Ums.Application.Approvals.ApprovalWorkflow.Queries;
+using Evolith.Ums.Domain.Approvals;
+using Evolith.Ums.Domain.Approvals.ApprovalWorkflow;
+using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Kernel;
+using Moq;
+using Xunit;
 
 public class ApprovalWorkflowQueryHandlerTests
 {

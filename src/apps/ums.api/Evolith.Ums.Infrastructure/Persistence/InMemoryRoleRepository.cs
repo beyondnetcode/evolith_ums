@@ -2,9 +2,9 @@
 namespace Evolith.Ums.Infrastructure.Persistence;
 
 using System.Collections.Concurrent;
+using Evolith.Ums.Domain.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Evolith.Ums.Domain.Authorization;
 using RoleAggregate = Evolith.Ums.Domain.Authorization.Role.Role;
 
 public sealed class InMemoryRoleRepository : IRoleRepository, IUnitOfWork

@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Application.Configuration.Services;
 
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Application.Common;
 using Evolith.Ums.Domain.Configuration.AppConfiguration;
 using Evolith.Ums.Domain.Enums;
+using Microsoft.Extensions.DependencyInjection;
 
 public sealed class ConfigurationValues
 {

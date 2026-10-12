@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Presentation.Endpoints.Approvals.DocumentType;
 
-using Evolith.Ums.Application.Common;
 using Evolith.Ums.Application.Approvals.DocumentType.Commands;
 using Evolith.Ums.Application.Approvals.DocumentType.DTOs;
 using Evolith.Ums.Application.Approvals.DocumentType.Queries;
+using Evolith.Ums.Application.Common;
 
 public static class DocumentTypeEndpoints
 {

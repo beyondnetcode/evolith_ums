@@ -1,17 +1,17 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Hosting;
-using Evolith.Ums.Domain.Audit.AuditRecord;
 using Evolith.Ums.Domain.Approvals;
+using Evolith.Ums.Domain.Audit.AuditRecord;
 using Evolith.Ums.Domain.Enums;
 using Evolith.Ums.Infrastructure.MasterData;
 using Evolith.Ums.Infrastructure.Persistence;
 using Evolith.Ums.Infrastructure.Persistence.Audit;
 using Evolith.Ums.Infrastructure.Persistence.Options;
 using Evolith.Ums.Presentation;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Hosting;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 

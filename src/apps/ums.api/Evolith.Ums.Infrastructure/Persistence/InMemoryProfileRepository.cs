@@ -2,10 +2,10 @@
 namespace Evolith.Ums.Infrastructure.Persistence;
 
 using System.Collections.Concurrent;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Kernel;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using ProfileAggregate = Evolith.Ums.Domain.Authorization.Profile.Profile;
 
 public sealed class InMemoryProfileRepository : IProfileRepository, IUnitOfWork

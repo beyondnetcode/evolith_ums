@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Application.Test.Configuration.Services;
 
 using System.Text.Json;
-using FluentAssertions;
 using Evolith.Ums.Application.Common.Aop;
 using Evolith.Ums.Application.Configuration.Services;
+using FluentAssertions;
 using Xunit;
 
 /// <summary>

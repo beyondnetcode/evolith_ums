@@ -1,8 +1,8 @@
 namespace Evolith.Ums.Infrastructure.Persistence.Seeders;
 
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Domain.Audit.AuditRecord;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
+using Microsoft.Extensions.DependencyInjection;
 
 public static class AuditDevDataSeeder
 {

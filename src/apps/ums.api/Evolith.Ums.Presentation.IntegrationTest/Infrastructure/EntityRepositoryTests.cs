@@ -1,10 +1,10 @@
 namespace Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 
-using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Infrastructure.Persistence;
 using Evolith.Ums.Infrastructure.Persistence.Identity.Entities;
+using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 public class TenantRepositoryBasicTests

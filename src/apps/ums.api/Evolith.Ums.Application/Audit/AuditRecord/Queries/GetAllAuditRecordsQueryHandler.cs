@@ -1,8 +1,8 @@
 using Evolith.Ums.Application.Audit.AuditRecord.DTOs;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Domain.Audit.AuditRecord;
-using AuditRecordAggregate = Evolith.Ums.Domain.Audit.AuditRecord.AuditRecord;
 using static Evolith.Ums.Application.Common.QueryRequestNormalizer;
+using AuditRecordAggregate = Evolith.Ums.Domain.Audit.AuditRecord.AuditRecord;
 
 namespace Evolith.Ums.Application.Audit.AuditRecord.Queries;
 

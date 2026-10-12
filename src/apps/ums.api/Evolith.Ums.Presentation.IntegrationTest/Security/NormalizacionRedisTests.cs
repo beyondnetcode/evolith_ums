@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Presentation.IntegrationTest.Security;
 
-using FluentAssertions;
 using Evolith.Ums.Infrastructure.Configuration;
+using FluentAssertions;
 
 /// <summary>
 /// La forma del valor de Redis, que tumbó el arranque en el clúster.

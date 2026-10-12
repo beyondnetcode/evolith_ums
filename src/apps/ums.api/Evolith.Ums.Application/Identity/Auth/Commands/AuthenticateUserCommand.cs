@@ -1,5 +1,5 @@
-using Evolith.Ums.Domain.Identity.Auth;
 using Evolith.Ums.Domain.Authorization.Graph;
+using Evolith.Ums.Domain.Identity.Auth;
 
 namespace Evolith.Ums.Application.Identity.Auth.Commands;
 

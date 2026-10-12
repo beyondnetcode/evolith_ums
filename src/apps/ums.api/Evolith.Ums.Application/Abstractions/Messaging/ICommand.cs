@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Application.Abstractions.Messaging;
 
-using MediatR;
 using Evolith.Ums.Domain.Kernel;
+using MediatR;
 
 public interface ICommand : IRequest<Result>
 {

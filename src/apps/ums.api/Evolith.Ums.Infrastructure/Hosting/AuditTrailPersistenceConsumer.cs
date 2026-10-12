@@ -1,6 +1,6 @@
-using MassTransit;
 using Evolith.Ums.Application.Common.Aop;
 using Evolith.Ums.Domain.Audit.AuditRecord;
+using MassTransit;
 
 namespace Evolith.Ums.Infrastructure.Hosting;
 

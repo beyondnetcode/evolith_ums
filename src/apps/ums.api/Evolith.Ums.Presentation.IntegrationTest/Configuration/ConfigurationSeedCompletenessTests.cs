@@ -1,8 +1,8 @@
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Domain.Configuration;
 using Evolith.Ums.Domain.Identity.Repositories.TenantParameter;
 using Evolith.Ums.Infrastructure.Persistence.Seeders;
 using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Configuration;
 

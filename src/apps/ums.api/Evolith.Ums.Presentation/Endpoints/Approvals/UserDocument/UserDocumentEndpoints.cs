@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Presentation.Endpoints.Approvals.UserDocument;
 
-using Evolith.Ums.Application.Common;
 using Evolith.Ums.Application.Approvals.UserDocument.Commands;
 using Evolith.Ums.Application.Approvals.UserDocument.DTOs;
 using Evolith.Ums.Application.Approvals.UserDocument.Queries;
+using Evolith.Ums.Application.Common;
 
 public static class UserDocumentEndpoints
 {

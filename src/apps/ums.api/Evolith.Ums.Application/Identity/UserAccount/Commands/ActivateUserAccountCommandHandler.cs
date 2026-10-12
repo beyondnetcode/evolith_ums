@@ -1,6 +1,6 @@
-using Evolith.Ums.Application.Identity.UserAccount.DTOs;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.Common.Notifications;
+using Evolith.Ums.Application.Identity.UserAccount.DTOs;
 using Evolith.Ums.Domain.Identity;
 using NotificationTemplates = Evolith.Ums.Application.Common.Notifications.NotificationTemplates;
 

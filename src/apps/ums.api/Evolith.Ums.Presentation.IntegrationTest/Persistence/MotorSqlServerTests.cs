@@ -1,9 +1,9 @@
-using MassTransit;
-using Microsoft.EntityFrameworkCore;
-using Evolith.Ums.Infrastructure.MasterData;
 using Evolith.Ums.Contracts.MasterData;
+using Evolith.Ums.Infrastructure.MasterData;
 using Evolith.Ums.Infrastructure.Observability;
 using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
+using MassTransit;
+using Microsoft.EntityFrameworkCore;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Persistence;
 

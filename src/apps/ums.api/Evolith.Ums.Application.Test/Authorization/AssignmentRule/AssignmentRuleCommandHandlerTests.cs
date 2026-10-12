@@ -1,8 +1,11 @@
 namespace Evolith.Ums.Application.Test.Authorization.AssignmentRule;
 
-using Evolith.Ums.Application.Common.Interfaces;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Evolith.Ums.Application.Authorization.AssignmentRule.Commands;
 using Evolith.Ums.Application.Authorization.AssignmentRule.DTOs;
+using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Authorization.AssignmentRule;
 using Evolith.Ums.Domain.Authorization.Template;
@@ -10,9 +13,6 @@ using Evolith.Ums.Domain.Enums;
 using Evolith.Ums.Domain.Kernel;
 using Moq;
 using Xunit;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 public class AssignmentRuleCommandHandlerTests
 {

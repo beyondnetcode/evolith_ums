@@ -1,9 +1,9 @@
-using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
+using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 

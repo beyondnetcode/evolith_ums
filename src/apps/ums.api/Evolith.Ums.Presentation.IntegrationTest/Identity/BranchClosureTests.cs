@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Identity;
 

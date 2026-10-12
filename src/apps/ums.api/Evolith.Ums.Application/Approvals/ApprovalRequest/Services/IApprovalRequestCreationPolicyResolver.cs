@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Application.Approvals.ApprovalRequest.Services;
 
-using ApprovalWorkflowAggregate = Evolith.Ums.Domain.Approvals.ApprovalWorkflow.ApprovalWorkflow;
 using ApprovalRequestAggregate = Evolith.Ums.Domain.Approvals.ApprovalRequest.ApprovalRequest;
+using ApprovalWorkflowAggregate = Evolith.Ums.Domain.Approvals.ApprovalWorkflow.ApprovalWorkflow;
 
 public interface IApprovalRequestCreationPolicyResolver
 {

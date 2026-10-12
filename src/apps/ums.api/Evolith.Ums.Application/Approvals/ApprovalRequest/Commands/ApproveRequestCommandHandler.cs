@@ -2,17 +2,17 @@ using Evolith.Ums.Application.Approvals.ApprovalRequest.DTOs;
 
 namespace Evolith.Ums.Application.Approvals.ApprovalRequest.Commands;
 
-using Evolith.Ums.Application.Common.Notifications;
 using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.Application.Common.Notifications;
+using Evolith.Ums.Domain.Approvals;
 using Evolith.Ums.Domain.Approvals.ApprovalRequest;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Authorization.Profile;
-using Evolith.Ums.Domain.Approvals;
+using Evolith.Ums.Domain.Events;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Domain.Identity.UserAccount;
 using Evolith.Ums.Domain.Identity.UserManagementDelegation;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
-using Evolith.Ums.Domain.Events;
 
 public sealed class ApproveRequestCommandHandler : ICommandHandler<ApproveRequestCommand>
 {

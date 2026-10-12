@@ -2,9 +2,9 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
-using FluentAssertions;
 using Evolith.Ums.Infrastructure.Persistence.Seeders;
 using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
+using FluentAssertions;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Security;
 

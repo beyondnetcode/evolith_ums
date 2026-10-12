@@ -1,6 +1,6 @@
+using Evolith.Ums.Infrastructure.Persistence;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
-using Evolith.Ums.Infrastructure.Persistence;
 
 namespace Evolith.Ums.Infrastructure.Aop;
 

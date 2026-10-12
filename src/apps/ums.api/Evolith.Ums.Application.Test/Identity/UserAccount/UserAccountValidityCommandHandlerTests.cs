@@ -1,5 +1,8 @@
 namespace Evolith.Ums.Application.Test.Identity.UserAccount;
 
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.Configuration.Services;
 using Evolith.Ums.Application.Identity.UserAccount.Commands;
@@ -7,9 +10,6 @@ using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Domain.Identity.UserAccount;
 using Moq;
 using Xunit;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 public class UserAccountValidityCommandHandlerTests
 {

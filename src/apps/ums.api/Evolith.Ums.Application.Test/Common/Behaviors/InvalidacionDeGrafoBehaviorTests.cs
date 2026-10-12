@@ -2,15 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
-using MediatR;
-using Microsoft.Extensions.Logging.Abstractions;
 using Evolith.Ums.Application.Authorization.Profile.Commands;
 using Evolith.Ums.Application.Common.Behaviors;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.Configuration.AppConfiguration.Commands;
 using Evolith.Ums.Domain.Authorization.Graph;
 using Evolith.Ums.Domain.Kernel;
+using FluentAssertions;
+using MediatR;
+using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
 
 namespace Evolith.Ums.Application.Test.Common.Behaviors;

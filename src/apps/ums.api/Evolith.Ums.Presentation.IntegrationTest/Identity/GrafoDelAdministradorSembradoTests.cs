@@ -1,9 +1,9 @@
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Authorization.Graph;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Infrastructure.Persistence.Seeders;
 using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Identity;
 

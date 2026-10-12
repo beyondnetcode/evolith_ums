@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Presentation.Endpoints.Authorization.Template;
 
-using Evolith.Ums.Application.Common;
 using Evolith.Ums.Application.Authorization.Template.Commands;
 using Evolith.Ums.Application.Authorization.Template.DTOs;
 using Evolith.Ums.Application.Authorization.Template.Queries;
+using Evolith.Ums.Application.Common;
 
 public static class PermissionTemplateEndpoints
 {

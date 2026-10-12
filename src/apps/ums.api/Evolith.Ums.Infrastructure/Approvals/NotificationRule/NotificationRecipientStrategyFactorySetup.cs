@@ -1,5 +1,5 @@
-using Evolith.Ums.Domain.Enums;
 using BeyondNetCode.Shell.Factory.Impl;
+using Evolith.Ums.Domain.Enums;
 
 namespace Evolith.Ums.Infrastructure.Approvals.NotificationRule;
 

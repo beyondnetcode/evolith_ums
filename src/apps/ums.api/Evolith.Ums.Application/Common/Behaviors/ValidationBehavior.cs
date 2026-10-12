@@ -1,8 +1,8 @@
 namespace Evolith.Ums.Application.Common.Behaviors;
 
+using Evolith.Ums.Domain.Kernel;
 using FluentValidation;
 using MediatR;
-using Evolith.Ums.Domain.Kernel;
 
 public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull

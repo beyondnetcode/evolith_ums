@@ -2,9 +2,9 @@ namespace Evolith.Ums.Application.Test.Identity.Auth.Oidc;
 
 using System.Net;
 using System.Net.Http;
-using Xunit;
 using Evolith.Ums.Domain.Identity.Auth;
 using Evolith.Ums.Infrastructure.Identity.Auth.Oidc;
+using Xunit;
 
 /// <summary>
 /// FR-042 · ADR-UMS-097 §2.3 · G-108 — pruebas de la SEPARACIÓN ESTRUCTURAL que hace

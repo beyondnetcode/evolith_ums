@@ -1,6 +1,6 @@
+using Evolith.Ums.Infrastructure.Persistence.Identity.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Evolith.Ums.Infrastructure.Persistence.Identity.Entities;
 
 namespace Evolith.Ums.Infrastructure.Persistence.Identity.Configurations;
 

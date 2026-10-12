@@ -1,9 +1,9 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
 

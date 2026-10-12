@@ -1,8 +1,8 @@
 namespace Evolith.Ums.Application.Test.Identity.Auth.Oidc;
 
 using System.Security.Cryptography;
-using Xunit;
 using Evolith.Ums.Infrastructure.Identity.Auth.Oidc;
+using Xunit;
 
 /// <summary>
 /// Unit tests de la validación estricta del <c>id_token</c> (ADR-UMS-094 · G-049).

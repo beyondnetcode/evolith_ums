@@ -1,5 +1,5 @@
-using Microsoft.Extensions.Options;
 using Evolith.Ums.Application.Common.Interfaces;
+using Microsoft.Extensions.Options;
 
 namespace Evolith.Ums.Infrastructure.Services.Notifications;
 

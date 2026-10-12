@@ -1,21 +1,22 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Evolith.Ums.Application.Common.Interfaces;
+using Evolith.Ums.ContractTest.Provider;
 using Evolith.Ums.Domain.Approvals;
+using Evolith.Ums.Domain.Audit;
 using Evolith.Ums.Domain.Audit.AuditRecord;
+using Evolith.Ums.Domain.Authorization;
+using Evolith.Ums.Domain.Configuration;
+using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Infrastructure.Persistence;
 using Evolith.Ums.Infrastructure.Persistence.Audit;
 using Evolith.Ums.Infrastructure.Persistence.Options;
-using Evolith.Ums.ReadModels;
 using Evolith.Ums.Presentation;
+using Evolith.Ums.ReadModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Evolith.Ums.Domain.Identity;
-using Evolith.Ums.Domain.Authorization;
-using Evolith.Ums.Domain.Audit;
-using Evolith.Ums.Domain.Configuration;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 
 namespace Evolith.Ums.ContractTest.Infrastructure;
@@ -83,6 +84,11 @@ public class ContractTestWebApplicationFactory : WebApplicationFactory<Program>
 
         builder.ConfigureServices(services =>
         {
+            if (string.Equals(EnvironmentName, "Development", StringComparison.OrdinalIgnoreCase))
+            {
+                services.AddTransient<IStartupFilter, PactProviderStateStartupFilter>();
+            }
+
             services.RemoveAll<UmsPlatformDbContext>();
             services.AddDbContext<UmsPlatformDbContext>((_, options) =>
                 options.UseInMemoryDatabase("ContractTestDb"));

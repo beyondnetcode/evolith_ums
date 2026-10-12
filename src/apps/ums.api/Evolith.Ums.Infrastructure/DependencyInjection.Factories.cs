@@ -1,10 +1,10 @@
 using BeyondNetCode.Shell.Factory.Installer.Extensions;
 using BeyondNetCode.Shell.Factory.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Application.Approvals.ApprovalRequest.Services;
 using Evolith.Ums.Application.Approvals.NotificationRule.Services;
 using Evolith.Ums.Application.Authorization.Graph.Serializers;
 using Evolith.Ums.Application.Authorization.Profile.Exporters;
+using Evolith.Ums.Domain.Identity.Auth;
 using Evolith.Ums.Domain.Identity.Tenant.IdentityProvider;
 using Evolith.Ums.Infrastructure.Aop;
 using Evolith.Ums.Infrastructure.Approvals.ApprovalRequest;
@@ -12,8 +12,8 @@ using Evolith.Ums.Infrastructure.Approvals.NotificationRule;
 using Evolith.Ums.Infrastructure.Authorization.Graph;
 using Evolith.Ums.Infrastructure.Configuration.IdpResolution;
 using Evolith.Ums.Infrastructure.Identity.Auth;
-using Evolith.Ums.Domain.Identity.Auth;
 using Evolith.Ums.Infrastructure.Persistence.Authorization.Exporters;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Evolith.Ums.Infrastructure;
 

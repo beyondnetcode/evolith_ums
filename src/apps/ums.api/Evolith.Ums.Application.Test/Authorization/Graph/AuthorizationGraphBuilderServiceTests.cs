@@ -2,9 +2,6 @@ namespace Evolith.Ums.Application.Test.Authorization.Graph;
 
 #pragma warning disable S125
 
-using Microsoft.Extensions.Logging.Abstractions;
-using Moq;
-using Xunit;
 using Evolith.Ums.Application.Authorization.Graph;
 using Evolith.Ums.Application.Authorization.Template.Commands;
 using Evolith.Ums.Application.Common.Interfaces;
@@ -18,11 +15,14 @@ using Evolith.Ums.Domain.Configuration;
 using Evolith.Ums.Domain.Configuration.FeatureFlag;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Domain.Identity.Auth;
+using Microsoft.Extensions.Logging.Abstractions;
+using Moq;
+using Xunit;
+using FeatureFlagAggregate = Evolith.Ums.Domain.Configuration.FeatureFlag.FeatureFlag;
 using ProfileAggregate     = Evolith.Ums.Domain.Authorization.Profile.Profile;
 using RoleAggregate        = Evolith.Ums.Domain.Authorization.Role.Role;
 using SystemSuiteAggregate = Evolith.Ums.Domain.Authorization.SystemSuite.SystemSuite;
 using UserAccountAggregate = Evolith.Ums.Domain.Identity.UserAccount.UserAccount;
-using FeatureFlagAggregate = Evolith.Ums.Domain.Configuration.FeatureFlag.FeatureFlag;
 
 /// <summary>
 /// Unit tests for AuthorizationGraphBuilderService.

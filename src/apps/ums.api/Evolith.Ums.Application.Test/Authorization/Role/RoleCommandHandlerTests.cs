@@ -5,9 +5,9 @@ using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Authorization.SystemSuite;
 using Evolith.Ums.Domain.Kernel;
-using RoleAggregate = Evolith.Ums.Domain.Authorization.Role.Role;
 using Moq;
 using Xunit;
+using RoleAggregate = Evolith.Ums.Domain.Authorization.Role.Role;
 
 public sealed class RoleCommandHandlerTests
 {

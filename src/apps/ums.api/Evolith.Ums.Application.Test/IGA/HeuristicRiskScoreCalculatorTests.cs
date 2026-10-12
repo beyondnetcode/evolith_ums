@@ -3,11 +3,11 @@ namespace Evolith.Ums.Application.Test.IGA;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Moq;
-using Xunit;
 using Evolith.Ums.Application.IGA.Services;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Kernel.ValueObjects;
+using Moq;
+using Xunit;
 using RoleAggregate = Evolith.Ums.Domain.Authorization.Role.Role;
 
 /// <summary>

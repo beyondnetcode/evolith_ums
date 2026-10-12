@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Infrastructure.Configuration;
 
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Application.Common;
 using Evolith.Ums.Infrastructure.Persistence;
 using Evolith.Ums.Infrastructure.Persistence.Configuration.Entities;
+using Microsoft.EntityFrameworkCore;
 
 public sealed record ResolvedParameter(
     Guid DefinitionId,

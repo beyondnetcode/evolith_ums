@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Application.Test.Tenants.CreateTenant;
 
-using FluentValidation.TestHelper;
 using Evolith.Ums.Application.Identity.Tenant.Commands;
+using FluentValidation.TestHelper;
 
 public class CreateTenantCommandValidatorTests
 {

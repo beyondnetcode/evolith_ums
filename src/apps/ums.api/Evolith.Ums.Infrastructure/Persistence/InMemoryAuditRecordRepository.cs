@@ -1,8 +1,8 @@
 namespace Evolith.Ums.Infrastructure.Persistence;
 
 using System.Collections.Concurrent;
-using Evolith.Ums.Domain.Audit.AuditRecord;
 using BeyondNetCode.Shell.Ddd.Interfaces;
+using Evolith.Ums.Domain.Audit.AuditRecord;
 using AuditRecordAggregate = Evolith.Ums.Domain.Audit.AuditRecord.AuditRecord;
 
 public sealed class InMemoryAuditRecordRepository : IAuditRecordRepository, IUnitOfWork

@@ -1,11 +1,10 @@
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Text;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.Common.Notifications;
-
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 // `Evolith.Ums.Domain.Enums` entra por GlobalUsings y trae su propio NotificationChannel —el del
 // dominio de reglas de notificación, que es otra cosa—. El alias fija cuál se lee aquí: el canal
 // del mensaje que se está entregando.

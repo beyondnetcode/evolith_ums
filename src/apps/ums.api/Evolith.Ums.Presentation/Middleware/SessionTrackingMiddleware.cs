@@ -1,8 +1,8 @@
 namespace Evolith.Ums.Presentation.Middleware;
 
 using System.Diagnostics;
-using Microsoft.AspNetCore.Http;
 using Evolith.Ums.Infrastructure.Observability;
+using Microsoft.AspNetCore.Http;
 
 /// <summary>
 /// Garantiza que toda petición tenga un identificador de rastreo de sesión, correlacionable

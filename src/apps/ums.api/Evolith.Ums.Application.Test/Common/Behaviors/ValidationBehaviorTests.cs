@@ -1,10 +1,10 @@
 namespace Evolith.Ums.Application.Test.Common.Behaviors;
 
+using Evolith.Ums.Application.Common.Behaviors;
+using Evolith.Ums.Domain.Kernel;
 using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
-using Evolith.Ums.Application.Common.Behaviors;
-using Evolith.Ums.Domain.Kernel;
 
 public class ValidationBehaviorTests
 {

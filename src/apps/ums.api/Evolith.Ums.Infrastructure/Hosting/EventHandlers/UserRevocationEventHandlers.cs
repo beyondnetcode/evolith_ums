@@ -1,6 +1,6 @@
+using Evolith.Ums.Domain.Events;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Evolith.Ums.Domain.Events;
 
 namespace Evolith.Ums.Infrastructure.Hosting.EventHandlers;
 

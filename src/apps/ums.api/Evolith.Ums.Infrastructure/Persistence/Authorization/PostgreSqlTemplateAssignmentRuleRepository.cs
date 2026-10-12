@@ -1,9 +1,9 @@
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Kernel;
 using Evolith.Ums.Infrastructure.Persistence;
 using Evolith.Ums.Infrastructure.Persistence.Authorization.Entities;
 using Evolith.Ums.Infrastructure.Persistence.Reflection;
+using Microsoft.EntityFrameworkCore;
 
 namespace Evolith.Ums.Infrastructure.Persistence.Authorization;
 

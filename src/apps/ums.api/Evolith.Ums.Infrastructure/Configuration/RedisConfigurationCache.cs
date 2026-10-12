@@ -2,10 +2,10 @@ namespace Evolith.Ums.Infrastructure.Configuration;
 
 using System.Collections.Concurrent;
 using System.Text.Json;
+using Evolith.Ums.Application.Configuration.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
-using Evolith.Ums.Application.Configuration.Services;
 using AppConfigurationAggregate = Evolith.Ums.Domain.Configuration.AppConfiguration.AppConfiguration;
 
 /// <summary>

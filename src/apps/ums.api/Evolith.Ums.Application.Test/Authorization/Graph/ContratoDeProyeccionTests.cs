@@ -1,10 +1,10 @@
 namespace Evolith.Ums.Application.Test.Authorization.Graph;
 
 using System.Text.Json;
-using Xunit;
-using FluentAssertions;
 using Evolith.Ums.Application.Authorization.Graph.Serializers;
 using Evolith.Ums.Domain.Authorization.Graph;
+using FluentAssertions;
+using Xunit;
 
 /// <summary>
 /// Ata la PROYECCIÓN que emite el productor al contrato publicado en

@@ -1,10 +1,10 @@
 namespace Evolith.Ums.Presentation.Extensions;
 
+using Evolith.Ums.Presentation.Observability;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Compact;
 using Serilog.Sinks.Grafana.Loki;
-using Evolith.Ums.Presentation.Observability;
 
 /// <summary>
 /// REC-14 / OBS-01: Configures Serilog as the application's structured-logging provider.

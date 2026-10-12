@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Application.Configuration.FeatureFlag.Commands;
 
-using FluentValidation;
 using Evolith.Ums.Domain.Enums;
+using FluentValidation;
 
 public sealed class CreateFeatureFlagCommandValidator : AbstractValidator<CreateFeatureFlagCommand>
 {

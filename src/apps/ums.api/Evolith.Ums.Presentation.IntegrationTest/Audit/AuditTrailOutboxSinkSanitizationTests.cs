@@ -1,11 +1,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Evolith.Ums.Application.Common.Aop;
+using Evolith.Ums.Infrastructure.Aop;
 using MassTransit;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
-using Evolith.Ums.Application.Common.Aop;
-using Evolith.Ums.Infrastructure.Aop;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Audit;
 

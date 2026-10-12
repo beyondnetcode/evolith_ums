@@ -1,9 +1,9 @@
 namespace Evolith.Ums.Presentation.Endpoints.Authorization.SystemSuite;
 
-using Evolith.Ums.Application.Common;
 using Evolith.Ums.Application.Authorization.SystemSuite.Commands;
 using Evolith.Ums.Application.Authorization.SystemSuite.DTOs;
 using Evolith.Ums.Application.Authorization.SystemSuite.Queries;
+using Evolith.Ums.Application.Common;
 using Evolith.Ums.Presentation.Endpoints.Authorization.SystemSuite.DTOs;
 public static class SystemSuiteEndpoints
 {

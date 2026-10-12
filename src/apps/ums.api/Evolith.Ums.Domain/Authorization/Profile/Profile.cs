@@ -1,11 +1,11 @@
 namespace Evolith.Ums.Domain.Authorization.Profile;
 
-using Evolith.Ums.Domain.Events;
 using Evolith.Ums.Domain.Authorization.Profile.ProfilePermission;
 using Evolith.Ums.Domain.Authorization.Template;
-using ProfilePermissionEntity = Evolith.Ums.Domain.Authorization.Profile.ProfilePermission.ProfilePermission;
-using PermissionTemplateEntity = Evolith.Ums.Domain.Authorization.Template.PermissionTemplate;
+using Evolith.Ums.Domain.Events;
 using EffectConst = Evolith.Ums.Domain.Authorization.Profile.PermissionEffectConstants;
+using PermissionTemplateEntity = Evolith.Ums.Domain.Authorization.Template.PermissionTemplate;
+using ProfilePermissionEntity = Evolith.Ums.Domain.Authorization.Profile.ProfilePermission.ProfilePermission;
 
 public sealed class Profile : AggregateRoot<Profile, ProfileProps>
 {

@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Domain.Identity.UserAccount;
 
-using Evolith.Ums.Domain.Events;
 using Evolith.Ums.Domain.Enums;
+using Evolith.Ums.Domain.Events;
 using Evolith.Ums.Domain.Identity.UserAccount.MfaEnrollment;
 using Evolith.Ums.Domain.Identity.UserAccount.PasswordCredential;
 using MfaEnrollmentEntity = Evolith.Ums.Domain.Identity.UserAccount.MfaEnrollment.MfaEnrollment;

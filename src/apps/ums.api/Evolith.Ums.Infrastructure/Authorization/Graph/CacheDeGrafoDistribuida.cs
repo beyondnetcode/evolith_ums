@@ -2,12 +2,12 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Evolith.Ums.Application.Authorization.Graph.Serializers;
 using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Domain.Authorization.Graph;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Evolith.Ums.Infrastructure.Authorization.Graph;
 

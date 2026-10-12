@@ -1,9 +1,9 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using Evolith.Ums.ContractTest.Infrastructure;
 using PactNet;
 using PactNet.Matchers;
-using Evolith.Ums.ContractTest.Infrastructure;
 
 namespace Evolith.Ums.ContractTest.Consumers;
 

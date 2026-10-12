@@ -3,11 +3,11 @@
 namespace Evolith.Ums.Infrastructure.Persistence;
 
 using System.Collections.Concurrent;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Domain.Identity.Tenant.Branch;
 using Evolith.Ums.Domain.Kernel;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using TenantAggregate = Evolith.Ums.Domain.Identity.Tenant.Tenant;
 
 public sealed class InMemoryTenantRepository : ITenantRepository, IUnitOfWork

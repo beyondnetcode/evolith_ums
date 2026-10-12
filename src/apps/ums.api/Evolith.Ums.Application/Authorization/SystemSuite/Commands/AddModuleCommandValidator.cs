@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Application.Authorization.SystemSuite.Commands;
 
-using FluentValidation;
 using Evolith.Ums.Globalization.Access;
+using FluentValidation;
 
 public sealed class AddModuleCommandValidator : AbstractValidator<AddModuleCommand>
 {

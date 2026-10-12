@@ -2,9 +2,9 @@ namespace Evolith.Ums.Application.Test.Identity.Auth.Oidc;
 
 using System.Security.Cryptography;
 using System.Text.Json;
-using Xunit;
 using Evolith.Ums.Domain.Identity.Tenant.IdentityProvider;
 using Evolith.Ums.Infrastructure.Identity.Auth.Oidc;
+using Xunit;
 
 /// <summary>
 /// Unit tests de la orquestación del <see cref="OidcIdpAuthAdapter"/> (Authorization

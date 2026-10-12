@@ -1,11 +1,11 @@
 namespace Evolith.Ums.Application.Test.Tenants.Branch;
 
+using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Application.Identity.Tenant.Branch.Commands;
 using Evolith.Ums.Application.Identity.Tenant.Branch.Queries;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Identity;
 using Evolith.Ums.Domain.Identity.Tenant;
-using Evolith.Ums.Application.Common.Interfaces;
 using Evolith.Ums.Domain.Kernel;
 
 public class BranchCommandHandlerTests

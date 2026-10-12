@@ -3,10 +3,10 @@ namespace Evolith.Ums.Application.Test.Infrastructure.Notifications;
 using System.IO;
 using System.Net.Mail;
 using System.Text;
-using Microsoft.Extensions.Logging.Abstractions;
-using Microsoft.Extensions.Options;
 using Evolith.Ums.Application.Common.Notifications;
 using Evolith.Ums.Infrastructure.Services.Notifications;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using Xunit;
 
 /// <summary>

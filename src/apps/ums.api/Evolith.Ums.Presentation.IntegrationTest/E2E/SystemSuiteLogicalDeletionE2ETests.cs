@@ -1,5 +1,5 @@
-using Npgsql;
 using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
+using Npgsql;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.E2E;
 

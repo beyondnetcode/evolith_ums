@@ -1,5 +1,5 @@
-using Evolith.Ums.Application.Identity.UserAccount.DTOs;
 using Evolith.Ums.Application.Configuration.Services;
+using Evolith.Ums.Application.Identity.UserAccount.DTOs;
 
 namespace Evolith.Ums.Application.Identity.UserAccount.Commands;
 

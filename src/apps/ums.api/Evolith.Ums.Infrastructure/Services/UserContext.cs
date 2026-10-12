@@ -1,7 +1,7 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
 
 namespace Evolith.Ums.Infrastructure.Services;
 

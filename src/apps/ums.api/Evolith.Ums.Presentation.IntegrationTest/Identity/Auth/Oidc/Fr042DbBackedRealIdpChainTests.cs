@@ -1,7 +1,5 @@
 using System.Net.Http;
 using System.Text.RegularExpressions;
-using Microsoft.EntityFrameworkCore;
-using Moq;
 using Evolith.Ums.Application.Configuration.Services;
 using Evolith.Ums.Application.Identity.Auth;
 using Evolith.Ums.Domain.Identity.Auth;
@@ -9,6 +7,8 @@ using Evolith.Ums.Domain.Identity.Tenant.IdentityProvider;
 using Evolith.Ums.Domain.Kernel;
 using Evolith.Ums.Infrastructure.Identity.Auth.Oidc;
 using Evolith.Ums.Infrastructure.Persistence.Configuration;
+using Microsoft.EntityFrameworkCore;
+using Moq;
 using AppConfigurationAggregate = Evolith.Ums.Domain.Configuration.AppConfiguration.AppConfiguration;
 using IdpConfigurationAggregate = Evolith.Ums.Domain.Configuration.IdpConfiguration.IdpConfiguration;
 using TenantAggregate = Evolith.Ums.Domain.Identity.Tenant.Tenant;

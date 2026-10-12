@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Routing;
-using FluentAssertions;
 using Evolith.Ums.Presentation.IntegrationTest.Infrastructure;
+using FluentAssertions;
+using Microsoft.AspNetCore.Routing;
 
 namespace Evolith.Ums.Presentation.IntegrationTest.Identity;
 

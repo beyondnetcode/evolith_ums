@@ -1,7 +1,7 @@
 namespace Evolith.Ums.Application.Test.Infrastructure.Notifications;
 
-using Microsoft.Extensions.Options;
 using Evolith.Ums.Infrastructure.Services.Notifications;
+using Microsoft.Extensions.Options;
 using Xunit;
 
 /// <summary>

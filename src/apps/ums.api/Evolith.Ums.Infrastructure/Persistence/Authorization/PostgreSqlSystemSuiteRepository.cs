@@ -1,13 +1,13 @@
-using Microsoft.EntityFrameworkCore;
 using Evolith.Ums.Domain.Authorization;
 using Evolith.Ums.Domain.Kernel;
 using Evolith.Ums.Infrastructure.Persistence.Authorization.Entities;
 using Evolith.Ums.Infrastructure.Persistence.Reflection;
+using Microsoft.EntityFrameworkCore;
 
 namespace Evolith.Ums.Infrastructure.Persistence.Authorization;
 
-using SystemSuiteAggregate = Evolith.Ums.Domain.Authorization.SystemSuite.SystemSuite;
 using MenuNodeEntity = Evolith.Ums.Domain.Authorization.SystemSuite.MenuNode.MenuNode;
+using SystemSuiteAggregate = Evolith.Ums.Domain.Authorization.SystemSuite.SystemSuite;
 
 public sealed class PostgreSqlSystemSuiteRepository(UmsPlatformDbContext dbContext) : ISystemSuiteRepository, IUnitOfWork
 {
