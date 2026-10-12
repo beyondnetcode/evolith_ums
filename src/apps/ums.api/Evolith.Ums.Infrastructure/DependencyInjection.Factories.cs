@@ -21,6 +21,36 @@ internal static class DependencyInjectionFactories
 {
     public static IServiceCollection AddUmsFactories(this IServiceCollection services, bool isNotProduction)
     {
+        // Shell.Factory.Create<T>() resolves each selected implementation by concrete type.
+        services.AddTransient<EmailNotificationRecipientStrategy>();
+        services.AddTransient<SmsNotificationRecipientStrategy>();
+        services.AddTransient<InAppNotificationRecipientStrategy>();
+        services.AddTransient<ManualApprovalRequestCreationStrategy>();
+        services.AddTransient<AutoApproveApprovalRequestCreationStrategy>();
+        services.AddTransient<InternalBcryptIdpResolutionStrategy>();
+        services.AddTransient<ZitadelIdpResolutionStrategy>();
+        services.AddTransient<AzureAdIdpResolutionStrategy>();
+        services.AddTransient<OktaIdpResolutionStrategy>();
+        services.AddTransient<KeycloakIdpResolutionStrategy>();
+        services.AddTransient<Auth0IdpResolutionStrategy>();
+        services.AddTransient<GoogleIdpResolutionStrategy>();
+        services.AddTransient<LdapIdpResolutionStrategy>();
+        services.AddTransient<Saml2IdpResolutionStrategy>();
+        services.AddTransient<GenericOidcIdpResolutionStrategy>();
+        services.AddTransient<ProfileJsonExporter>();
+        services.AddTransient<ProfileXmlExporter>();
+        services.AddTransient<ProfileYamlExporter>();
+        services.AddTransient<ProfileCsvExporter>();
+        services.AddTransient<JsonAuthorizationGraphSerializer>();
+        services.AddTransient<XmlAuthorizationGraphSerializer>();
+        services.AddTransient<YamlAuthorizationGraphSerializer>();
+        services.AddTransient<CsvAuthorizationGraphSerializer>();
+
+        if (isNotProduction)
+        {
+            services.AddTransient<StubIdpAuthAdapter>();
+        }
+
         services.AddFactory(builder =>
         {
             // --- Approvals ---
